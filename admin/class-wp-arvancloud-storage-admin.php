@@ -100,4 +100,42 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	/**
+     * Register submenu
+     * @return void
+     */
+    public function setup_admin_menu() {
+
+        add_menu_page( 
+			__( ACS_NAME, ACS_TEXTDOMAIN ), 
+			__( ACS_NAME, ACS_TEXTDOMAIN), 
+			'manage_options', 
+			ACS_SLUG, 
+			__CLASS__ . '::settings_page',
+            'dashicons-cloud'
+        );
+
+		add_submenu_page(
+			'wp-arvancloud-storage',
+			__( 'About Us', ACS_TEXTDOMAIN ),
+			__( 'About Us', ACS_TEXTDOMAIN ),
+			'manage_options',
+			ACS_SLUG . '-about-us',
+			__CLASS__ . '::about_us_page'
+		);
+
+    }
+
+	public static function settings_page() {
+
+		require_once( 'partials/wp-arvancloud-storage-settings-display.php' );
+
+    }
+
+	public static function about_us_page() {
+
+		require_once( 'partials/wp-arvancloud-storage-about-us-display.php' );
+
+    }
+
 }

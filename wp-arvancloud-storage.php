@@ -30,12 +30,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
- */
-define( 'WP_ARVANCLOUD_STORAGE_VERSION', '1.0.0' );
+define( 'ACS_VERSION', '1.0.0' );
+define( 'ACS_TEXTDOMAIN', 'wp_arvancloud_storage' );
+define( 'ACS_NAME', __( 'ArvanCloud Storage', ACS_TEXTDOMAIN ) );
+define( 'ACS_SLUG', __( 'wp-arvancloud-storage', ACS_TEXTDOMAIN ) );
+define( 'ACS_PLUGIN_ROOT', plugin_dir_path( __FILE__ ) );
+define( 'ACS_PLUGIN_ROOT_URL', plugin_dir_url( __FILE__ ) );
+define( 'ACS_PLUGIN_ABSOLUTE', __FILE__ );
+define( 'ACS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.

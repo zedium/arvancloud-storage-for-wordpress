@@ -67,12 +67,13 @@ class Wp_Arvancloud_Storage {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'WP_ARVANCLOUD_STORAGE_VERSION' ) ) {
-			$this->version = WP_ARVANCLOUD_STORAGE_VERSION;
+		if ( defined( 'ACS_VERSION' ) ) {
+			$this->version = ACS_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'wp-arvancloud-storage';
+		
+		$this->plugin_name = ACS_NAME;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -156,6 +157,7 @@ class Wp_Arvancloud_Storage {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_admin_menu' );
 
 	}
 
