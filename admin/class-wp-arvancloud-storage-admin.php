@@ -138,4 +138,16 @@ class Wp_Arvancloud_Storage_Admin {
 
     }
 
+	public function store_access_keys_in_db() {
+
+		if( isset( $_POST['save_access_keys'] ) ) {
+			update_option( 'arvan-cloud-storage-settings', serialize( [
+				'access-key'   => sanitize_text_field( $_POST[ 'access-key' ] ),
+				'secret-key'   => sanitize_text_field( $_POST[ 'secret-key' ] ),
+				'endpoint-url' => sanitize_text_field( $_POST[ 'endpoint-url' ] ),
+			] ) );
+		}
+
+	}
+
 }
