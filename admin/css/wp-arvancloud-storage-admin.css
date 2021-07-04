@@ -36,6 +36,7 @@
 
 .accordion-container input:checked ~ section.accordion {
     height: 200px;
+    width: 90%;
     padding: 10px 20px 0;
 }
 
@@ -63,5 +64,18 @@
 }
 
 .arvancloud-storage-config-form button {
-    float: right;
+	width: 100px;
+	z-index: 1000;
+}
+
+.acs-defined-in-config {
+    background: #9ca2a7;
+	color: #fff;
+	padding: 2px 5px;
+	margin: 0 0 3px 5px;
+	float: right;
+	white-space: nowrap;
+	clear: right;
+	position: relative;
+	right: 10px;
 }

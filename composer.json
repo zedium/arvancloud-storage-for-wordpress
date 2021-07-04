@@ -1,0 +1,12 @@
+{
+    "name": "hesam/arvan-cloud-storage-for-word-press",
+    "authors": [
+        {
+            "name": "Khorshid",
+            "email": "info@khorshidlab.com"
+        }
+    ],
+    "require": {
+        "aws/aws-sdk-php": "^3.185"
+    }
+}
