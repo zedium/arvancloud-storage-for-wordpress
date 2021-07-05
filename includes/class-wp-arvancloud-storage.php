@@ -159,6 +159,7 @@ class Wp_Arvancloud_Storage {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_admin_menu' );
 		$this->loader->add_action( 'init', $plugin_admin, 'store_access_keys_in_db' );
+		$this->loader->add_action( 'init', $plugin_admin, 'store_selected_bucket_in_db' );
 
 	}
 

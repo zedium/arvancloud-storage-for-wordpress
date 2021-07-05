@@ -64,7 +64,7 @@
 }
 
 .arvancloud-storage-config-form button {
-	width: 100px;
+	min-width: 100px;
 	z-index: 1000;
 }
 
@@ -78,4 +78,42 @@
 	clear: right;
 	position: relative;
 	right: 10px;
+}
+
+.arvancloud-storage-select-bucket-form {
+    width: 500px;
+}
+
+.acs-bucket-list {
+    padding: 15px;
+	max-height: 200px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #fff;
+	font-size: 14px;
+}
+
+.acs-bucket-list li {
+    padding: 10px;
+	border-bottom: #f0f0f1 1px solid;
+	cursor: pointer;
+	margin-bottom: 0;
+}
+
+.acs-bucket-list li.selected {
+    background-color: #2271b1;
+	color: white;
+}
+
+.acs-bucket-list li:last-child {
+    border-bottom: none;
+}
+
+.acs-bucket-list li:hover {
+    background-color: #f6f7f7;
+    color: black;
+}
+
+.bucket-actions span {
+    float: right;
 }

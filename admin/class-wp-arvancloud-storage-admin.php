@@ -154,4 +154,12 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	public function store_selected_bucket_in_db() {
+
+		if( isset( $_POST['acs-bucket-select-name'] ) ) {
+			update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
+		}
+
+	}
+
 }
