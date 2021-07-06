@@ -161,5 +161,26 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 
 	}
+	
+	public function upload_media_to_storage( $upload ) {
+
+		if( $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', true ) ) {
+			require_once ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php';
+
+			try {
+				$result = $client->putObject([
+					'Bucket' 	 => $bucket_name,
+					'Key' 		 => basename( $upload['file'] ),
+					'SourceFile' => $upload['file'],
+				]);
+			} catch ( Exception $e ) {
+				error_reporting();
+				echo $e->getMessage() . "\n";
+			}
+		}
+
+		return $upload;
+
+	}
 
 }
