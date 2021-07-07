@@ -192,15 +192,44 @@ class Wp_Arvancloud_Storage_Admin {
 		if( $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', true ) ) {
 			require_once ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php';
 
-			try {
-				$result = $client->putObject([
-					'Bucket' 	 => $bucket_name,
-					'Key' 		 => basename( $upload['file'] ),
-					'SourceFile' => $upload['file'],
+			$file_size = number_format( filesize( $upload['file'] ) / 1048576, 2 ); // Get file size in MB
+
+			if( $file_size > 400 ) {
+				$source = $upload['file'];
+				$uploader = new MultipartUploader( $client, $source, [
+					'bucket' => $bucket_name,
+					'key' => basename( $upload['file'] ),
 				]);
-			} catch ( Exception $e ) {
-				error_reporting();
-				echo $e->getMessage() . "\n";
+
+				try {
+					$result = $uploader->upload();
+
+					add_action( 'admin_notices', function () use( $result ) {
+						echo '<div class="notice notice-success is-dismissible">
+								<p>'. __( "Upload complete:" . $result['ObjectURL'], ACS_TEXTDOMAIN ) .'</p>
+							</div>';
+					} );
+				} catch ( Exception $e ) {
+					add_action( 'admin_notices', function () use( $e ) {
+						echo '<div class="notice notice-error is-dismissible">
+								<p>'. $e->getMessage() .'</p>
+							</div>';
+					} );
+				}
+			} else {
+				try {
+					$client->putObject([
+						'Bucket' 	 => $bucket_name,
+						'Key' 		 => basename( $upload['file'] ),
+						'SourceFile' => $upload['file'],
+					]);
+				} catch ( Exception $e ) {
+					add_action( 'admin_notices', function () use( $e ) {
+						echo '<div class="notice notice-error is-dismissible">
+								<p>'. $e->getMessage() .'</p>
+							</div>';
+					} );
+				}	
 			}
 		}
 

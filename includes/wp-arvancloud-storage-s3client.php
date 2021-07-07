@@ -1,6 +1,12 @@
 <?php
 
 use Aws\S3\S3Client;
+use Aws\Exception\AwsException;
+use Aws\S3\MultipartUploader;
+use Aws\Exception\MultipartUploadException;
+
+// require the sdk from your composer vendor dir
+require ACS_PLUGIN_ROOT . '/vendor/autoload.php';
 
 if( $acs_settings_option = get_option( 'arvan-cloud-storage-settings', true ) ) {
     $acs_settings_option = unserialize( $acs_settings_option );
@@ -11,9 +17,6 @@ if( $acs_settings_option = get_option( 'arvan-cloud-storage-settings', true ) ) 
         $credentials =  unserialize( ARVANCLOUD_STORAGE_SETTINGS );
     }
 }
-
-// require the sdk from your composer vendor dir
-require ACS_PLUGIN_ROOT . '/vendor/autoload.php';
 
 // Instantiate the S3 class and point it at the desired host
 $client = new S3Client([
