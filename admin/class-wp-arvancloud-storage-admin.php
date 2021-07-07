@@ -138,7 +138,7 @@ class Wp_Arvancloud_Storage_Admin {
 
     }
 
-	public function store_access_keys_in_db() {
+	public function config_access_keys() {
 
 		if( isset( $_POST['config-cloud-storage'] ) ) {
 			$options = ['config-type'  => sanitize_text_field( $_POST[ 'config-type' ] ) ];
@@ -147,9 +147,19 @@ class Wp_Arvancloud_Storage_Admin {
 				$options[ 'access-key' ]   = sanitize_text_field( $_POST[ 'access-key' ] );
 				$options[ 'secret-key' ]   = sanitize_text_field( $_POST[ 'secret-key' ] );
 				$options[ 'endpoint-url' ] = sanitize_text_field( $_POST[ 'endpoint-url' ] );
+			} else {
+				delete_option( 'arvan-cloud-storage-settings' );
 			}
 
-			update_option( 'arvan-cloud-storage-settings', serialize( $options ) );
+			$save_settings = update_option( 'arvan-cloud-storage-settings', serialize( $options ) );
+
+			if( $save_settings ) {
+				add_action( 'admin_notices', function () {
+					echo '<div class="notice notice-success is-dismissible">
+							<p>'. __( "Settings saved.", ACS_TEXTDOMAIN ) .'</p>
+						</div>';
+				} );
+			}
 		}
 
 	}
@@ -157,7 +167,22 @@ class Wp_Arvancloud_Storage_Admin {
 	public function store_selected_bucket_in_db() {
 
 		if( isset( $_POST['acs-bucket-select-name'] ) ) {
-			update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
+			
+			$save_bucket = update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
+
+			if( $save_bucket ) {
+				add_action( 'admin_notices', function () {
+					echo '<div class="notice notice-success is-dismissible">
+							<p>'. __( "Selected bucket saved.", ACS_TEXTDOMAIN ) .'</p>
+						</div>';
+				} );
+			} else {
+				add_action( 'admin_notices', function () {
+					echo '<div class="notice notice-error is-dismissible">
+							<p>'. __( "Saving selected bucket failed. Please try again or contact with admin.", ACS_TEXTDOMAIN ) .'</p>
+						</div>';
+				} );
+			}
 		}
 
 	}
