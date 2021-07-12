@@ -237,4 +237,18 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	public function delete_media_from_storage( $id ) {
+		
+		if( $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', true ) ) {
+			require_once ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php';
+
+			$filename = basename ( get_attached_file( $id ) );
+
+			$client->deleteObject ([
+				'Bucket' => $bucket_name, 
+				'Key' => $filename
+			]);
+		}
+	}
+
 }
