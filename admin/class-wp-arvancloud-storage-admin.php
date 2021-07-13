@@ -198,7 +198,8 @@ class Wp_Arvancloud_Storage_Admin {
 				$source = $upload['file'];
 				$uploader = new MultipartUploader( $client, $source, [
 					'bucket' => $bucket_name,
-					'key' => basename( $upload['file'] ),
+					'key'    => basename( $upload['file'] ),
+					'ACL' 	 => 'public-read', // or private
 				]);
 
 				try {
@@ -222,6 +223,7 @@ class Wp_Arvancloud_Storage_Admin {
 						'Bucket' 	 => $bucket_name,
 						'Key' 		 => basename( $upload['file'] ),
 						'SourceFile' => $upload['file'],
+						'ACL' 		 => 'public-read', // or private
 					]);
 				} catch ( Exception $e ) {
 					add_action( 'admin_notices', function () use( $e ) {
