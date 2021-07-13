@@ -187,18 +187,18 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 	
-	public function upload_media_to_storage( $upload ) {
+	public function upload_media_to_storage( $post_id ) {
 
-		if( $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', true ) ) {
+		if( $bucket_name = get_bucket_name() ) {
 			require_once ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php';
 
-			$file_size = number_format( filesize( $upload['file'] ) / 1048576, 2 ); // Get file size in MB
+			$file 	   = get_attached_file( $post_id );
+			$file_size = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
 
 			if( $file_size > 400 ) {
-				$source = $upload['file'];
-				$uploader = new MultipartUploader( $client, $source, [
+				$uploader = new MultipartUploader( $client, $file, [
 					'bucket' => $bucket_name,
-					'key'    => basename( $upload['file'] ),
+					'key'    => basename( $file ),
 					'ACL' 	 => 'public-read', // or private
 				]);
 
@@ -221,8 +221,8 @@ class Wp_Arvancloud_Storage_Admin {
 				try {
 					$client->putObject([
 						'Bucket' 	 => $bucket_name,
-						'Key' 		 => basename( $upload['file'] ),
-						'SourceFile' => $upload['file'],
+						'Key' 		 => basename( $file ),
+						'SourceFile' => $file,
 						'ACL' 		 => 'public-read', // or private
 					]);
 				} catch ( Exception $e ) {
@@ -233,24 +233,39 @@ class Wp_Arvancloud_Storage_Admin {
 					} );
 				}	
 			}
-		}
 
-		return $upload;
+			update_post_meta( $post_id, 'arvancloud_storag', 1 );
+		}
 
 	}
 
 	public function delete_media_from_storage( $id ) {
 		
-		if( $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', true ) ) {
+		if( $bucket_name = get_bucket_name() ) {
 			require_once ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php';
 
 			$filename = basename ( get_attached_file( $id ) );
 
 			$client->deleteObject ([
 				'Bucket' => $bucket_name, 
-				'Key' => $filename
+				'Key' 	 => $filename
 			]);
 		}
+	}
+
+	public function media_library_url_rewrite( $url ) {
+
+		$post_id       = attachment_url_to_postid( $url );
+		$cdn		   = get_post_meta( $post_id, 'arvancloud_storag', true );
+
+		if( $cdn == true ) {
+			$new_media_url = get_storage_url();
+			$filename 	   = basename( $url );
+			$url		   = $new_media_url.$filename;
+		}
+		
+		return $url;
+		
 	}
 
 }

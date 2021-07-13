@@ -66,6 +66,8 @@ register_deactivation_hook( __FILE__, 'deactivate_wp_arvancloud_storage' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-wp-arvancloud-storage.php';
 
+require plugin_dir_path( __FILE__ ) . 'includes/wp-arvancloud-storage-helper.php';
+
 /**
  * Begins execution of the plugin.
  *
