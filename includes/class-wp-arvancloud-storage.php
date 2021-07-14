@@ -161,8 +161,14 @@ class Wp_Arvancloud_Storage {
 		$this->loader->add_action( 'init', $plugin_admin, 'config_access_keys' );
 		$this->loader->add_action( 'init', $plugin_admin, 'store_selected_bucket_in_db' );
 		$this->loader->add_action( 'delete_attachment', $plugin_admin, 'delete_media_from_storage', 10, 1 );
+		$this->loader->add_action( 'wp_ajax_acs_get_attachment_provider_details', $plugin_admin, 'ajax_get_attachment_provider_details' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'process_media_actions' );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'maybe_display_media_action_message' );
 		$this->loader->add_filter( 'add_attachment', $plugin_admin, 'upload_media_to_storage', 10, 1 );
 		$this->loader->add_filter( 'wp_get_attachment_url', $plugin_admin, 'media_library_url_rewrite' );
+		$this->loader->add_filter( 'bulk_actions-upload', $plugin_admin, 'bulk_actions_upload' );
+		$this->loader->add_filter( 'handle_bulk_actions-upload', $plugin_admin, 'handle_bulk_actions_upload', 10, 3 );
+		$this->loader->add_filter( 'media_row_actions', $plugin_admin, 'add_media_row_actions', 10, 3 );
 
 	}
 
