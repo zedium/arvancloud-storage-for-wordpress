@@ -1,12 +1,11 @@
 <div class="wrap">
     <?php
-    if( $acs_settings_option = get_option( 'arvan-cloud-storage-settings', true ) ) {
-        $acs_settings_option = unserialize( $acs_settings_option );
+    if( $acs_settings_option = get_storage_settings() ) {
         $config_type         = $acs_settings_option['config-type'];
         $snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
         $db_defined          = $config_type == 'db' && isset( $acs_settings_option['access-key'] ) && isset( $acs_settings_option['secret-key'] ) && isset( $acs_settings_option['endpoint-url'] ) ? true : false;
+        $bucket_selected     = get_bucket_name();
     }
-    // var_dump( $snippet_defined ); die;
     ?>
 
     <H1><?php echo __( ACS_NAME . ' Settings', ACS_TEXTDOMAIN ) ?></H1>
@@ -97,7 +96,7 @@
             </section>
     </form>
     <?php
-    } else {
+    } elseif( ! $bucket_selected || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-bucket' ) ) {
         ?>
         <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-access-option' ) ?>"><?php echo __( "«&nbsp;Back", ACS_TEXTDOMAIN ) ?></a>
         <h3><?php echo __( "Select bucket", ACS_TEXTDOMAIN ) ?></h3>
@@ -137,6 +136,38 @@
             </p>
         </form>
 
+        <?php
+    } else {
+        ?>
+        <div class="acs-bucket-list" style="text-align: center; margin-bottom: 20px">
+            <h4> <?php echo __( 'URL PREVIEW:', ACS_TEXTDOMAIN ) ?> </h4>
+            <span><?php echo get_storage_url() ?></span>
+        </div>
+
+        <ul style="margin-bottom: 20px;">
+            <li><a href="https://npanel.arvancloud.com/storage/plans"><?php echo __( 'Storage Plans', ACS_TEXTDOMAIN ) ?></a></li>
+            <li><a href="https://npanel.arvancloud.com/support"><?php echo __( 'Support', ACS_TEXTDOMAIN ) ?></a></li>
+        </ul>
+
+        <span style="font-weight: bold"><?php echo __( 'Bucket: ', ACS_TEXTDOMAIN ) ?></span> <span><?php echo get_bucket_name() ?></span>
+        <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-bucket' ) ?>"><?php echo __( "Change", ACS_TEXTDOMAIN ) ?></a>
+        
+        <form method="post">
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <th scope="row"><?php echo __( "Path", ACS_TEXTDOMAIN ) ?></th>
+                        <td>
+                            <input id="bucket-path" type="text" name="bucket-path" value="" class="regular-text">
+                            <p class="description" id="tagline-description"><?php echo __( 'By default the path is the same as your local WordPress files.', ACS_TEXTDOMAIN ) ?></p>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <p class="submit"><input type="submit" name="acs-settings" id="submit" class="button button-primary" value="<?php echo __( 'Save Changes', ACS_TEXTDOMAIN ) ?>"></p>
+        </form>
         <?php
     }
     ?>

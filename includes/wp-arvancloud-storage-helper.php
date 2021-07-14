@@ -9,7 +9,10 @@ function get_storage_settings() {
         if( $acs_settings_option['config-type'] == 'db' ) {
             $credentials = $acs_settings_option;
         } else {
-            $credentials = unserialize( ARVANCLOUD_STORAGE_SETTINGS );
+            $settings = unserialize( ARVANCLOUD_STORAGE_SETTINGS );
+            $settings['config-type'] = $acs_settings_option['config-type'];
+            
+            $credentials = $settings;
         }
     }
 
