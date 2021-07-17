@@ -117,3 +117,85 @@
 .bucket-actions span {
     float: right;
 }
+
+.acs-footer {
+    background-color: #062026;
+	border-radius: 5px;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+}
+
+.acs-footer-links {
+    width: 50%;
+    float: left;
+}
+.acs-footer-links ul {
+    width: 100%;
+}
+
+.acs-footer-links ul li {
+    display: inline-block;
+    margin-inline-end: 15px;
+    margin-bottom: 0;
+}
+
+.acs-footer-links ul li a {
+    color: #7ce8dd;
+    opacity: .6;
+}
+
+.acs-footer-links ul li a:hover {
+    opacity: 1;
+}
+
+.acs-footer-social {
+    width: 50%;
+    float:right;
+}
+
+.footer__social-icons {
+    float: right;
+    width: 250px;
+    -webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	text-align: left;
+	direction: ltr;
+	flex-direction: row;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+    display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.footer__social-icons__link {
+	display: block;
+}
+
+.footer__social-icons__link svg {
+	width: 30px;
+	height: 30px;
+}
+
+.footer__social-icons--instagram:hover rect, .footer__social-icons--linkedin:hover circle, .footer__social-icons--linkedin:hover path, .footer__social-icons--linkedin:hover rect, .footer__social-icons--twitter:hover path {
+	fill: #7ce8dd!important;
+}
+
+.footer__social-icons--instagram:hover circle {
+	fill: #062026!important;
+}
+
+.footer__social-icons--telegram:hover path {
+	fill: #7ce8dd!important;
+}
+
+.footer__social-icons--github:hover path {
+	fill: #7ce8dd!important;
+}
+
+.footer__social-icons--telegram:hover polyline {
+	fill: #062026!important;
+}
