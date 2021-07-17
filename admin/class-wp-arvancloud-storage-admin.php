@@ -126,10 +126,10 @@ class Wp_Arvancloud_Storage_Admin {
 
 		add_submenu_page(
 			'wp-arvancloud-storage',
-			__( 'About Us', 'wp-arvancloud-storage' ),
-			__( 'About Us', 'wp-arvancloud-storage' ),
+			__( 'About ArvanCloud Storage WordPress Plugin', 'wp-arvancloud-storage' ),
+			__( 'About', 'wp-arvancloud-storage' ),
 			'manage_options',
-			ACS_SLUG . '-about-us',
+			ACS_SLUG . '-about',
 			__CLASS__ . '::about_us_page'
 		);
 
