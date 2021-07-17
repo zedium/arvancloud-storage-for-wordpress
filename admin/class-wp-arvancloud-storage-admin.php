@@ -116,8 +116,8 @@ class Wp_Arvancloud_Storage_Admin {
     public function setup_admin_menu() {
 
         add_menu_page( 
-			__( ACS_NAME, ACS_TEXTDOMAIN ), 
-			__( ACS_NAME, ACS_TEXTDOMAIN), 
+			__( ACS_NAME, 'wp-arvancloud-storage' ), 
+			__( ACS_NAME, 'wp-arvancloud-storage'), 
 			'manage_options', 
 			ACS_SLUG, 
 			__CLASS__ . '::settings_page',
@@ -126,8 +126,8 @@ class Wp_Arvancloud_Storage_Admin {
 
 		add_submenu_page(
 			'wp-arvancloud-storage',
-			__( 'About Us', ACS_TEXTDOMAIN ),
-			__( 'About Us', ACS_TEXTDOMAIN ),
+			__( 'About Us', 'wp-arvancloud-storage' ),
+			__( 'About Us', 'wp-arvancloud-storage' ),
 			'manage_options',
 			ACS_SLUG . '-about-us',
 			__CLASS__ . '::about_us_page'
@@ -165,7 +165,7 @@ class Wp_Arvancloud_Storage_Admin {
 			if( $save_settings ) {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-success is-dismissible">
-							<p>'. __( "Settings saved.", ACS_TEXTDOMAIN ) .'</p>
+							<p>'. __( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
 						</div>';
 				} );
 			}
@@ -182,13 +182,13 @@ class Wp_Arvancloud_Storage_Admin {
 			if( $save_bucket ) {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-success is-dismissible">
-							<p>'. __( "Selected bucket saved.", ACS_TEXTDOMAIN ) .'</p>
+							<p>'. __( "Selected bucket saved.", 'wp-arvancloud-storage' ) .'</p>
 						</div>';
 				} );
 			} else {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-error is-dismissible">
-							<p>'. __( "Saving selected bucket failed. Please try again or contact with admin.", ACS_TEXTDOMAIN ) .'</p>
+							<p>'. __( "Saving selected bucket failed. Please try again or contact with admin.", 'wp-arvancloud-storage' ) .'</p>
 						</div>';
 				} );
 			}
@@ -216,7 +216,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 					add_action( 'admin_notices', function () use( $result ) {
 						echo '<div class="notice notice-success is-dismissible">
-								<p>'. __( "Upload complete:" . $result['ObjectURL'], ACS_TEXTDOMAIN ) .'</p>
+								<p>'. __( "Upload complete:" . $result['ObjectURL'], 'wp-arvancloud-storage' ) .'</p>
 							</div>';
 					} );
 				} catch ( Exception $e ) {
@@ -280,7 +280,7 @@ class Wp_Arvancloud_Storage_Admin {
 	public function bulk_actions_upload( $bulk_actions ) {
 
 		if( get_bucket_name() ) {
-			$bulk_actions['bulk_acs_copy_to_bucket'] = __( 'Copy to Bucket', ACS_TEXTDOMAIN );
+			$bulk_actions['bulk_acs_copy_to_bucket'] = __( 'Copy to Bucket', 'wp-arvancloud-storage' );
 		}
 
 		return $bulk_actions;
@@ -418,27 +418,27 @@ class Wp_Arvancloud_Storage_Admin {
 	 */
 	public function get_media_action_strings( $string = null ) {
 
-		$not_verified_value = __( 'No', ACS_TEXTDOMAIN );
+		$not_verified_value = __( 'No', 'wp-arvancloud-storage' );
 
 		$strings = apply_filters( 'acs_media_action_strings', array(
-			'copy'               => __( 'Copy to Bucket', ACS_TEXTDOMAIN ),
-			'remove'             => __( 'Remove from Bucket', ACS_TEXTDOMAIN ),
-			'remove_local'       => __( 'Remove from Server', ACS_TEXTDOMAIN ),
-			'download'         	 => __( 'Copy to Server from Bucket', ACS_TEXTDOMAIN ),
-			'private_acl'        => __( 'Make Private in Bucket', ACS_TEXTDOMAIN ),
-			'public_acl'         => __( 'Make Public in Bucket', ACS_TEXTDOMAIN ),
-			'local_warning'      => __( 'This file does not exist locally so removing it from the bucket will result in broken links on your site. Are you sure you want to continue?', ACS_TEXTDOMAIN ),
-			'bulk_local_warning' => __( 'Some files do not exist locally so removing them from the bucket will result in broken links on your site. Are you sure you want to continue?', ACS_TEXTDOMAIN ),
-			'change_to_private'  => __( 'Click to set as Private in the bucket', ACS_TEXTDOMAIN ),
-			'change_to_public'   => __( 'Click to set as Public in the bucket', ACS_TEXTDOMAIN ),
-			'updating_acl'       => __( 'Updating…', ACS_TEXTDOMAIN ),
-			'change_acl_error'   => __( 'There was an error changing the ACL. Make sure the IAM user has permission to change the ACL and try again.', ACS_TEXTDOMAIN ),
-			'bucket'        	 => _x( 'Bucket', 'Bucket name', ACS_TEXTDOMAIN ),
-			'key'           	 => _x( 'Path', 'Path to file in bucket', ACS_TEXTDOMAIN ),
-			'region'        	 => _x( 'Region', 'Location of bucket', ACS_TEXTDOMAIN ),
-			'acl'           	 => _x( 'Access', 'Access control list of the file in bucket', ACS_TEXTDOMAIN ),
-			'url'           	 => __( 'URL', ACS_TEXTDOMAIN ),
-			'is_verified'   	 => _x( 'Verified', 'Whether or not metadata has been verified', ACS_TEXTDOMAIN ),
+			'copy'               => __( 'Copy to Bucket', 'wp-arvancloud-storage' ),
+			'remove'             => __( 'Remove from Bucket', 'wp-arvancloud-storage' ),
+			'remove_local'       => __( 'Remove from Server', 'wp-arvancloud-storage' ),
+			'download'         	 => __( 'Copy to Server from Bucket', 'wp-arvancloud-storage' ),
+			'private_acl'        => __( 'Make Private in Bucket', 'wp-arvancloud-storage' ),
+			'public_acl'         => __( 'Make Public in Bucket', 'wp-arvancloud-storage' ),
+			'local_warning'      => __( 'This file does not exist locally so removing it from the bucket will result in broken links on your site. Are you sure you want to continue?', 'wp-arvancloud-storage' ),
+			'bulk_local_warning' => __( 'Some files do not exist locally so removing them from the bucket will result in broken links on your site. Are you sure you want to continue?', 'wp-arvancloud-storage' ),
+			'change_to_private'  => __( 'Click to set as Private in the bucket', 'wp-arvancloud-storage' ),
+			'change_to_public'   => __( 'Click to set as Public in the bucket', 'wp-arvancloud-storage' ),
+			'updating_acl'       => __( 'Updating…', 'wp-arvancloud-storage' ),
+			'change_acl_error'   => __( 'There was an error changing the ACL. Make sure the IAM user has permission to change the ACL and try again.', 'wp-arvancloud-storage' ),
+			'bucket'        	 => _x( 'Bucket', 'Bucket name', 'wp-arvancloud-storage' ),
+			'key'           	 => _x( 'Path', 'Path to file in bucket', 'wp-arvancloud-storage' ),
+			'region'        	 => _x( 'Region', 'Location of bucket', 'wp-arvancloud-storage' ),
+			'acl'           	 => _x( 'Access', 'Access control list of the file in bucket', 'wp-arvancloud-storage' ),
+			'url'           	 => __( 'URL', 'wp-arvancloud-storage' ),
+			'is_verified'   	 => _x( 'Verified', 'Whether or not metadata has been verified', 'wp-arvancloud-storage' ),
 			'not_verified'  	 => $not_verified_value,
 		) );
 
@@ -699,7 +699,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 			// Only add the link if we have a URL.
 			if ( ! empty( $url ) ) {
-				$text    = esc_html__( 'Edit attachment', ACS_TEXTDOMAIN );
+				$text    = esc_html__( 'Edit attachment', 'wp-arvancloud-storage' );
 				$message .= sprintf( ' <a href="%1$s">%2$s</a>', $url, $text );
 			}
 		}
@@ -719,34 +719,34 @@ class Wp_Arvancloud_Storage_Admin {
 		if ( is_null( $this->messages ) ) {
 			$this->messages = array(
 				'copy'         => array(
-					'success' => __( 'Media successfully copied to bucket.', ACS_TEXTDOMAIN ),
-					'partial' => __( 'Media copied to bucket with some errors.', ACS_TEXTDOMAIN ),
-					'error'   => __( 'There were errors when copying the media to bucket.', ACS_TEXTDOMAIN ),
+					'success' => __( 'Media successfully copied to bucket.', 'wp-arvancloud-storage' ),
+					'partial' => __( 'Media copied to bucket with some errors.', 'wp-arvancloud-storage' ),
+					'error'   => __( 'There were errors when copying the media to bucket.', 'wp-arvancloud-storage' ),
 				),
 				'remove'       => array(
-					'success' => __( 'Media successfully removed from bucket.', ACS_TEXTDOMAIN ),
-					'partial' => __( 'Media removed from bucket, with some errors.', ACS_TEXTDOMAIN ),
-					'error'   => __( 'There were errors when removing the media from bucket.', ACS_TEXTDOMAIN ),
+					'success' => __( 'Media successfully removed from bucket.', 'wp-arvancloud-storage' ),
+					'partial' => __( 'Media removed from bucket, with some errors.', 'wp-arvancloud-storage' ),
+					'error'   => __( 'There were errors when removing the media from bucket.', 'wp-arvancloud-storage' ),
 				),
 				'download'     => array(
-					'success' => __( 'Media successfully downloaded from bucket.', ACS_TEXTDOMAIN ),
-					'partial' => __( 'Media downloaded from bucket, with some errors.', ACS_TEXTDOMAIN ),
-					'error'   => __( 'There were errors when downloading the media from bucket.', ACS_TEXTDOMAIN ),
+					'success' => __( 'Media successfully downloaded from bucket.', 'wp-arvancloud-storage' ),
+					'partial' => __( 'Media downloaded from bucket, with some errors.', 'wp-arvancloud-storage' ),
+					'error'   => __( 'There were errors when downloading the media from bucket.', 'wp-arvancloud-storage' ),
 				),
 				'private_acl'  => array(
-					'success' => __( 'Media successfully set as private in bucket.', ACS_TEXTDOMAIN ),
-					'partial' => __( 'Media set as private in bucket, with some errors.', ACS_TEXTDOMAIN ),
-					'error'   => __( 'There were errors when setting the media as private in bucket.', ACS_TEXTDOMAIN ),
+					'success' => __( 'Media successfully set as private in bucket.', 'wp-arvancloud-storage' ),
+					'partial' => __( 'Media set as private in bucket, with some errors.', 'wp-arvancloud-storage' ),
+					'error'   => __( 'There were errors when setting the media as private in bucket.', 'wp-arvancloud-storage' ),
 				),
 				'public_acl'   => array(
-					'success' => __( 'Media successfully set as public in bucket.', ACS_TEXTDOMAIN ),
-					'partial' => __( 'Media set as public in bucket, with some errors.', ACS_TEXTDOMAIN ),
-					'error'   => __( 'There were errors when setting the media as public in bucket.', ACS_TEXTDOMAIN ),
+					'success' => __( 'Media successfully set as public in bucket.', 'wp-arvancloud-storage' ),
+					'partial' => __( 'Media set as public in bucket, with some errors.', 'wp-arvancloud-storage' ),
+					'error'   => __( 'There were errors when setting the media as public in bucket.', 'wp-arvancloud-storage' ),
 				),
 				'remove_local' => array(
-					'success' => __( 'Media successfully removed from server.', ACS_TEXTDOMAIN ),
-					'partial' => __( 'Media removed from server, with some errors.', ACS_TEXTDOMAIN ),
-					'error'   => __( 'There were errors when removing the media from server.', ACS_TEXTDOMAIN ),
+					'success' => __( 'Media successfully removed from server.', 'wp-arvancloud-storage' ),
+					'partial' => __( 'Media removed from server, with some errors.', 'wp-arvancloud-storage' ),
+					'error'   => __( 'There were errors when removing the media from server.', 'wp-arvancloud-storage' ),
 				),
 			);
 		}

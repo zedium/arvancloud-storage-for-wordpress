@@ -31,9 +31,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'ACS_VERSION', '1.0.0' );
-define( 'ACS_TEXTDOMAIN', 'wp_arvancloud_storage' );
-define( 'ACS_NAME', __( 'ArvanCloud Storage', ACS_TEXTDOMAIN ) );
-define( 'ACS_SLUG', __( 'wp-arvancloud-storage', ACS_TEXTDOMAIN ) );
+define( 'ACS_NAME', __( 'ArvanCloud Storage', 'wp-arvancloud-storage' ) );
+define( 'ACS_SLUG', __( 'wp-arvancloud-storage', 'wp-arvancloud-storage' ) );
 define( 'ACS_PLUGIN_ROOT', plugin_dir_path( __FILE__ ) );
 define( 'ACS_PLUGIN_ROOT_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACS_PLUGIN_ABSOLUTE', __FILE__ );

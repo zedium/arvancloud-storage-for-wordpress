@@ -8,28 +8,28 @@
     }
     ?>
 
-    <H1><?php echo __( ACS_NAME . ' Settings', ACS_TEXTDOMAIN ) ?></H1>
+    <H1><?php echo __( ACS_NAME . ' Settings', 'wp-arvancloud-storage' ) ?></H1>
     <hr>
 
     <?php
     if( ( ! $db_defined && ! $snippet_defined ) || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-access-option' ) ) {
         ?>
-        <h3><?php echo __( 'Configure Cloud Storage', ACS_TEXTDOMAIN ) ?></h3>
+        <h3><?php echo __( 'Configure Cloud Storage', 'wp-arvancloud-storage' ) ?></h3>
 
         <form class="arvancloud-storage-config-form" method="post" action="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage' ) ?>">
             <section class="accordion-container">
                 <div class="accordion-box">
                     <?php
                     if ( $snippet_defined ) {
-                        echo '<span class="acs-defined-in-config">' . __( 'defined in wp-config.php', ACS_TEXTDOMAIN ) . '</span>';
+                        echo '<span class="acs-defined-in-config">' . __( 'defined in wp-config.php', 'wp-arvancloud-storage' ) . '</span>';
                     }
                     ?>
                     <input id="config-type-snippet" name="config-type" value="snippet" type="radio" <?php echo $config_type == 'snippet' ? 'checked' : '' ?> />
-                    <label for="config-type-snippet"><?php echo __( "Define access keys in wp-config.php", ACS_TEXTDOMAIN ) ?></label>
+                    <label for="config-type-snippet"><?php echo __( "Define access keys in wp-config.php", 'wp-arvancloud-storage' ) ?></label>
                     <section class="accordion">
                         <?php 
                         if ( $snippet_defined ) {
-                            _e( "You've defined your access keys in your wp-config.php. To select a different option here, simply comment out or remove the Access Keys defined in your wp-config.php.", ACS_TEXTDOMAIN );
+                            _e( "You've defined your access keys in your wp-config.php. To select a different option here, simply comment out or remove the Access Keys defined in your wp-config.php.", 'wp-arvancloud-storage' );
                             
                             if ( $config_type == 'snippet' && ! $snippet_defined ) {
                                 ?>
@@ -41,7 +41,7 @@
                                 <?php
                             }
                         } else {
-                            _e( "Copy the following snippet <strong>near the top</strong> of your wp-config.php and replace the stars with the keys.", ACS_TEXTDOMAIN ) 
+                            _e( "Copy the following snippet <strong>near the top</strong> of your wp-config.php and replace the stars with the keys.", 'wp-arvancloud-storage' ) 
                         
                         ?>
                         <textarea rows="5" class="as3cf-define-snippet code clear" readonly="">
@@ -58,12 +58,12 @@
                 </div>
                 <div class="accordion-box">
                     <input id="config-type-db" name="config-type" value="db" type="radio" <?php echo $config_type == 'db' ? 'checked' : '' ?> <?php echo $snippet_defined ? 'disabled="disabled"' : '' ?> />
-                    <label for="config-type-db"><?php echo __( "I understand the risks but I'd like to store access keys in the database anyway (not recommended)", ACS_TEXTDOMAIN ) ?></label>
+                    <label for="config-type-db"><?php echo __( "I understand the risks but I'd like to store access keys in the database anyway (not recommended)", 'wp-arvancloud-storage' ) ?></label>
                     <section class="accordion">
-                        <?php echo __( "Storing your access keys in the database is less secure than the options above, but if you're ok with that, go ahead and enter your keys in the form below.", ACS_TEXTDOMAIN ) ; ?>
+                        <?php echo __( "Storing your access keys in the database is less secure than the options above, but if you're ok with that, go ahead and enter your keys in the form below.", 'wp-arvancloud-storage' ) ; ?>
                         <table class="table-form">
                             <tbody><tr valign="top">
-                                <th scope="row"><?php echo __( "Access Key", ACS_TEXTDOMAIN ) ?></th>
+                                <th scope="row"><?php echo __( "Access Key", 'wp-arvancloud-storage' ) ?></th>
                                 <td>
                                     <div class="accordion-field-wrap">
                                         <input type="text" name="access-key" value="<?php echo $config_type == 'db' ? $acs_settings_option['access-key'] : '' ?>" autocomplete="off">
@@ -72,16 +72,16 @@
                             </tr>
 
                             <tr valign="top">
-                                <th scope="row"><?php echo __( "Secret Key", ACS_TEXTDOMAIN ) ?></th>
+                                <th scope="row"><?php echo __( "Secret Key", 'wp-arvancloud-storage' ) ?></th>
                                 <td>
                                     <div class="accordion-field-wrap">
-                                        <input type="text" name="secret-key" value="<?php echo $config_type == 'db' ? __( "-- not shown --", ACS_TEXTDOMAIN ) : '' ?>" autocomplete="off">
+                                        <input type="text" name="secret-key" value="<?php echo $config_type == 'db' ? __( "-- not shown --", 'wp-arvancloud-storage' ) : '' ?>" autocomplete="off">
                                     </div>
                                 </td>
                             </tr>
 
                             <tr valign="top">
-                                <th scope="row"><?php echo __( "Endpoint URL", ACS_TEXTDOMAIN ) ?></th>
+                                <th scope="row"><?php echo __( "Endpoint URL", 'wp-arvancloud-storage' ) ?></th>
                                 <td>
                                     <div class="accordion-field-wrap">
                                         <input type="text" name="endpoint-url" value="<?php echo $config_type == 'db' ? $acs_settings_option['endpoint-url'] : '' ?>" autocomplete="off">
@@ -92,14 +92,14 @@
                         </table>
                     </section>
                 </div>
-                <p><button type="submit" class="button button-primary" name="config-cloud-storage" value="1"><?php echo __( "Next", ACS_TEXTDOMAIN ) ?></button></p>
+                <p><button type="submit" class="button button-primary" name="config-cloud-storage" value="1"><?php echo __( "Next", 'wp-arvancloud-storage' ) ?></button></p>
             </section>
     </form>
     <?php
     } elseif( ! $bucket_selected || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-bucket' ) ) {
         ?>
-        <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-access-option' ) ?>"><?php echo __( "«&nbsp;Back", ACS_TEXTDOMAIN ) ?></a>
-        <h3><?php echo __( "Select bucket", ACS_TEXTDOMAIN ) ?></h3>
+        <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-access-option' ) ?>"><?php echo __( "«&nbsp;Back", 'wp-arvancloud-storage' ) ?></a>
+        <h3><?php echo __( "Select bucket", 'wp-arvancloud-storage' ) ?></h3>
 
         <form class="arvancloud-storage-select-bucket-form" method="post">
             <ul class="acs-bucket-list">
@@ -111,7 +111,7 @@
                     $buckets       = $list_response[ 'Buckets' ];  
 
                     if( count($buckets) == 0 ) {
-                        echo __( "You have not any bucket in ArvanCloud, please create a bucket in ArvanCloud storage panel then refresh this page!", ACS_TEXTDOMAIN );
+                        echo __( "You have not any bucket in ArvanCloud, please create a bucket in ArvanCloud storage panel then refresh this page!", 'wp-arvancloud-storage' );
                     } else {
                         $selected_bucket = get_option( 'arvan-cloud-storage-bucket-name', true );
     
@@ -131,8 +131,8 @@
             }
             ?>
             <p class="bucket-actions actions select">
-                <button id="acs-bucket-select-save" type="submit" class="bucket-action-save button button-primary" <?php echo isset( $e ) ? 'disabled' : '' ?>><?php _e( 'Save Selected Bucket', ACS_TEXTDOMAIN ); ?></button>
-                <span><a href="#" class="acs-bucket-action-refresh"><i class="dashicons dashicons-update"></i> <?php _e( 'Refresh', ACS_TEXTDOMAIN ); ?></a></span>
+                <button id="acs-bucket-select-save" type="submit" class="bucket-action-save button button-primary" <?php echo isset( $e ) ? 'disabled' : '' ?>><?php _e( 'Save Selected Bucket', 'wp-arvancloud-storage' ); ?></button>
+                <span><a href="#" class="acs-bucket-action-refresh"><i class="dashicons dashicons-update"></i> <?php _e( 'Refresh', 'wp-arvancloud-storage' ); ?></a></span>
             </p>
         </form>
 
@@ -140,33 +140,33 @@
     } else {
         ?>
         <div class="acs-bucket-list" style="text-align: center; margin-bottom: 20px">
-            <h4> <?php echo __( 'URL PREVIEW:', ACS_TEXTDOMAIN ) ?> </h4>
+            <h4> <?php echo __( 'URL PREVIEW:', 'wp-arvancloud-storage' ) ?> </h4>
             <span><?php echo get_storage_url() ?></span>
         </div>
 
         <ul style="margin-bottom: 20px;">
-            <li><a href="https://npanel.arvancloud.com/storage/plans"><?php echo __( 'Storage Plans', ACS_TEXTDOMAIN ) ?></a></li>
-            <li><a href="https://npanel.arvancloud.com/support"><?php echo __( 'Support', ACS_TEXTDOMAIN ) ?></a></li>
+            <li><a href="https://npanel.arvancloud.com/storage/plans"><?php echo __( 'Storage Plans', 'wp-arvancloud-storage' ) ?></a></li>
+            <li><a href="https://npanel.arvancloud.com/support"><?php echo __( 'Support', 'wp-arvancloud-storage' ) ?></a></li>
         </ul>
 
-        <span style="font-weight: bold"><?php echo __( 'Bucket: ', ACS_TEXTDOMAIN ) ?></span> <span><?php echo get_bucket_name() ?></span>
-        <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-bucket' ) ?>"><?php echo __( "Change", ACS_TEXTDOMAIN ) ?></a>
+        <span style="font-weight: bold"><?php echo __( 'Bucket: ', 'wp-arvancloud-storage' ) ?></span> <span><?php echo get_bucket_name() ?></span>
+        <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-bucket' ) ?>"><?php echo __( "Change", 'wp-arvancloud-storage' ) ?></a>
         
         <form method="post">
             <table class="form-table">
                 <tbody>
                     <tr>
-                        <th scope="row"><?php echo __( "Path", ACS_TEXTDOMAIN ) ?></th>
+                        <th scope="row"><?php echo __( "Path", 'wp-arvancloud-storage' ) ?></th>
                         <td>
                             <input id="bucket-path" type="text" name="bucket-path" value="" class="regular-text">
-                            <p class="description" id="tagline-description"><?php echo __( 'By default the path is the same as your local WordPress files.', ACS_TEXTDOMAIN ) ?></p>
+                            <p class="description" id="tagline-description"><?php echo __( 'By default the path is the same as your local WordPress files.', 'wp-arvancloud-storage' ) ?></p>
                         </td>
                     </tr>
 
                 </tbody>
             </table>
 
-            <p class="submit"><input type="submit" name="acs-settings" id="submit" class="button button-primary" value="<?php echo __( 'Save Changes', ACS_TEXTDOMAIN ) ?>"></p>
+            <p class="submit"><input type="submit" name="acs-settings" id="submit" class="button button-primary" value="<?php echo __( 'Save Changes', 'wp-arvancloud-storage' ) ?>"></p>
         </form>
         <?php
     }
