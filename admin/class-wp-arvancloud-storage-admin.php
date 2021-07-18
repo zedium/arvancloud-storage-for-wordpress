@@ -199,11 +199,11 @@ class Wp_Arvancloud_Storage_Admin {
 	public function upload_media_to_storage( $post_id ) {
 
 		if( $bucket_name = get_bucket_name() ) {
-			require_once ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php';
+			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
-			$file 	   = get_attached_file( $post_id );
+			$file 	   = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
 			$file_size = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
-
+			
 			if( $file_size > 400 ) {
 				$uploader = new MultipartUploader( $client, $file, [
 					'bucket' => $bucket_name,
@@ -243,29 +243,89 @@ class Wp_Arvancloud_Storage_Admin {
 				}	
 			}
 
-			update_post_meta( $post_id, 'arvancloud_storage', 1 );
+			is_numeric( $post_id ) ? update_post_meta( $post_id, 'arvancloud_storage', 1 ) : '';
+
 		}
+
+	}
+
+	// Upload image sub sizes to bucket
+	public function upload_image_to_storage( $args ) {
+
+		$upload_dir = wp_upload_dir(); //Get Upload Dir Base Wordpress
+		$path 		= str_replace( basename( $args['file'] ), "", $args['file'] );
+		
+		$this->upload_media_to_storage( $upload_dir['basedir'] . '/' . $args['file'] );
+		
+		//Check if Extra Size Image
+		if( array_key_exists( "sizes", $args ) ) {
+			foreach ( $args['sizes'] as $sub_size ) {
+				if ( $sub_size['file'] != "" ) {
+					$this->upload_media_to_storage( $upload_dir['basedir'] . '/' . $path . $sub_size['file'] );
+				}
+			}
+		}
+
+		return $args;
 
 	}
 
 	public function delete_media_from_storage( $id ) {
 		
-		if( $bucket_name = get_bucket_name() ) {
-			require_once ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php';
+		if( $bucket_name = get_bucket_name() && $this->is_attachment_served_by_s3( $id ) ) {
+			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
-			$filename = basename ( get_attached_file( $id ) );
+			if( wp_attachment_is_image( $id ) ) {
+				$list   = array();
+				$args   = get_post_meta( $id, '_wp_attachment_metadata', true );
+				$list[] = $args['file'];
 
-			$client->deleteObject ([
-				'Bucket' => $bucket_name, 
-				'Key' 	 => $filename
-			]);
+				//Check if Extra Size Image
+				if ( array_key_exists( "sizes", $args ) ) {
+					foreach ( $args['sizes'] as $list_file ) {
+						if ( $list_file['file'] != "" ) {
+							$client->deleteObject ([
+								'Bucket' => $bucket_name, 
+								'Key' 	 => basename( $list_file )
+							]);
+						}
+					}
+				}
+			} else {
+				$client->deleteObject ([
+					'Bucket' => $bucket_name, 
+					'Key' 	 => basename( get_attached_file( $id ) )
+				]);
+			}
 		}
+	}
+
+	public function calculate_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
+
+		$base_upload      = wp_upload_dir();
+		$uploads          = $base_upload['baseurl'];
+		$filtered_sources = array();
+
+		foreach ( $sources as $key => $source ) {
+			if ( wp_attachment_is_image( $attachment_id ) ) {
+				$cdn = get_post_meta( $attachment_id, 'arvancloud_storage', true );
+				
+				if ( $cdn != "" ) {
+					$source['url'] = str_replace( trailingslashit( $uploads ), trailingslashit( get_storage_url() ), $source['url'] );
+				}
+			}
+
+			$filtered_sources[ $key ] = $source;
+		}
+
+		return $filtered_sources;
+
 	}
 
 	public function media_library_url_rewrite( $url ) {
 
-		$post_id       = attachment_url_to_postid( $url );
-		$cdn		   = get_post_meta( $post_id, 'arvancloud_storage', true );
+		$post_id = attachment_url_to_postid( $url );
+		$cdn	 = get_post_meta( $post_id, 'arvancloud_storage', true );
 
 		if( $cdn == true ) {
 			$new_media_url = get_storage_url();
@@ -798,22 +858,24 @@ class Wp_Arvancloud_Storage_Admin {
 		foreach ( $post_ids as $post_id ) {
 			if ( $doing_bulk_action ) {
 				// if bulk action check the file exists
-				$file = get_attached_file( $post_id, true );
+				$files = get_post_meta( '_wp_attachment_metadata', $post_id, true );
 				// if the file doesn't exist locally we can't copy
 				if ( ! file_exists( $file ) ) {
 					continue;
 				}
 			}
 
-			// Upload the attachment to S3
-			$result = $this->upload_media_to_storage( $post_id );
+			foreach( unserialize( $files ) as $file ) {
+				// Upload the attachment to S3
+				$result = $this->upload_media_to_storage( $post_id );
 
-			if ( is_wp_error( $result ) ) {
-				$error_count++;
-				continue;
+				if ( is_wp_error( $result ) ) {
+					$error_count++;
+					continue;
+				}
+
+				$uploaded_count++;
 			}
-
-			$uploaded_count++;
 		}
 
 		$result = array(

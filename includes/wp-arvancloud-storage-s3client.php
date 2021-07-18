@@ -23,5 +23,5 @@ if( $credentials ) {
         // Set the S3 class to use objects. arvanstorage.com/bucket
         // instead of bucket.objects. arvanstorage.com
         'use_path_style_endpoint' => true
-    ]);  
+    ]);
 }
