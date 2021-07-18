@@ -351,11 +351,6 @@ class Wp_Arvancloud_Storage_Admin {
 			$this->add_media_row_action( $actions, $post_id, 'copy' );
 		}
 
-		// Actions beyond this point are for items on provider only
-		if ( ! $this->is_attachment_served_by_s3( $post_id, true ) ) {
-			return $actions;
-		}
-
 		return $actions;
 
 	}
@@ -377,7 +372,6 @@ class Wp_Arvancloud_Storage_Admin {
 		if ( $show_warning ) {
 			$class .= ' local-warning';
 		}
-
 		$actions[ 'acs_' . $action ] = '<a href="' . $url . '" class="' . $class . '" title="' . esc_attr( $text ) . '">' . esc_html( $text ) . '</a>';
 
 	}
@@ -830,5 +824,30 @@ class Wp_Arvancloud_Storage_Admin {
 		return $result;
 
 	}
+
+	public function add_edit_attachment_metabox( $post ) {
+		add_meta_box(
+			'arvancloud-storage-metabox',
+			__( 'ArvanCloud Storage', 'wp-arvancloud-storage' ),
+			array( $this, 'render_edit_attachment_metabox' ),
+			'attachment',
+			'side',
+			'default'
+		);
+
+    }
+
+	public function render_edit_attachment_metabox() {
+
+		global $post;
+	
+        $actions = $this->add_media_row_actions( array(), $post );
+
+		foreach( $actions as $action ) {
+			echo $action;
+		}
+		
+    }
+	
 
 }
