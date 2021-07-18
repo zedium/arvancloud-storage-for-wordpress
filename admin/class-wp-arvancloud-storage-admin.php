@@ -121,7 +121,7 @@ class Wp_Arvancloud_Storage_Admin {
 			'manage_options', 
 			ACS_SLUG, 
 			__CLASS__ . '::settings_page',
-            'dashicons-cloud'
+            ACS_PLUGIN_ROOT_URL . 'admin/img/arvancloud-logo.svg'
         );
 
 		add_submenu_page(

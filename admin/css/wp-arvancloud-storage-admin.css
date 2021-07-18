@@ -199,3 +199,7 @@
 .footer__social-icons--telegram:hover polyline {
 	fill: #062026!important;
 }
+
+#toplevel_page_wp-arvancloud-storage img {
+	width: 50%;
+}
