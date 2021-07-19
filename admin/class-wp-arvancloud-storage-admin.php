@@ -251,12 +251,15 @@ class Wp_Arvancloud_Storage_Admin {
 
 	// Upload image sub sizes to bucket
 	public function upload_image_to_storage( $args ) {
-
-		$upload_dir = wp_upload_dir(); //Get Upload Dir Base Wordpress
+		$upload_dir = wp_upload_dir(); //Get wp upload dir
 		$path 		= str_replace( basename( $args['file'] ), "", $args['file'] );
-		
+		$url	    = $upload_dir['baseurl'] . '/' . $args['file'];
+		$post_id	= attachment_url_to_postid($url);
+
 		$this->upload_media_to_storage( $upload_dir['basedir'] . '/' . $args['file'] );
-		
+
+		update_post_meta( $post_id, 'arvancloud_storage', 1 );
+
 		//Check if Extra Size Image
 		if( array_key_exists( "sizes", $args ) ) {
 			foreach ( $args['sizes'] as $sub_size ) {
@@ -272,13 +275,16 @@ class Wp_Arvancloud_Storage_Admin {
 
 	public function delete_media_from_storage( $id ) {
 		
-		if( $bucket_name = get_bucket_name() && $this->is_attachment_served_by_s3( $id ) ) {
+		if( ( $bucket_name = get_bucket_name() ) && $this->is_attachment_served_by_s3( $id ) ) {
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
-
+			
+			$client->deleteObject ([
+				'Bucket' => $bucket_name, 
+				'Key' 	 => basename( get_attached_file( $id ) )
+			]);
+			
 			if( wp_attachment_is_image( $id ) ) {
-				$list   = array();
-				$args   = get_post_meta( $id, '_wp_attachment_metadata', true );
-				$list[] = $args['file'];
+				$args = wp_get_attachment_metadata($id);
 
 				//Check if Extra Size Image
 				if ( array_key_exists( "sizes", $args ) ) {
@@ -286,16 +292,11 @@ class Wp_Arvancloud_Storage_Admin {
 						if ( $list_file['file'] != "" ) {
 							$client->deleteObject ([
 								'Bucket' => $bucket_name, 
-								'Key' 	 => basename( $list_file )
+								'Key' 	 => basename( $list_file['file'] )
 							]);
 						}
 					}
 				}
-			} else {
-				$client->deleteObject ([
-					'Bucket' => $bucket_name, 
-					'Key' 	 => basename( get_attached_file( $id ) )
-				]);
 			}
 		}
 	}
@@ -340,7 +341,7 @@ class Wp_Arvancloud_Storage_Admin {
 	public function bulk_actions_upload( $bulk_actions ) {
 
 		if( get_bucket_name() ) {
-			$bulk_actions['bulk_acs_copy_to_bucket'] = __( 'Copy to Bucket', 'wp-arvancloud-storage' );
+			$bulk_actions['bulk_acs_copy'] = __( 'Copy to Bucket', 'wp-arvancloud-storage' );
 		}
 
 		return $bulk_actions;
@@ -349,16 +350,21 @@ class Wp_Arvancloud_Storage_Admin {
 
 	public function handle_bulk_actions_upload( $redirect, $do_action, $object_ids ) {
 
-		$redirect = remove_query_arg( 'bulk_acs_copy_to_bucket_done', $redirect );
+		$redirect = remove_query_arg( 'bulk_acs_copy_done', $redirect );
 
-		if ( $do_action == 'bulk_acs_copy_to_bucket' ) {
+		if ( $do_action == 'bulk_acs_copy' ) {
 			foreach ( $object_ids as $post_id ) {
-				$this->upload_media_to_storage( $post_id );
+				if( wp_attachment_is_image( $post_id ) ) {
+					$file = wp_get_attachment_metadata($post_id);
+					$this->upload_image_to_storage( $file );
+				} else {
+					$this->upload_media_to_storage( $post_id );
+				}
 			}
 	
 			// add query args to URL because we will show notices later
 			$redirect = add_query_arg(
-				'bulk_acs_copy_to_bucket_done', // just a parameter for URL ( we will use $_GET['acs_copy_to_bucket_done'] )
+				'bulk_acs_copy_done', // just a parameter for URL ( we will use $_GET['acs_copy_done'] )
 				count( $object_ids ), // parameter value - how much posts have been affected
 			$redirect );
 		}
@@ -770,42 +776,40 @@ class Wp_Arvancloud_Storage_Admin {
 	 * @return array
 	 */
 	function get_messages() {
-		if ( is_null( $this->messages ) ) {
-			$this->messages = array(
-				'copy'         => array(
-					'success' => __( 'Media successfully copied to bucket.', 'wp-arvancloud-storage' ),
-					'partial' => __( 'Media copied to bucket with some errors.', 'wp-arvancloud-storage' ),
-					'error'   => __( 'There were errors when copying the media to bucket.', 'wp-arvancloud-storage' ),
-				),
-				'remove'       => array(
-					'success' => __( 'Media successfully removed from bucket.', 'wp-arvancloud-storage' ),
-					'partial' => __( 'Media removed from bucket, with some errors.', 'wp-arvancloud-storage' ),
-					'error'   => __( 'There were errors when removing the media from bucket.', 'wp-arvancloud-storage' ),
-				),
-				'download'     => array(
-					'success' => __( 'Media successfully downloaded from bucket.', 'wp-arvancloud-storage' ),
-					'partial' => __( 'Media downloaded from bucket, with some errors.', 'wp-arvancloud-storage' ),
-					'error'   => __( 'There were errors when downloading the media from bucket.', 'wp-arvancloud-storage' ),
-				),
-				'private_acl'  => array(
-					'success' => __( 'Media successfully set as private in bucket.', 'wp-arvancloud-storage' ),
-					'partial' => __( 'Media set as private in bucket, with some errors.', 'wp-arvancloud-storage' ),
-					'error'   => __( 'There were errors when setting the media as private in bucket.', 'wp-arvancloud-storage' ),
-				),
-				'public_acl'   => array(
-					'success' => __( 'Media successfully set as public in bucket.', 'wp-arvancloud-storage' ),
-					'partial' => __( 'Media set as public in bucket, with some errors.', 'wp-arvancloud-storage' ),
-					'error'   => __( 'There were errors when setting the media as public in bucket.', 'wp-arvancloud-storage' ),
-				),
-				'remove_local' => array(
-					'success' => __( 'Media successfully removed from server.', 'wp-arvancloud-storage' ),
-					'partial' => __( 'Media removed from server, with some errors.', 'wp-arvancloud-storage' ),
-					'error'   => __( 'There were errors when removing the media from server.', 'wp-arvancloud-storage' ),
-				),
-			);
-		}
+		$messages = array(
+			'copy'         => array(
+				'success' => __( 'Media successfully copied to bucket.', 'wp-arvancloud-storage' ),
+				'partial' => __( 'Media copied to bucket with some errors.', 'wp-arvancloud-storage' ),
+				'error'   => __( 'There were errors when copying the media to bucket.', 'wp-arvancloud-storage' ),
+			),
+			'remove'       => array(
+				'success' => __( 'Media successfully removed from bucket.', 'wp-arvancloud-storage' ),
+				'partial' => __( 'Media removed from bucket, with some errors.', 'wp-arvancloud-storage' ),
+				'error'   => __( 'There were errors when removing the media from bucket.', 'wp-arvancloud-storage' ),
+			),
+			'download'     => array(
+				'success' => __( 'Media successfully downloaded from bucket.', 'wp-arvancloud-storage' ),
+				'partial' => __( 'Media downloaded from bucket, with some errors.', 'wp-arvancloud-storage' ),
+				'error'   => __( 'There were errors when downloading the media from bucket.', 'wp-arvancloud-storage' ),
+			),
+			'private_acl'  => array(
+				'success' => __( 'Media successfully set as private in bucket.', 'wp-arvancloud-storage' ),
+				'partial' => __( 'Media set as private in bucket, with some errors.', 'wp-arvancloud-storage' ),
+				'error'   => __( 'There were errors when setting the media as private in bucket.', 'wp-arvancloud-storage' ),
+			),
+			'public_acl'   => array(
+				'success' => __( 'Media successfully set as public in bucket.', 'wp-arvancloud-storage' ),
+				'partial' => __( 'Media set as public in bucket, with some errors.', 'wp-arvancloud-storage' ),
+				'error'   => __( 'There were errors when setting the media as public in bucket.', 'wp-arvancloud-storage' ),
+			),
+			'remove_local' => array(
+				'success' => __( 'Media successfully removed from server.', 'wp-arvancloud-storage' ),
+				'partial' => __( 'Media removed from server, with some errors.', 'wp-arvancloud-storage' ),
+				'error'   => __( 'There were errors when removing the media from server.', 'wp-arvancloud-storage' ),
+			),
+		);
 
-		return $this->messages;
+		return $messages;
 	}
 
 	/**
@@ -817,12 +821,15 @@ class Wp_Arvancloud_Storage_Admin {
 	 * @return string|bool
 	 */
 	function get_message( $action = 'copy', $type = 'success' ) {
+
 		$messages = $this->get_messages();
+
 		if ( isset( $messages[ $action ][ $type ] ) ) {
 			return $messages[ $action ][ $type ];
 		}
 
 		return false;
+
 	}
 
 	/**
@@ -856,26 +863,27 @@ class Wp_Arvancloud_Storage_Admin {
 		$uploaded_count = 0;
 
 		foreach ( $post_ids as $post_id ) {
+			$file = wp_get_attachment_metadata($post_id);
+
 			if ( $doing_bulk_action ) {
-				// if bulk action check the file exists
-				$files = get_post_meta( '_wp_attachment_metadata', $post_id, true );
 				// if the file doesn't exist locally we can't copy
-				if ( ! file_exists( $file ) ) {
+				if ( ! file_exists( get_attached_file($post_id) ) ) {
 					continue;
 				}
 			}
 
-			foreach( unserialize( $files ) as $file ) {
-				// Upload the attachment to S3
+			if( wp_attachment_is_image( $post_id ) ) {
+				$result = $this->upload_image_to_storage( $file );
+			} else {
 				$result = $this->upload_media_to_storage( $post_id );
-
-				if ( is_wp_error( $result ) ) {
-					$error_count++;
-					continue;
-				}
-
-				$uploaded_count++;
 			}
+
+			if ( is_wp_error( $result ) ) {
+				$error_count++;
+				continue;
+			}
+
+			$uploaded_count++;
 		}
 
 		$result = array(
