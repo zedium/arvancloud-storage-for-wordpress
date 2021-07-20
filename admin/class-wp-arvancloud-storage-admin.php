@@ -203,7 +203,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 			$file 	   = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
 			$file_size = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
-			
+
 			if( $file_size > 400 ) {
 				$uploader = new MultipartUploader( $client, $file, [
 					'bucket' => $bucket_name,
@@ -284,10 +284,10 @@ class Wp_Arvancloud_Storage_Admin {
 			]);
 			
 			if( wp_attachment_is_image( $id ) ) {
-				$args = wp_get_attachment_metadata($id);
+				$args = wp_get_attachment_metadata( $id );
 
 				//Check if Extra Size Image
-				if ( array_key_exists( "sizes", $args ) ) {
+				if ( $args && array_key_exists( "sizes", $args ) ) {
 					foreach ( $args['sizes'] as $list_file ) {
 						if ( $list_file['file'] != "" ) {
 							$client->deleteObject ([
@@ -321,6 +321,50 @@ class Wp_Arvancloud_Storage_Admin {
 
 		return $filtered_sources;
 
+	}
+
+	/**
+	 * Handles the upload of the attachment to provider when an attachment is updated using
+	 * the 'wp_update_attachment_metadata' filter
+	 *
+	 * @param array $data meta data for attachment
+	 * @param int   $post_id
+	 *
+	 * @return array
+	 * @throws Exception
+	 */
+	function wp_update_attachment_metadata( $data, $post_id ) {
+
+		if ( !get_bucket_name() ) {
+			return $data;
+		}
+
+		// Protect against updates of partially formed metadata since WordPress 5.3.
+		// Checks whether new upload currently has no subsizes recorded but is expected to have subsizes during upload,
+		// and if so, are any of its currently missing sizes part of the set.
+		if ( ! empty( $data ) && function_exists( 'wp_get_registered_image_subsizes' ) && function_exists( 'wp_get_missing_image_subsizes' ) ) {
+			if ( empty( $data['sizes'] ) && wp_attachment_is_image( $post_id ) ) {
+				// There is no unified way of checking whether subsizes are expected, so we have to duplicate WordPress code here.
+				$new_sizes     = wp_get_registered_image_subsizes();
+				$new_sizes     = apply_filters( 'intermediate_image_sizes_advanced', $new_sizes, $data, $post_id );
+				$missing_sizes = wp_get_missing_image_subsizes( $post_id );
+
+				if ( ! empty( $new_sizes ) && ! empty( $missing_sizes ) && array_intersect_key( $missing_sizes, $new_sizes ) ) {
+					return $data;
+				}
+			}
+		}
+		
+		$this->delete_media_from_storage( $post_id );
+
+		// upload attachment to bucket
+		$attachment_metadata = $this->upload_image_to_storage( $data );
+
+		if ( is_wp_error( $attachment_metadata ) || empty( $attachment_metadata ) || ! is_array( $attachment_metadata ) ) {
+			return $data;
+		}
+
+		return $attachment_metadata;
 	}
 
 	public function media_library_url_rewrite( $url ) {
