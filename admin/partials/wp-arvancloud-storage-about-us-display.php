@@ -1,5 +1,5 @@
 <div class="wrap">
-    <H1><?php echo __( 'About ArvanCloud Storage WordPress Plugin', 'wp-arvancloud-storage' ) ?></H1>
+    <H1><?php echo __( 'About ArvanCloud', 'wp-arvancloud-storage' ) ?></H1>
     <hr>
     <p>
         <?php 
