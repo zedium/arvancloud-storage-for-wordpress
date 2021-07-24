@@ -8,7 +8,7 @@
     }
     ?>
 
-    <H1><?php echo __( ACS_NAME . ' Settings', 'wp-arvancloud-storage' ) ?></H1>
+    <H1><?php echo __( 'Settings', 'wp-arvancloud-storage' ) ?></H1>
     <hr>
 
     <?php

@@ -77,6 +77,10 @@
 	font-weight: bold;
 }
 
+.rtl .acs-defined-in-config {
+	float: left;
+}
+
 .acs-back-btn {
 	font-size: 16px;
 	font-weight: bold;
@@ -96,7 +100,6 @@
 	overflow-y: auto;
 	background-color: #fff;
 	font-size: 14px;
-	text-align: center;
 	margin-bottom: 20px;
 	border-radius: 5px;
 }
@@ -130,6 +133,10 @@
 
 .bucket-actions span {
     float: right;
+}
+
+.rtl .bucket-actions span {
+    float: left;
 }
 
 .acs-footer {
@@ -183,6 +190,10 @@
     display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+}
+
+.rtl .footer__social-icons {
+	float: left;
 }
 
 .footer__social-icons__link {
