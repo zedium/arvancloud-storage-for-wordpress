@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: ArvanCloud Storage for WordPress 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/arvancloud-storage-"
 "for-wordpress\n"
-"POT-Creation-Date: 2021-07-24T19:12:06+00:00\n"
-"PO-Revision-Date: 2021-07-24 23:44+0430\n"
+"POT-Creation-Date: 2021-07-24T19:21:06+00:00\n"
+"PO-Revision-Date: 2021-07-24 23:59+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -275,12 +275,6 @@ msgstr "پشتیبانی"
 msgid "Email Us"
 msgstr "ارسال ایمیل"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:11
-#, fuzzy
-#| msgid "Settings"
-msgid " Settings"
-msgstr "تنظیمات"
-
 #: admin/partials/wp-arvancloud-storage-settings-display.php:17
 msgid "Configure Cloud Storage"
 msgstr "پیکربندی فضای ابری"
@@ -397,3 +391,8 @@ msgstr "ذخیره‌سازی تغییرات"
 #: wp-arvancloud-storage.php:35
 msgid "wp-arvancloud-storage"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Settings"
+#~ msgid " Settings"
+#~ msgstr "تنظیمات"
