@@ -98,7 +98,7 @@
     <?php
     } elseif( ! $bucket_selected || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-bucket' ) ) {
         ?>
-        <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-access-option' ) ?>"><?php echo __( "«&nbsp;Back", 'wp-arvancloud-storage' ) ?></a>
+        <a class="acs-back-btn" href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-access-option' ) ?>"><?php echo __( "«&nbsp;Back", 'wp-arvancloud-storage' ) ?></a>
         <h3><?php echo __( "Select bucket", 'wp-arvancloud-storage' ) ?></h3>
 
         <form class="arvancloud-storage-select-bucket-form" method="post">
@@ -139,16 +139,18 @@
         <?php
     } else {
         ?>
-        <div class="acs-bucket-list" style="text-align: center; margin-bottom: 20px">
-            <h4> <?php echo __( 'URL PREVIEW:', 'wp-arvancloud-storage' ) ?> </h4>
+        <div class="acs-bucket-list">
+            <h4> <?php echo __( 'URL PREVIEW', 'wp-arvancloud-storage' ) ?> </h4>
             <span><?php echo get_storage_url() ?></span>
         </div>
-        <span style="font-weight: bold"><?php echo __( 'Bucket: ', 'wp-arvancloud-storage' ) ?></span> <span><?php echo get_bucket_name() ?></span>
-        <a href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-bucket' ) ?>"><?php echo __( "Change", 'wp-arvancloud-storage' ) ?></a>
         
         <form method="post">
             <table class="form-table">
                 <tbody>
+                    <tr>
+                        <th><span><?php echo __( 'Bucket: ', 'wp-arvancloud-storage' ) ?></span></th>
+                        <td><span><?php echo get_bucket_name() ?></span> <a class="acs-change-btn" href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-bucket' ) ?>"><?php echo __( "Change Bucket", 'wp-arvancloud-storage' ) ?></a></td>
+                    </tr>
                     <tr>
                         <th scope="row"><?php echo __( "Path", 'wp-arvancloud-storage' ) ?></th>
                         <td>
@@ -156,7 +158,6 @@
                             <p class="description" id="tagline-description"><?php echo __( 'By default the path is the same as your local WordPress files.', 'wp-arvancloud-storage' ) ?></p>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
 
