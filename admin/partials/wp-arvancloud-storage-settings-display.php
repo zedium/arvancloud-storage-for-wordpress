@@ -158,6 +158,13 @@
                             <p class="description" id="tagline-description"><?php echo __( 'By default the path is the same as your local WordPress files.', 'wp-arvancloud-storage' ) ?></p>
                         </td>
                     </tr>
+                    <tr>
+                        <th scope="row"><?php echo __( "Keep local files", 'wp-arvancloud-storage' ) ?></th>
+                        <td>
+                            <input id="keep-local-files" type="checkbox" name="keep-local-files" value="1" class="regular-text">
+                            <p class="description" id="tagline-description"><?php echo __( 'Keep local files after uploading them to storage.', 'wp-arvancloud-storage' ) ?></p>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 

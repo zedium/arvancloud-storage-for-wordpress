@@ -204,6 +204,18 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 
 	}
+
+	public function save_plugin_settings() {
+		if( isset( $_POST['acs-settings'] ) ) {
+			$settings = [
+				'bucket-path' 	   => sanitize_text_field( $_POST['bucket-path'] ), 
+				'keep-local-files' => isset( $_POST['keep-local-files'] ) ?: false
+			];
+
+			update_option( 'acs_settings', $settings );
+		}
+
+	}
 	
 	public function upload_media_to_storage( $post_id ) {
 
@@ -212,8 +224,9 @@ class Wp_Arvancloud_Storage_Admin {
 
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
-			$file 	   = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
-			$file_size = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
+			$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
+			$file_size 	  = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
+			$acs_settings = unserialize( get_option( 'acs_settings' ) );
 
 			if( $file_size > 400 ) {
 				$uploader = new MultipartUploader( $client, $file, [
@@ -256,6 +269,9 @@ class Wp_Arvancloud_Storage_Admin {
 
 			is_numeric( $post_id ) ? update_post_meta( $post_id, 'arvancloud_storage', 1 ) : '';
 
+			if( is_numeric( $post_id ) && $acs_settings['keep-local-files'] ) {
+				wp_delete_attachment( $post_id );
+			}
 		}
 
 	}
