@@ -130,7 +130,7 @@ class Wp_Arvancloud_Storage_Admin {
 			__( 'Settings', 'wp-arvancloud-storage' ),
 			'manage_options',
 			ACS_SLUG,
-			__CLASS__ . '::settings_page',
+			__CLASS__ . '::settings_page'
 		);
 
 		add_submenu_page(
