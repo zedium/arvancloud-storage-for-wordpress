@@ -165,6 +165,12 @@ class Wp_Arvancloud_Storage_Admin {
 				$options[ 'access-key' ]   = sanitize_text_field( $_POST[ 'access-key' ] );
 				$options[ 'secret-key' ]   = sanitize_text_field( $_POST[ 'secret-key' ] );
 				$options[ 'endpoint-url' ] = sanitize_text_field( $_POST[ 'endpoint-url' ] );
+
+				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'wp-arvancloud-storage' ) === $_POST['secret-key'] ) {
+					$acs_settings_option = get_storage_settings();
+					$options[ 'secret-key' ] = $acs_settings_option['secret-key'];
+				}
+				
 			} else {
 				delete_option( 'arvan-cloud-storage-settings' );
 			}
@@ -269,7 +275,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 			is_numeric( $post_id ) ? update_post_meta( $post_id, 'arvancloud_storage', 1 ) : '';
 
-			if( is_numeric( $post_id ) && $acs_settings['keep-local-files'] ) {
+			if( is_numeric( $post_id ) && ! $acs_settings['keep-local-files'] ) {
 				wp_delete_attachment( $post_id );
 			}
 		}

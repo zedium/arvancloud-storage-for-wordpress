@@ -75,7 +75,7 @@
                                 <th scope="row"><?php echo __( "Secret Key", 'wp-arvancloud-storage' ) ?></th>
                                 <td>
                                     <div class="accordion-field-wrap">
-                                        <input type="text" name="secret-key" value="<?php echo $config_type == 'db' ? __( "-- not shown --", 'wp-arvancloud-storage' ) : '' ?>" autocomplete="off">
+                                        <input type="text" name="secret-key" value="<?php echo $config_type == 'db' && $acs_settings_option['secret-key'] != null? __( "-- not shown --", 'wp-arvancloud-storage' ) : '' ?>" autocomplete="off">
                                     </div>
                                 </td>
                             </tr>
