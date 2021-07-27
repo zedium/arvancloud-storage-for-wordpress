@@ -232,8 +232,6 @@ class Wp_Arvancloud_Storage_Admin {
 	public function upload_media_to_storage( $post_id ) {
 
 		if( $bucket_name = get_bucket_name() ) {
-			sleep( 2 ); // Delay execution
-
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
 			$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
@@ -291,8 +289,6 @@ class Wp_Arvancloud_Storage_Admin {
 	// Upload image sub sizes to bucket
 	public function upload_image_to_storage( $args ) {
 
-		sleep( 2 ); // Delay execution
-
 		$upload_dir = wp_upload_dir(); //Get wp upload dir
 		$path 		= str_replace( basename( $args['file'] ), "", $args['file'] );
 		$url	    = $upload_dir['baseurl'] . '/' . $args['file'];
@@ -318,8 +314,6 @@ class Wp_Arvancloud_Storage_Admin {
 	public function delete_media_from_storage( $id ) {
 		
 		if( ( $bucket_name = get_bucket_name() ) && $this->is_attachment_served_by_s3( $id ) ) {
-			sleep( 2 ); // Delay execution
-
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 			
 			$client->deleteObject ([
@@ -986,7 +980,7 @@ class Wp_Arvancloud_Storage_Admin {
 	}
 
 	public function add_edit_attachment_metabox( $post ) {
-		
+
 		if( !$this->is_attachment_served_by_s3( $_GET['post'], true ) ) {
 			add_meta_box(
 				'arvancloud-storage-metabox',
