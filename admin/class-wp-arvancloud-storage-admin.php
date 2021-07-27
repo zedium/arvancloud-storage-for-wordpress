@@ -219,6 +219,12 @@ class Wp_Arvancloud_Storage_Admin {
 			];
 
 			update_option( 'acs_settings', $settings );
+
+			add_action( 'admin_notices', function () {
+				echo '<div class="notice notice-success is-dismissible">
+						<p>'. __( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
+					</div>';
+			} );
 		}
 
 	}
@@ -980,14 +986,17 @@ class Wp_Arvancloud_Storage_Admin {
 	}
 
 	public function add_edit_attachment_metabox( $post ) {
-		add_meta_box(
-			'arvancloud-storage-metabox',
-			__( 'ArvanCloud Storage', 'wp-arvancloud-storage' ),
-			array( $this, 'render_edit_attachment_metabox' ),
-			'attachment',
-			'side',
-			'default'
-		);
+		
+		if( !$this->is_attachment_served_by_s3( $_GET['post'], true ) ) {
+			add_meta_box(
+				'arvancloud-storage-metabox',
+				__( 'ArvanCloud Storage', 'wp-arvancloud-storage' ),
+				array( $this, 'render_edit_attachment_metabox' ),
+				'attachment',
+				'side',
+				'default'
+			);
+		}
 
     }
 

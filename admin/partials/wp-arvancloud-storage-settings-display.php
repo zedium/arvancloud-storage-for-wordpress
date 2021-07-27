@@ -162,7 +162,7 @@
                         <th scope="row"><?php echo __( "Keep local files", 'wp-arvancloud-storage' ) ?></th>
                         <td>
                             <input id="keep-local-files" type="checkbox" name="keep-local-files" value="1" class="regular-text">
-                            <p class="description" id="tagline-description"><?php echo __( 'Keep local files after uploading them to storage.', 'wp-arvancloud-storage' ) ?></p>
+                            <label for="keep-local-files"><?php echo __( 'Keep local files after uploading them to storage.', 'wp-arvancloud-storage' ) ?></label>
                         </td>
                     </tr>
                 </tbody>
