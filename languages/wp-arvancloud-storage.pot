@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Khorshid
+# Copyright (C) 2021 Khorshid, ArvanCloud
 # This file is distributed under the same license as the ArvanCloud Storage for WordPress plugin.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-07-24T19:21:06+00:00\n"
+"POT-Creation-Date: 2021-07-27T12:36:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-arvancloud-storage\n"
@@ -19,20 +19,24 @@ msgid "ArvanCloud Storage for WordPress"
 msgstr ""
 
 #. Plugin URI of the plugin
+msgid "https://arvancloud.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Using ArvanCloud Storage Plugin you can offload, back up and upload your WordPress files and databases directly to your ArvanCloud object storage bucket. This easy-to-use plugin allows you to back up, restore and store your files simply and securely to a cost-effective, unlimited cloud storage. No need for expensive hosting services anymore."
+msgstr ""
+
+#. Author of the plugin
+msgid "Khorshid, ArvanCloud"
+msgstr ""
+
 #. Author URI of the plugin
 msgid "khorshidlab.com"
 msgstr ""
 
-#. Description of the plugin
-msgid "This is a short description of what the plugin does. It's displayed in the WordPress admin area."
-msgstr ""
-
-#. Author of the plugin
-msgid "Khorshid"
-msgstr ""
-
 #: admin/class-wp-arvancloud-storage-admin.php:129
 #: admin/class-wp-arvancloud-storage-admin.php:130
+#: admin/partials/wp-arvancloud-storage-settings-display.php:11
 msgid "Settings"
 msgstr ""
 
@@ -45,181 +49,186 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:177
+#: admin/class-wp-arvancloud-storage-admin.php:169
+#: admin/partials/wp-arvancloud-storage-settings-display.php:78
+msgid "-- not shown --"
+msgstr ""
+
+#: admin/class-wp-arvancloud-storage-admin.php:183
 msgid "Settings saved."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:194
+#: admin/class-wp-arvancloud-storage-admin.php:200
 msgid "Selected bucket saved."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:200
+#: admin/class-wp-arvancloud-storage-admin.php:206
 msgid "Saving selected bucket failed. Please try again or contact with admin."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:230
+#: admin/class-wp-arvancloud-storage-admin.php:249
 msgid "Upload complete:"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:404
-#: admin/class-wp-arvancloud-storage-admin.php:546
+#: admin/class-wp-arvancloud-storage-admin.php:426
+#: admin/class-wp-arvancloud-storage-admin.php:568
 msgid "Copy to Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:543
+#: admin/class-wp-arvancloud-storage-admin.php:565
 msgid "No"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:547
+#: admin/class-wp-arvancloud-storage-admin.php:569
 msgid "Remove from Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:548
+#: admin/class-wp-arvancloud-storage-admin.php:570
 msgid "Remove from Server"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:549
+#: admin/class-wp-arvancloud-storage-admin.php:571
 msgid "Copy to Server from Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:550
+#: admin/class-wp-arvancloud-storage-admin.php:572
 msgid "Make Private in Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:551
+#: admin/class-wp-arvancloud-storage-admin.php:573
 msgid "Make Public in Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:552
+#: admin/class-wp-arvancloud-storage-admin.php:574
 msgid "This file does not exist locally so removing it from the bucket will result in broken links on your site. Are you sure you want to continue?"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:553
+#: admin/class-wp-arvancloud-storage-admin.php:575
 msgid "Some files do not exist locally so removing them from the bucket will result in broken links on your site. Are you sure you want to continue?"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:554
+#: admin/class-wp-arvancloud-storage-admin.php:576
 msgid "Click to set as Private in the bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:555
+#: admin/class-wp-arvancloud-storage-admin.php:577
 msgid "Click to set as Public in the bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:556
+#: admin/class-wp-arvancloud-storage-admin.php:578
 msgid "Updating…"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:557
+#: admin/class-wp-arvancloud-storage-admin.php:579
 msgid "There was an error changing the ACL. Make sure the IAM user has permission to change the ACL and try again."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:558
+#: admin/class-wp-arvancloud-storage-admin.php:580
 msgctxt "Bucket name"
 msgid "Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:559
+#: admin/class-wp-arvancloud-storage-admin.php:581
 msgctxt "Path to file in bucket"
 msgid "Path"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:560
+#: admin/class-wp-arvancloud-storage-admin.php:582
 msgctxt "Location of bucket"
 msgid "Region"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:561
+#: admin/class-wp-arvancloud-storage-admin.php:583
 msgctxt "Access control list of the file in bucket"
 msgid "Access"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:562
+#: admin/class-wp-arvancloud-storage-admin.php:584
 msgid "URL"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:563
+#: admin/class-wp-arvancloud-storage-admin.php:585
 msgctxt "Whether or not metadata has been verified"
 msgid "Verified"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:824
+#: admin/class-wp-arvancloud-storage-admin.php:846
 msgid "Edit attachment"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:843
+#: admin/class-wp-arvancloud-storage-admin.php:865
 msgid "Media successfully copied to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:844
+#: admin/class-wp-arvancloud-storage-admin.php:866
 msgid "Media copied to bucket with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:845
+#: admin/class-wp-arvancloud-storage-admin.php:867
 msgid "There were errors when copying the media to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:848
+#: admin/class-wp-arvancloud-storage-admin.php:870
 msgid "Media successfully removed from bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:849
+#: admin/class-wp-arvancloud-storage-admin.php:871
 msgid "Media removed from bucket, with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:850
+#: admin/class-wp-arvancloud-storage-admin.php:872
 msgid "There were errors when removing the media from bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:853
+#: admin/class-wp-arvancloud-storage-admin.php:875
 msgid "Media successfully downloaded from bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:854
+#: admin/class-wp-arvancloud-storage-admin.php:876
 msgid "Media downloaded from bucket, with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:855
+#: admin/class-wp-arvancloud-storage-admin.php:877
 msgid "There were errors when downloading the media from bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:858
+#: admin/class-wp-arvancloud-storage-admin.php:880
 msgid "Media successfully set as private in bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:859
+#: admin/class-wp-arvancloud-storage-admin.php:881
 msgid "Media set as private in bucket, with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:860
+#: admin/class-wp-arvancloud-storage-admin.php:882
 msgid "There were errors when setting the media as private in bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:863
+#: admin/class-wp-arvancloud-storage-admin.php:885
 msgid "Media successfully set as public in bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:864
+#: admin/class-wp-arvancloud-storage-admin.php:886
 msgid "Media set as public in bucket, with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:865
+#: admin/class-wp-arvancloud-storage-admin.php:887
 msgid "There were errors when setting the media as public in bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:868
+#: admin/class-wp-arvancloud-storage-admin.php:890
 msgid "Media successfully removed from server."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:869
+#: admin/class-wp-arvancloud-storage-admin.php:891
 msgid "Media removed from server, with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:870
+#: admin/class-wp-arvancloud-storage-admin.php:892
 msgid "There were errors when removing the media from server."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:963
+#: admin/class-wp-arvancloud-storage-admin.php:985
 #: wp-arvancloud-storage.php:34
 msgid "ArvanCloud Storage"
 msgstr ""
@@ -276,10 +285,6 @@ msgstr ""
 msgid "Secret Key"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:78
-msgid "-- not shown --"
-msgstr ""
-
 #: admin/partials/wp-arvancloud-storage-settings-display.php:84
 msgid "Endpoint URL"
 msgstr ""
@@ -328,7 +333,15 @@ msgstr ""
 msgid "By default the path is the same as your local WordPress files."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:164
+#: admin/partials/wp-arvancloud-storage-settings-display.php:162
+msgid "Keep local files"
+msgstr ""
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:165
+msgid "Keep local files after uploading them to storage."
+msgstr ""
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:171
 msgid "Save Changes"
 msgstr ""
 
