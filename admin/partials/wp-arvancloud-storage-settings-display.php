@@ -5,6 +5,7 @@
         $snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
         $db_defined          = $config_type == 'db' && isset( $acs_settings_option['access-key'] ) && isset( $acs_settings_option['secret-key'] ) && isset( $acs_settings_option['endpoint-url'] ) ? true : false;
         $bucket_selected     = get_bucket_name();
+        $acs_settings	     = get_option( 'acs_settings', true );
     }
     ?>
 
@@ -161,7 +162,7 @@
                     <tr>
                         <th scope="row"><?php echo __( "Keep local files", 'wp-arvancloud-storage' ) ?></th>
                         <td>
-                            <input id="keep-local-files" type="checkbox" name="keep-local-files" value="1" class="regular-text">
+                            <input id="keep-local-files" type="checkbox" name="keep-local-files" value="1" <?php echo $acs_settings['keep-local-files'] ? 'checked' : '' ?> class="regular-text">
                             <label for="keep-local-files"><?php echo __( 'Keep local files after uploading them to storage.', 'wp-arvancloud-storage' ) ?></label>
                         </td>
                     </tr>
