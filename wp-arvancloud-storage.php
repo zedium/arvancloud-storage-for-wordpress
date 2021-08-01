@@ -18,7 +18,7 @@
  * Description:       Using ArvanCloud Storage Plugin you can offload, back up and upload your WordPress files and databases directly to your ArvanCloud object storage bucket. This easy-to-use plugin allows you to back up, restore and store your files simply and securely to a cost-effective, unlimited cloud storage. No need for expensive hosting services anymore.
  * Version:           1.0.0
  * Author:            Khorshid, ArvanCloud
- * Author URI:        khorshidlab.com
+ * Author URI:        https://arvancloud.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wp-arvancloud-storage
