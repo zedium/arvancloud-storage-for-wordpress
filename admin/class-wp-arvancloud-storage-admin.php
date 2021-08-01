@@ -216,7 +216,6 @@ class Wp_Arvancloud_Storage_Admin {
 	public function save_plugin_settings() {
 		if( isset( $_POST['acs-settings'] ) ) {
 			$settings = [
-				'bucket-path' 	   => sanitize_text_field( $_POST['bucket-path'] ), 
 				'keep-local-files' => isset( $_POST['keep-local-files'] ) ?: false
 			];
 
@@ -323,7 +322,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 	public function delete_media_from_storage( $id ) {
 		
-		if( ( $_POST['action'] == 'delete-post' && $this->bucket_name ) && $this->is_attachment_served_by_s3( $id ) ) {
+		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'delete-post' ) && $this->bucket_name && $this->is_attachment_served_by_s3( $id ) ) {
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 			
 			$client->deleteObject ([
@@ -383,7 +382,7 @@ class Wp_Arvancloud_Storage_Admin {
 	 */
 	function wp_update_attachment_metadata( $data, $post_id ) {
 
-		if ( ! $this->bucket_name || $_POST['action'] == 'upload-attachment' ) {
+		if ( ! $this->bucket_name || ( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' ) ) {
 			return $data;
 		}
 
