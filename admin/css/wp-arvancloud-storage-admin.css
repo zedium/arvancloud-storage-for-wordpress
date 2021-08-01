@@ -164,6 +164,7 @@
 .acs-footer-links ul li a {
     color: #7ce8dd;
     opacity: .6;
+	text-decoration: none !important;
 }
 
 .acs-footer-links ul li a:hover {
