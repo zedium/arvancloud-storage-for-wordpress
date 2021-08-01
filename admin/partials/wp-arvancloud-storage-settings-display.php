@@ -153,13 +153,6 @@
                         <td><span><?php echo get_bucket_name() ?></span> <a class="acs-change-btn" href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-bucket' ) ?>"><?php echo __( "Change Bucket", 'wp-arvancloud-storage' ) ?></a></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php echo __( "Path", 'wp-arvancloud-storage' ) ?></th>
-                        <td>
-                            <input id="bucket-path" type="text" name="bucket-path" value="" class="regular-text">
-                            <p class="description" id="tagline-description"><?php echo __( 'By default the path is the same as your local WordPress files.', 'wp-arvancloud-storage' ) ?></p>
-                        </td>
-                    </tr>
-                    <tr>
                         <th scope="row"><?php echo __( "Keep local files", 'wp-arvancloud-storage' ) ?></th>
                         <td>
                             <input id="keep-local-files" type="checkbox" name="keep-local-files" value="1" <?php echo $acs_settings['keep-local-files'] ? 'checked' : '' ?> class="regular-text">
