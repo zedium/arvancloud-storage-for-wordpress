@@ -232,7 +232,11 @@ class Wp_Arvancloud_Storage_Admin {
 	
 	public function upload_media_to_storage( $post_id ) {
 
-		if( $this->bucket_name && !wp_attachment_is_image() ) {
+		if( !$this->bucket_name ) {
+			return;
+		}
+
+		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' && !wp_attachment_is_image( $post_id ) ) ) {
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
 			$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
@@ -277,10 +281,12 @@ class Wp_Arvancloud_Storage_Admin {
 				}	
 			}
 
-			is_numeric( $post_id ) ? update_post_meta( $post_id, 'arvancloud_storage', 1 ) : '';
+			if( is_numeric( $post_id ) ) {
+				update_post_meta( $post_id, 'arvancloud_storage', 1 );
 
-			if( !$this->acs_settings['keep-local-files'] ) {
-				unlink( $file );
+				if( !$this->acs_settings['keep-local-files'] ) {
+					unlink( $file );
+				}
 			}
 		}
 
@@ -288,7 +294,6 @@ class Wp_Arvancloud_Storage_Admin {
 
 	// Upload image sub sizes to bucket
 	public function upload_image_to_storage( $args ) {
-
 		$upload_dir = wp_upload_dir(); //Get wp upload dir
 		$basename	= basename( $args['file'] );
 		$path 		= str_replace( $basename, "", $args['file'] );
@@ -303,10 +308,12 @@ class Wp_Arvancloud_Storage_Admin {
 		if( array_key_exists( "sizes", $args ) ) {
 			foreach ( $args['sizes'] as $sub_size ) {
 				if ( $sub_size['file'] != "" ) {
-					$this->upload_media_to_storage( $upload_dir['basedir'] . '/' . $path . $sub_size['file'] );
+					$file = $upload_dir['basedir'] . '/' . $path . $sub_size['file'];
+
+					$this->upload_media_to_storage( $file );
 
 					if( !$this->acs_settings['keep-local-files'] ) {
-						unlink( $upload_dir['basedir'] . '/' . $path . $sub_size['file'] );
+						unlink( $file );
 					}
 				}
 			}
@@ -322,7 +329,11 @@ class Wp_Arvancloud_Storage_Admin {
 
 	public function delete_media_from_storage( $id ) {
 		
-		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'delete-post' ) && $this->bucket_name && $this->is_attachment_served_by_s3( $id ) ) {
+		if( !$this->bucket_name ) {
+			return;
+		}
+
+		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'delete-post' ) && $this->is_attachment_served_by_s3( $id ) ) {
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 			
 			$client->deleteObject ([
@@ -968,7 +979,7 @@ class Wp_Arvancloud_Storage_Admin {
 			if( wp_attachment_is_image( $post_id ) ) {
 				$result = $this->upload_image_to_storage( $file );
 			} else {
-				$result = $this->upload_media_to_storage( $post_id );
+				$result = $this->upload_media_to_storage( $post_id, true );
 			}
 
 			if ( is_wp_error( $result ) ) {
