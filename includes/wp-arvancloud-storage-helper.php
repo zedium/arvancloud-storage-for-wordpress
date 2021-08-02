@@ -24,7 +24,7 @@ function get_storage_settings() {
 
 function get_bucket_name() {
 
-    $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', true );
+    $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', false );
 
     return $bucket_name;
 

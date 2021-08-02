@@ -3,7 +3,7 @@
     if( $acs_settings_option = get_storage_settings() ) {
         $config_type         = $acs_settings_option['config-type'];
         $snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
-        $db_defined          = $config_type == 'db' && isset( $acs_settings_option['access-key'] ) && isset( $acs_settings_option['secret-key'] ) && isset( $acs_settings_option['endpoint-url'] ) ? true : false;
+        $db_defined          = $config_type == 'db' && ! empty( $acs_settings_option['access-key'] ) && ! empty( $acs_settings_option['secret-key'] ) && ! empty( $acs_settings_option['endpoint-url'] ) ? true : false;
         $bucket_selected     = get_bucket_name();
         $acs_settings	     = get_option( 'acs_settings', true );
     }
@@ -114,7 +114,7 @@
                     if( count($buckets) == 0 ) {
                         echo __( "You have not any bucket in ArvanCloud, please create a bucket in ArvanCloud storage panel then refresh this page!", 'wp-arvancloud-storage' );
                     } else {
-                        $selected_bucket = get_option( 'arvan-cloud-storage-bucket-name', true );
+                        $selected_bucket = get_option( 'arvan-cloud-storage-bucket-name', false );
     
                         foreach ( $buckets as $bucket ) {
                             $selected      = $selected_bucket == $bucket['Name'] ? 'selected' : '';

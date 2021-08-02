@@ -172,9 +172,6 @@ class Wp_Arvancloud_Storage_Admin {
 				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'wp-arvancloud-storage' ) === $_POST['secret-key'] ) {
 					$options[ 'secret-key' ] = $this->storage_settings['secret-key'];
 				}
-				
-			} else {
-				delete_option( 'arvan-cloud-storage-settings' );
 			}
 
 			$save_settings = update_option( 'arvan-cloud-storage-settings', serialize( $options ) );
