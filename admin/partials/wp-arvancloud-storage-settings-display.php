@@ -46,11 +46,11 @@
                         
                         ?>
                         <textarea rows="5" class="as3cf-define-snippet code clear" readonly="">
-    define( 'ARVANCLOUD_STORAGE_SETTINGS', serialize( array(
-        'access-key' =&gt; '********************',
-        'secret-key' =&gt; '**************************************',
-        'endpoint-url' =&gt; '*********************',
-    ) ) );
+define( 'ARVANCLOUD_STORAGE_SETTINGS', serialize( array(
+    'access-key' =&gt; '********************',
+    'secret-key' =&gt; '**************************************',
+    'endpoint-url' =&gt; '*********************',
+) ) );
                         </textarea>
                         <?php
                         }

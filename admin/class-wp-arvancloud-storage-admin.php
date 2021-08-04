@@ -177,6 +177,8 @@ class Wp_Arvancloud_Storage_Admin {
 			$save_settings = update_option( 'arvan-cloud-storage-settings', serialize( $options ) );
 
 			if( $save_settings ) {
+				delete_option( 'arvan-cloud-storage-bucket-name' );
+				
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-success is-dismissible">
 							<p>'. __( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
@@ -233,7 +235,13 @@ class Wp_Arvancloud_Storage_Admin {
 			return;
 		}
 
-		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' && !wp_attachment_is_image( $post_id ) ) ) {
+		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' ) || 
+			$_SERVER['REQUEST_URI'] == '/wp-admin/async-upload.php' ||
+			strpos( $_SERVER['REQUEST_URI'], 'media' ) !== false ||
+			$_POST['html-upload'] == 'Upload' && 
+			!wp_attachment_is_image( $post_id )
+		) {
+
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
 			$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
@@ -275,7 +283,7 @@ class Wp_Arvancloud_Storage_Admin {
 								<p>'. $e->getMessage() .'</p>
 							</div>';
 					} );
-				}	
+				}
 			}
 
 			if( is_numeric( $post_id ) ) {
