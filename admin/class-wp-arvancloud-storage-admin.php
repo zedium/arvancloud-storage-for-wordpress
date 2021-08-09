@@ -192,7 +192,6 @@ class Wp_Arvancloud_Storage_Admin {
 	public function store_selected_bucket_in_db() {
 
 		if( isset( $_POST['acs-bucket-select-name'] ) ) {
-			
 			$save_bucket = update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
 
 			if( $save_bucket ) {
@@ -201,6 +200,9 @@ class Wp_Arvancloud_Storage_Admin {
 							<p>'. __( "Selected bucket saved.", 'wp-arvancloud-storage' ) .'</p>
 						</div>';
 				} );
+
+				wp_redirect( admin_url( '?page=wp-arvancloud-storage' ) ); 
+				die;
 			} else {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-error is-dismissible">
