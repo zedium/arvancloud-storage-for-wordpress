@@ -117,9 +117,8 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', serialize( array(
                         $selected_bucket = get_option( 'arvan-cloud-storage-bucket-name', false );
     
                         foreach ( $buckets as $bucket ) {
-                            $selected      = $selected_bucket == $bucket['Name'] ? 'selected' : '';
-                            $selected_icon = $selected_bucket == $bucket['Name'] ? '<span class="dashicons dashicons-yes-alt"></span>' : '';
-                            echo '<li class="'. $selected .'">' . $selected_icon . ' ' . $bucket['Name'] . '</li>';
+                            $selected = $selected_bucket == $bucket['Name'] ? 'checked="checked"' : '';
+                            echo '<label for="' . $bucket['Name'] . '"><input id="' . $bucket['Name'] . '" name="acs-bucket-select-name" type="radio" class="no-compare" value="' . $bucket['Name'] . '"' . $selected . '>'. $bucket['Name'] .'</label>';
                         }
                     }
                 } catch ( Exception $e ) {
@@ -127,13 +126,8 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', serialize( array(
                 }
                 ?>
             </ul>
-            <?php if( ! isset( $e ) ) {
-               echo '<input id="acs-bucket-select-name" name="acs-bucket-select-name" type="hidden" class="no-compare" name="bucket_name" value="">';
-            }
-            ?>
             <p class="bucket-actions actions select">
                 <button id="acs-bucket-select-save" type="submit" class="bucket-action-save button button-primary" <?php echo isset( $e ) ? 'disabled' : '' ?>><?php _e( 'Save Selected Bucket', 'wp-arvancloud-storage' ); ?></button>
-                <span><a href="#" class="acs-bucket-action-refresh"><i class="dashicons dashicons-update"></i> <?php _e( 'Refresh', 'wp-arvancloud-storage' ); ?></a></span>
             </p>
         </form>
 
