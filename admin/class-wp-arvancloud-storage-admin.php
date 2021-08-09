@@ -229,70 +229,73 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 	
-	public function upload_media_to_storage( $post_id ) {
+	public function upload_media_to_storage( $post_id, $force_upload = false ) {
 
 		if( !$this->bucket_name ) {
 			return;
 		}
 
-		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' ) || 
-			$_SERVER['REQUEST_URI'] == '/wp-admin/async-upload.php' ||
-			strpos( $_SERVER['REQUEST_URI'], 'media' ) !== false ||
-			$_POST['html-upload'] == 'Upload' && 
-			!wp_attachment_is_image( $post_id )
-		) {
+		if( $force_upload || ( is_numeric( $post_id ) && !wp_attachment_is_image( $post_id ) ) ) {
+			
+			if(  
+				( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' ) || 
+				$_SERVER['REQUEST_URI'] == '/wp-admin/async-upload.php' ||
+				strpos( $_SERVER['REQUEST_URI'], 'media' ) !== false ||
+				$_POST['html-upload'] == 'Upload'
+			) {
+				require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
-			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
-
-			$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
-			$file_size 	  = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
-
-			if( $file_size > 400 ) {
-				$uploader = new MultipartUploader( $client, $file, [
-					'bucket' => $this->bucket_name,
-					'key'    => basename( $file ),
-					'ACL' 	 => 'public-read', // or private
-				]);
-
-				try {
-					$result = $uploader->upload();
-
-					add_action( 'admin_notices', function () use( $result ) {
-						echo '<div class="notice notice-success is-dismissible">
-								<p>'. __( "Upload complete:" . $result['ObjectURL'], 'wp-arvancloud-storage' ) .'</p>
-							</div>';
-					} );
-				} catch ( Exception $e ) {
-					add_action( 'admin_notices', function () use( $e ) {
-						echo '<div class="notice notice-error is-dismissible">
-								<p>'. $e->getMessage() .'</p>
-							</div>';
-					} );
-				}
-			} else {
-				try {
-					$client->putObject([
-						'Bucket' 	 => $this->bucket_name,
-						'Key' 		 => basename( $file ),
-						'SourceFile' => $file,
-						'ACL' 		 => 'public-read', // or private
+				$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
+				$file_size 	  = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
+	
+				if( $file_size > 400 ) {
+					$uploader = new MultipartUploader( $client, $file, [
+						'bucket' => $this->bucket_name,
+						'key'    => basename( $file ),
+						'ACL' 	 => 'public-read', // or private
 					]);
-				} catch ( Exception $e ) {
-					add_action( 'admin_notices', function () use( $e ) {
-						echo '<div class="notice notice-error is-dismissible">
-								<p>'. $e->getMessage() .'</p>
-							</div>';
-					} );
+	
+					try {
+						$result = $uploader->upload();
+	
+						add_action( 'admin_notices', function () use( $result ) {
+							echo '<div class="notice notice-success is-dismissible">
+									<p>'. __( "Upload complete:" . $result['ObjectURL'], 'wp-arvancloud-storage' ) .'</p>
+								</div>';
+						} );
+					} catch ( Exception $e ) {
+						add_action( 'admin_notices', function () use( $e ) {
+							echo '<div class="notice notice-error is-dismissible">
+									<p>'. $e->getMessage() .'</p>
+								</div>';
+						} );
+					}
+				} else {
+					try {
+						$client->putObject([
+							'Bucket' 	 => $this->bucket_name,
+							'Key' 		 => basename( $file ),
+							'SourceFile' => $file,
+							'ACL' 		 => 'public-read', // or private
+						]);
+					} catch ( Exception $e ) {
+						add_action( 'admin_notices', function () use( $e ) {
+							echo '<div class="notice notice-error is-dismissible">
+									<p>'. $e->getMessage() .'</p>
+								</div>';
+						} );
+					}
+				}
+	
+				if( is_numeric( $post_id ) ) {
+					update_post_meta( $post_id, 'arvancloud_storage', 1 );
+	
+					if( !$this->acs_settings['keep-local-files'] && !wp_attachment_is_image( $post_id ) ) {
+						unlink( $file );
+					}
 				}
 			}
-
-			if( is_numeric( $post_id ) ) {
-				update_post_meta( $post_id, 'arvancloud_storage', 1 );
-
-				if( !$this->acs_settings['keep-local-files'] ) {
-					unlink( $file );
-				}
-			}
+			
 		}
 
 	}
@@ -305,7 +308,7 @@ class Wp_Arvancloud_Storage_Admin {
 		$url	    = $upload_dir['baseurl'] . '/' . $args['file'];
 		$post_id	= attachment_url_to_postid($url);
 
-		$this->upload_media_to_storage( $upload_dir['basedir'] . '/' . $args['file'] );
+		$this->upload_media_to_storage( $upload_dir['basedir'] . '/' . $args['file'], true );
 
 		update_post_meta( $post_id, 'arvancloud_storage', 1 );
 
@@ -315,7 +318,7 @@ class Wp_Arvancloud_Storage_Admin {
 				if ( $sub_size['file'] != "" ) {
 					$file = $upload_dir['basedir'] . '/' . $path . $sub_size['file'];
 
-					$this->upload_media_to_storage( $file );
+					$this->upload_media_to_storage( $file, true );
 
 					if( !$this->acs_settings['keep-local-files'] ) {
 						unlink( $file );
@@ -984,7 +987,7 @@ class Wp_Arvancloud_Storage_Admin {
 			if( wp_attachment_is_image( $post_id ) ) {
 				$result = $this->upload_image_to_storage( $file );
 			} else {
-				$result = $this->upload_media_to_storage( $post_id, true );
+				$result = $this->upload_media_to_storage( $post_id );
 			}
 
 			if ( is_wp_error( $result ) ) {
