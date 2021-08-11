@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       khorshidlab.com
- * @since      0.1.0
+ * @since      0.2.0
  *
  * @package    Wp_Arvancloud_Storage
  * @subpackage Wp_Arvancloud_Storage/admin
@@ -114,6 +114,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 	/**
      * Register submenu
+	 * 
      * @return void
      */
     public function setup_admin_menu() {
@@ -146,19 +147,34 @@ class Wp_Arvancloud_Storage_Admin {
 		);
 
     }
-
+	
+	/**
+	 * settings_page
+	 *
+	 * @return void
+	 */
 	public static function settings_page() {
 
 		require_once( 'partials/wp-arvancloud-storage-settings-display.php' );
 
     }
-
+	
+	/**
+	 * about_us_page
+	 *
+	 * @return void
+	 */
 	public static function about_us_page() {
 
 		require_once( 'partials/wp-arvancloud-storage-about-us-display.php' );
 
     }
 
+	/**
+	 * Sets the access control system and saves it to an option after serialization
+	 *
+	 * @return void
+	 */
 	public function config_access_keys() {
 
 		if( isset( $_POST['config-cloud-storage'] ) ) {
@@ -181,7 +197,7 @@ class Wp_Arvancloud_Storage_Admin {
 				
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-success is-dismissible">
-							<p>'. __( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
+							<p>'. esc_html__( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
 						</div>';
 				} );
 			}
@@ -189,24 +205,23 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	/**
+	 * Saves selected bucket into database options table
+	 *
+	 * @return void
+	 */
 	public function store_selected_bucket_in_db() {
 
 		if( isset( $_POST['acs-bucket-select-name'] ) ) {
 			$save_bucket = update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
 
 			if( $save_bucket ) {
-				add_action( 'admin_notices', function () {
-					echo '<div class="notice notice-success is-dismissible">
-							<p>'. __( "Selected bucket saved.", 'wp-arvancloud-storage' ) .'</p>
-						</div>';
-				} );
-
-				wp_redirect( admin_url( '?page=wp-arvancloud-storage' ) ); 
-				die;
+				wp_redirect( add_query_arg( array( 'notice' => 'selected-bucket-saved' ), wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) ) ) ); 
+				exit;
 			} else {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-error is-dismissible">
-							<p>'. __( "Saving selected bucket failed. Please try again or contact with admin.", 'wp-arvancloud-storage' ) .'</p>
+							<p>'. esc_html__( "Saving selected bucket failed. Please try again or contact with admin.", 'wp-arvancloud-storage' ) .'</p>
 						</div>';
 				} );
 			}
@@ -214,23 +229,44 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	/**
+	 * Saves plugin settings into database options table
+	 *
+	 * @return void
+	 */
 	public function save_plugin_settings() {
 		if( isset( $_POST['acs-settings'] ) ) {
 			$settings = [
 				'keep-local-files' => isset( $_POST['keep-local-files'] ) ?: false
 			];
 
-			update_option( 'acs_settings', $settings );
+			$save_settings = update_option( 'acs_settings', $settings );
 
-			add_action( 'admin_notices', function () {
-				echo '<div class="notice notice-success is-dismissible">
-						<p>'. __( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
-					</div>';
-			} );
+			if( $save_settings ) {
+				add_action( 'admin_notices', function () {
+					echo '<div class="notice notice-success is-dismissible">
+							<p>'. esc_html__( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
+						</div>';
+				} );
+			} else {
+				add_action( 'admin_notices', function () {
+					echo '<div class="notice notice-error is-dismissible">
+							<p>'. esc_html__( "Saving plugin settings failed. Please try again or contact with admin.", 'wp-arvancloud-storage' ) .'</p>
+						</div>';
+				} );
+			}
+			
 		}
 
 	}
 	
+	/**
+	 * Uploads media file to the storage bucket
+	 *
+	 * @param mixed $post_id 
+	 * @param bool $force_upload Skips upload images by default
+	 * @return void
+	 */
 	public function upload_media_to_storage( $post_id, $force_upload = false ) {
 
 		if( !$this->bucket_name ) {
@@ -248,7 +284,7 @@ class Wp_Arvancloud_Storage_Admin {
 				require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 
 				$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
-				$file_size 	  = number_format( filesize( $file ) / 1048576, 2 ); // Get file size in MB
+				$file_size 	  = number_format( filesize( $file ) / 1048576, 2 ); // File size in MB
 	
 				if( $file_size > 400 ) {
 					$uploader = new MultipartUploader( $client, $file, [
@@ -262,7 +298,7 @@ class Wp_Arvancloud_Storage_Admin {
 	
 						add_action( 'admin_notices', function () use( $result ) {
 							echo '<div class="notice notice-success is-dismissible">
-									<p>'. __( "Upload complete:" . $result['ObjectURL'], 'wp-arvancloud-storage' ) .'</p>
+									<p>'. esc_html__( "Upload complete:" . $result['ObjectURL'], 'wp-arvancloud-storage' ) .'</p>
 								</div>';
 						} );
 					} catch ( Exception $e ) {
@@ -302,7 +338,12 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
-	// Upload image sub sizes to bucket
+	/**
+	 * Uploads images and its sub sizes to the storage bucket
+	 * 
+	 * @param mixed $args 
+	 * @return void
+	 */
 	public function upload_image_to_storage( $args ) {
 		$upload_dir = wp_upload_dir(); //Get wp upload dir
 		$basename	= basename( $args['file'] );
@@ -327,16 +368,22 @@ class Wp_Arvancloud_Storage_Admin {
 					}
 				}
 			}
-		}
-
-		if( !$this->acs_settings['keep-local-files'] ) {
-			unlink( $upload_dir['basedir'] . '/' . $args['file'] );
+		} else {
+			if( !$this->acs_settings['keep-local-files'] ) {
+				unlink( $upload_dir['basedir'] . '/' . $args['file'] );
+			}
 		}
 
 		return $args;
 
 	}
 
+	/**
+	 * Deletes media from the storage bucket
+	 *
+	 * @param mixed $id 
+	 * @return void
+	 */
 	public function delete_media_from_storage( $id ) {
 		
 		if( !$this->bucket_name ) {
@@ -369,6 +416,16 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 	}
 
+	/**
+	 * Calculates image srcset
+	 *
+	 * @param mixed $sources 
+	 * @param mixed $size_array 
+	 * @param mixed $image_src 
+	 * @param mixed $image_meta 
+	 * @param mixed $attachment_id 
+	 * @return void
+	 */
 	public function calculate_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
 
 		$base_upload      = wp_upload_dir();
@@ -435,6 +492,12 @@ class Wp_Arvancloud_Storage_Admin {
 		return $attachment_metadata;
 	}
 
+	/**
+	 * Rewirtes media library url to the storage url
+	 *
+	 * @param mixed $url 
+	 * @return void
+	 */
 	public function media_library_url_rewrite( $url ) {
 
 		$post_id = attachment_url_to_postid( $url );
@@ -450,6 +513,12 @@ class Wp_Arvancloud_Storage_Admin {
 		
 	}
 
+	/**
+	 * Bulk actions upload
+	 *
+	 * @param mixed $bulk_actions 
+	 * @return void
+	 */
 	public function bulk_actions_upload( $bulk_actions ) {
 
 		if( $this->bucket_name ) {
@@ -460,6 +529,14 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	/**
+	 * Handles bulk actions upload
+	 *
+	 * @param mixed $redirect 
+	 * @param mixed $do_action 
+	 * @param mixed $object_ids 
+	 * @return void
+	 */
 	public function handle_bulk_actions_upload( $redirect, $do_action, $object_ids ) {
 
 		$redirect = remove_query_arg( 'bulk_acs_copy_done', $redirect );
@@ -487,6 +564,11 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	/**
+	 * ajax_get_attachment_provider_details
+	 *
+	 * @return void
+	 */
 	public function ajax_get_attachment_provider_details() {
 		
 		if ( ! isset( $_POST['id'] ) ) {
@@ -596,23 +678,6 @@ class Wp_Arvancloud_Storage_Admin {
 
 		$strings = apply_filters( 'acs_media_action_strings', array(
 			'copy'               => __( 'Copy to Bucket', 'wp-arvancloud-storage' ),
-			'remove'             => __( 'Remove from Bucket', 'wp-arvancloud-storage' ),
-			'remove_local'       => __( 'Remove from Server', 'wp-arvancloud-storage' ),
-			'download'         	 => __( 'Copy to Server from Bucket', 'wp-arvancloud-storage' ),
-			'private_acl'        => __( 'Make Private in Bucket', 'wp-arvancloud-storage' ),
-			'public_acl'         => __( 'Make Public in Bucket', 'wp-arvancloud-storage' ),
-			'local_warning'      => __( 'This file does not exist locally so removing it from the bucket will result in broken links on your site. Are you sure you want to continue?', 'wp-arvancloud-storage' ),
-			'bulk_local_warning' => __( 'Some files do not exist locally so removing them from the bucket will result in broken links on your site. Are you sure you want to continue?', 'wp-arvancloud-storage' ),
-			'change_to_private'  => __( 'Click to set as Private in the bucket', 'wp-arvancloud-storage' ),
-			'change_to_public'   => __( 'Click to set as Public in the bucket', 'wp-arvancloud-storage' ),
-			'updating_acl'       => __( 'Updating…', 'wp-arvancloud-storage' ),
-			'change_acl_error'   => __( 'There was an error changing the ACL. Make sure the IAM user has permission to change the ACL and try again.', 'wp-arvancloud-storage' ),
-			'bucket'        	 => _x( 'Bucket', 'Bucket name', 'wp-arvancloud-storage' ),
-			'key'           	 => _x( 'Path', 'Path to file in bucket', 'wp-arvancloud-storage' ),
-			'region'        	 => _x( 'Region', 'Location of bucket', 'wp-arvancloud-storage' ),
-			'acl'           	 => _x( 'Access', 'Access control list of the file in bucket', 'wp-arvancloud-storage' ),
-			'url'           	 => __( 'URL', 'wp-arvancloud-storage' ),
-			'is_verified'   	 => _x( 'Verified', 'Whether or not metadata has been verified', 'wp-arvancloud-storage' ),
 			'not_verified'  	 => $not_verified_value,
 		) );
 
@@ -635,13 +700,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 		$actions = array();
 
-		$actions['copy']         = array( 'singular', 'bulk' );
-		$actions['download']     = array( 'singular', 'bulk' );
-		$actions['update_acl']   = array( 'singular' );
-		$actions['private_acl']  = array( 'singular', 'bulk' );
-		$actions['public_acl']   = array( 'singular', 'bulk' );
-		$actions['remove_local'] = array( 'singular', 'bulk' );
-		$actions['remove'] 		 = array( 'singular', 'bulk' );
+		$actions['copy'] = array( 'singular', 'bulk' );
 
 		if ( $scope ) {
 			$in_scope = array_filter( $actions, function ( $scopes ) use ( $scope ) {
@@ -681,6 +740,8 @@ class Wp_Arvancloud_Storage_Admin {
 
 	/**
 	 * Handler for single and bulk media actions
+	 *
+	 * @return void
 	 */
 	function process_media_actions() {
 
@@ -780,25 +841,6 @@ class Wp_Arvancloud_Storage_Admin {
 			case 'copy':
 				$result = $this->maybe_upload_attachments( $ids, $doing_bulk_action );
 				break;
-			// case 'remove':
-			// 	$result = $this->maybe_delete_attachments_from_provider( $ids, $doing_bulk_action );
-			// 	break;
-			// case 'download':
-			// 	$result = $this->maybe_download_attachments_from_provider( $ids, $doing_bulk_action );
-			// 	break;
-			// case 'private_acl':
-			// 	$result = $this->maybe_update_acls_to_private( $ids, $doing_bulk_action );
-			// 	break;
-			// case 'public_acl':
-			// 	$result = $this->maybe_update_acls_to_public( $ids, $doing_bulk_action );
-			// 	break;
-			// case 'remove_local':
-			// 	$result = $this->maybe_remove_local_files_for_attachments( $ids, $doing_bulk_action );
-			// 	break;
-			// default:
-			// 	// not one of our actions, remove
-			// 	$result = false;
-			// 	break;
 		}
 
 		return $result;
@@ -806,6 +848,8 @@ class Wp_Arvancloud_Storage_Admin {
 
 	/**
 	 * Display notices after processing media actions
+	 *
+	 * @return void
 	 */
 	function maybe_display_media_action_message() {
 
@@ -895,32 +939,7 @@ class Wp_Arvancloud_Storage_Admin {
 				'success' => __( 'Media successfully copied to bucket.', 'wp-arvancloud-storage' ),
 				'partial' => __( 'Media copied to bucket with some errors.', 'wp-arvancloud-storage' ),
 				'error'   => __( 'There were errors when copying the media to bucket.', 'wp-arvancloud-storage' ),
-			),
-			'remove'       => array(
-				'success' => __( 'Media successfully removed from bucket.', 'wp-arvancloud-storage' ),
-				'partial' => __( 'Media removed from bucket, with some errors.', 'wp-arvancloud-storage' ),
-				'error'   => __( 'There were errors when removing the media from bucket.', 'wp-arvancloud-storage' ),
-			),
-			'download'     => array(
-				'success' => __( 'Media successfully downloaded from bucket.', 'wp-arvancloud-storage' ),
-				'partial' => __( 'Media downloaded from bucket, with some errors.', 'wp-arvancloud-storage' ),
-				'error'   => __( 'There were errors when downloading the media from bucket.', 'wp-arvancloud-storage' ),
-			),
-			'private_acl'  => array(
-				'success' => __( 'Media successfully set as private in bucket.', 'wp-arvancloud-storage' ),
-				'partial' => __( 'Media set as private in bucket, with some errors.', 'wp-arvancloud-storage' ),
-				'error'   => __( 'There were errors when setting the media as private in bucket.', 'wp-arvancloud-storage' ),
-			),
-			'public_acl'   => array(
-				'success' => __( 'Media successfully set as public in bucket.', 'wp-arvancloud-storage' ),
-				'partial' => __( 'Media set as public in bucket, with some errors.', 'wp-arvancloud-storage' ),
-				'error'   => __( 'There were errors when setting the media as public in bucket.', 'wp-arvancloud-storage' ),
-			),
-			'remove_local' => array(
-				'success' => __( 'Media successfully removed from server.', 'wp-arvancloud-storage' ),
-				'partial' => __( 'Media removed from server, with some errors.', 'wp-arvancloud-storage' ),
-				'error'   => __( 'There were errors when removing the media from server.', 'wp-arvancloud-storage' ),
-			),
+			)
 		);
 
 		return $messages;
@@ -1009,6 +1028,12 @@ class Wp_Arvancloud_Storage_Admin {
 
 	}
 
+	/**
+	 * add_edit_attachment_metabox
+	 *
+	 * @param mixed $post 
+	 * @return void
+	 */
 	public function add_edit_attachment_metabox( $post ) {
 
 		if( !$this->is_attachment_served_by_s3( $_GET['post'], true ) ) {
@@ -1024,6 +1049,11 @@ class Wp_Arvancloud_Storage_Admin {
 
     }
 
+	/**
+	 * render_edit_attachment_metabox
+	 *
+	 * @return void
+	 */
 	public function render_edit_attachment_metabox() {
 
 		global $post;

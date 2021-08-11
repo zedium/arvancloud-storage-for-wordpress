@@ -133,6 +133,11 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', serialize( array(
 
         <?php
     } else {
+        if( isset( $_GET['notice'] ) && $_GET['notice'] == 'selected-bucket-saved' ) {
+            echo '<div class="notice notice-success is-dismissible">
+                        <p>'. esc_html__( "Selected bucket saved.", 'wp-arvancloud-storage' ) .'</p>
+                    </div>';
+        }
         ?>
         <div class="acs-bucket-list">
             <h4> <?php echo __( 'URL PREVIEW', 'wp-arvancloud-storage' ) ?> </h4>

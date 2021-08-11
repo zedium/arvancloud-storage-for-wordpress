@@ -24,7 +24,7 @@ function get_storage_settings() {
 
 function get_bucket_name() {
 
-    $bucket_name = get_option( 'arvan-cloud-storage-bucket-name', false );
+    $bucket_name = esc_attr( get_option( 'arvan-cloud-storage-bucket-name', false ) );
 
     return $bucket_name;
 
@@ -36,6 +36,6 @@ function get_storage_url() {
     $bucket_name  = get_bucket_name();
     $endpoint_url = $credentials['endpoint-url'] . "/";
 
-    return substr_replace( $endpoint_url, $bucket_name . ".", 8, 0 );
+    return esc_url( substr_replace( $endpoint_url, $bucket_name . ".", 8, 0 ) );
     
 }

@@ -70,7 +70,7 @@ class Wp_Arvancloud_Storage {
 		if ( defined( 'ACS_VERSION' ) ) {
 			$this->version = ACS_VERSION;
 		} else {
-			$this->version = '0.1.0';
+			$this->version = '0.2.0';
 		}
 		
 		$this->plugin_name = ACS_NAME;
