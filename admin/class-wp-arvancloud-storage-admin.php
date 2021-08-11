@@ -368,10 +368,10 @@ class Wp_Arvancloud_Storage_Admin {
 					}
 				}
 			}
-		} else {
-			if( !$this->acs_settings['keep-local-files'] ) {
-				unlink( $upload_dir['basedir'] . '/' . $args['file'] );
-			}
+		}
+
+		if( !$this->acs_settings['keep-local-files'] ) {
+			unlink( $upload_dir['basedir'] . '/' . $args['file'] );
 		}
 
 		return $args;
