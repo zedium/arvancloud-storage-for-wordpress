@@ -326,7 +326,7 @@ class Wp_Arvancloud_Storage_Admin {
 				}
 	
 				if( is_numeric( $post_id ) ) {
-					update_post_meta( $post_id, 'arvancloud_storage', 1 );
+					update_post_meta( $post_id, 'acs_storage_file_url', get_storage_url() );
 	
 					if( !$this->acs_settings['keep-local-files'] && !wp_attachment_is_image( $post_id ) ) {
 						unlink( $file );
@@ -353,7 +353,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 		$this->upload_media_to_storage( $upload_dir['basedir'] . '/' . $args['file'], true );
 
-		update_post_meta( $post_id, 'arvancloud_storage', 1 );
+		update_post_meta( $post_id, 'acs_storage_file_url', get_storage_url() );
 
 		// Check if Extra Size Image
 		if( array_key_exists( "sizes", $args ) ) {
@@ -434,9 +434,9 @@ class Wp_Arvancloud_Storage_Admin {
 
 		foreach ( $sources as $key => $source ) {
 			if ( wp_attachment_is_image( $attachment_id ) ) {
-				$cdn = get_post_meta( $attachment_id, 'arvancloud_storage', true );
+				$cdn = get_post_meta( $attachment_id, 'acs_storage_file_url', true );
 				
-				if ( $cdn != "" ) {
+				if ( !empty( $cdn ) ) {
 					$source['url'] = str_replace( trailingslashit( $uploads ), trailingslashit( get_storage_url() ), $source['url'] );
 				}
 			}
@@ -500,13 +500,12 @@ class Wp_Arvancloud_Storage_Admin {
 	 */
 	public function media_library_url_rewrite( $url ) {
 
-		$post_id = attachment_url_to_postid( $url );
-		$cdn	 = get_post_meta( $post_id, 'arvancloud_storage', true );
+		$post_id 		  = attachment_url_to_postid( $url );
+		$storage_file_url = get_post_meta( $post_id, 'acs_storage_file_url', true );
 
-		if( $cdn == true ) {
-			$new_media_url = get_storage_url();
-			$filename 	   = basename( $url );
-			$url		   = $new_media_url.$filename;
+		if( !empty( $storage_file_url ) ) {
+			$file_name = basename( $url );
+			$url 	   = $storage_file_url.$file_name;
 		}
 		
 		return $url;
@@ -727,9 +726,9 @@ class Wp_Arvancloud_Storage_Admin {
 	 */
 	public function is_attachment_served_by_s3( $attachment_id, $skip_rewrite_check = false ) {
 
-		$acs_item = get_post_meta( $attachment_id, 'arvancloud_storage', true );
+		$acs_item = get_post_meta( $attachment_id, 'acs_storage_file_url', true );
 
-		if ( ! $acs_item ) {
+		if ( !empty( $acs_item ) ) {
 			// File not uploaded to a provider
 			return false;
 		}
