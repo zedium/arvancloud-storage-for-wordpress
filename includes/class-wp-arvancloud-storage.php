@@ -70,7 +70,7 @@ class Wp_Arvancloud_Storage {
 		if ( defined( 'ACS_VERSION' ) ) {
 			$this->version = ACS_VERSION;
 		} else {
-			$this->version = '0.9.3';
+			$this->version = '0.9.4';
 		}
 		
 		$this->plugin_name = ACS_NAME;
@@ -78,7 +78,6 @@ class Wp_Arvancloud_Storage {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
 
 	}
 
@@ -116,12 +115,6 @@ class Wp_Arvancloud_Storage {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-arvancloud-storage-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-arvancloud-storage-public.php';
 
 		$this->loader = new Wp_Arvancloud_Storage_Loader();
 
@@ -174,22 +167,6 @@ class Wp_Arvancloud_Storage {
 		$this->loader->add_filter( 'media_row_actions', $plugin_admin, 'add_media_row_actions', 10, 3 );
 		$this->loader->add_filter( 'wp_calculate_image_srcset', $plugin_admin, 'calculate_image_srcset', 10, 5 );
 		$this->loader->add_filter( 'wp_update_attachment_metadata', $plugin_admin, 'wp_update_attachment_metadata', 110, 2 );
-
-	}
-
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks() {
-
-		$plugin_public = new Wp_Arvancloud_Storage_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 	}
 
