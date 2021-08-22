@@ -274,11 +274,12 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 
 		if( $force_upload || ( is_numeric( $post_id ) && !wp_attachment_is_image( $post_id ) ) ) {
-			
+
 			if(  
 				( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' ) || 
 				$_SERVER['REQUEST_URI'] == '/wp-admin/async-upload.php' ||
 				strpos( $_SERVER['REQUEST_URI'], 'media' ) !== false ||
+				strpos( $_SERVER['REQUEST_URI'], 'action=copy' ) !== false ||
 				$_POST['html-upload'] == 'Upload'
 			) {
 				require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
@@ -728,12 +729,12 @@ class Wp_Arvancloud_Storage_Admin {
 
 		$acs_item = get_post_meta( $attachment_id, 'acs_storage_file_url', true );
 
-		if ( !empty( $acs_item ) ) {
+		if ( empty( $acs_item ) ) {
 			// File not uploaded to a provider
 			return false;
 		}
 
-		return $acs_item;
+		return true;
 
 	}
 
