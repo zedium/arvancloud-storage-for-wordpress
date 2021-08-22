@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       khorshidlab.com
- * @since      0.2.0
+ * @since      1.0.0
  *
  * @package    Wp_Arvancloud_Storage
  * @subpackage Wp_Arvancloud_Storage/admin
