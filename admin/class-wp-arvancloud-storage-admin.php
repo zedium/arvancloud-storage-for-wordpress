@@ -346,7 +346,7 @@ class Wp_Arvancloud_Storage_Admin {
 	 * @return void
 	 */
 	public function upload_image_to_storage( $args ) {
-		$upload_dir = wp_upload_dir(); //Get wp upload dir
+		$upload_dir = wp_upload_dir();
 		$basename	= basename( $args['file'] );
 		$path 		= str_replace( $basename, "", $args['file'] );
 		$url	    = $upload_dir['baseurl'] . '/' . $args['file'];
@@ -356,7 +356,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 		update_post_meta( $post_id, 'acs_storage_file_url', get_storage_url() );
 
-		// Check if Extra Size Image
+		// Check if image has extra sizes
 		if( array_key_exists( "sizes", $args ) ) {
 			foreach ( $args['sizes'] as $sub_size ) {
 				if ( $sub_size['file'] != "" ) {
@@ -391,7 +391,7 @@ class Wp_Arvancloud_Storage_Admin {
 			return;
 		}
 
-		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'delete-post' ) && $this->is_attachment_served_by_s3( $id ) ) {
+		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'delete-post' ) && $this->is_attachment_served_by_storage( $id ) ) {
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 			
 			$client->deleteObject ([
@@ -402,7 +402,7 @@ class Wp_Arvancloud_Storage_Admin {
 			if( wp_attachment_is_image( $id ) ) {
 				$args = wp_get_attachment_metadata( $id );
 
-				//Check if Extra Size Image
+				// Check if image has extra sizes
 				if ( $args && array_key_exists( "sizes", $args ) ) {
 					foreach ( $args['sizes'] as $list_file ) {
 						if ( $list_file['file'] != "" ) {
@@ -514,7 +514,7 @@ class Wp_Arvancloud_Storage_Admin {
 	}
 
 	/**
-	 * Bulk actions upload
+	 * Adds copy to bucket link to Bulk actions
 	 *
 	 * @param mixed $bulk_actions 
 	 * @return void
@@ -608,8 +608,7 @@ class Wp_Arvancloud_Storage_Admin {
 		$file        = get_attached_file( $post_id, true );
 		$file_exists = file_exists( $file );
 
-		// If not offloaded at all, or offloaded to current provider, can use copy.
-		if ( in_array( 'copy', $available_actions ) && $file_exists && ! $this->is_attachment_served_by_s3( $post_id, true ) ) {
+		if ( in_array( 'copy', $available_actions ) && $file_exists && ! $this->is_attachment_served_by_storage( $post_id, true ) ) {
 			$this->add_media_row_action( $actions, $post_id, 'copy' );
 		}
 
@@ -674,11 +673,8 @@ class Wp_Arvancloud_Storage_Admin {
 	 */
 	public function get_media_action_strings( $string = null ) {
 
-		$not_verified_value = __( 'No', 'wp-arvancloud-storage' );
-
 		$strings = apply_filters( 'acs_media_action_strings', array(
-			'copy'               => __( 'Copy to Bucket', 'wp-arvancloud-storage' ),
-			'not_verified'  	 => $not_verified_value,
+			'copy' => __( 'Copy to Bucket', 'wp-arvancloud-storage' ),
 		) );
 
 		if ( ! is_null( $string ) ) {
@@ -715,17 +711,13 @@ class Wp_Arvancloud_Storage_Admin {
 	}
 
 	/**
-	 * Is attachment served by provider.
+	 * Is attachment served by object storage.
 	 *
 	 * @param int                   $attachment_id
-	 * @param bool                  $skip_rewrite_check          Still check if offloaded even if not currently rewriting URLs? Default: false
-	 * @param bool                  $skip_current_provider_check Skip checking if offloaded to current provider. Default: false, negated if $provider supplied
-	 * @param bucket|null 			$bucket                      Bucket where attachment expected to be offloaded to. Default: currently configured bucket
-	 * @param bool                  $check_is_verified           Check that metadata is verified, has no effect if $skip_rewrite_check is true. Default: false
 	 *
 	 * @return bool|Media_Library_Item
 	 */
-	public function is_attachment_served_by_s3( $attachment_id, $skip_rewrite_check = false ) {
+	public function is_attachment_served_by_storage( $attachment_id ) {
 
 		$acs_item = get_post_meta( $attachment_id, 'acs_storage_file_url', true );
 
@@ -1036,7 +1028,7 @@ class Wp_Arvancloud_Storage_Admin {
 	 */
 	public function add_edit_attachment_metabox( $post ) {
 
-		if( !$this->is_attachment_served_by_s3( $_GET['post'], true ) ) {
+		if( !$this->is_attachment_served_by_storage( $_GET['post'], true ) ) {
 			add_meta_box(
 				'arvancloud-storage-metabox',
 				__( 'ArvanCloud Storage', 'wp-arvancloud-storage' ),

@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * The file that loads the AWS S3 client for storage
+ *
+ *
+ * @link       khorshidlab.com
+ * @since      1.0.0
+ *
+ * @package    Wp_Arvancloud_Storage
+ * @subpackage Wp_Arvancloud_Storage/includes
+ */
+
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use Aws\S3\MultipartUploader;

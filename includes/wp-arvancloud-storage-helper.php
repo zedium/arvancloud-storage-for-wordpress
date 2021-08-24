@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * The file that defines the plugin helper functions
+ *
+ * A class definition that includes functions used across both the
+ * public-facing side of the site and the admin area.
+ *
+ * @link       khorshidlab.com
+ * @since      1.0.0
+ *
+ * @package    Wp_Arvancloud_Storage
+ * @subpackage Wp_Arvancloud_Storage/includes
+ */
+
 function get_storage_settings() {
 
     $credentials = false;

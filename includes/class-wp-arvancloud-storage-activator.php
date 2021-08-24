@@ -31,6 +31,7 @@ class Wp_Arvancloud_Storage_Activator {
 	 */
 	public static function activate() {
 
+		// Set keep local files to true by default
 		update_option( 'acs_settings', serialize( [ 'keep-local-files' => 1 ] ) );
 
 	}

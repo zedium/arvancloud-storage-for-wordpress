@@ -16,11 +16,11 @@
  * Plugin Name:       ArvanCloud Storage for WordPress
  * Plugin URI:        https://www.arvancloud.com/fa/products/cloud-storage
  * Description:       Using ArvanCloud Storage Plugin you can offload, back up and upload your WordPress files and databases directly to your ArvanCloud object storage bucket. This easy-to-use plugin allows you to back up, restore and store your files simply and securely to a cost-effective, unlimited cloud storage. No need for expensive hosting services anymore.
- * Version:           0.9.6
+ * Version:           0.9.7
  * Author:            Khorshid, ArvanCloud
  * Author URI:        https://khorshidlab.com/
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       wp-arvancloud-storage
  * Domain Path:       /languages
  */
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'ACS_VERSION', '0.9.6' );
+define( 'ACS_VERSION', '0.9.7' );
 define( 'ACS_NAME', __( 'ArvanCloud Storage', 'wp-arvancloud-storage' ) );
 define( 'ACS_SLUG', __( 'wp-arvancloud-storage', 'wp-arvancloud-storage' ) );
 define( 'ACS_PLUGIN_ROOT', plugin_dir_path( __FILE__ ) );
@@ -52,8 +52,7 @@ function activate_wp_arvancloud_storage() {
  * This action is documented in includes/class-wp-arvancloud-storage-deactivator.php
  */
 function deactivate_wp_arvancloud_storage() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-arvancloud-storage-deactivator.php';
-	Wp_Arvancloud_Storage_Deactivator::deactivate();
+
 }
 
 register_activation_hook( __FILE__, 'activate_wp_arvancloud_storage' );
