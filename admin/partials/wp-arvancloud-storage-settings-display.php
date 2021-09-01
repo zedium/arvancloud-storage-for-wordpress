@@ -14,6 +14,9 @@
 
     <?php
     if( ( ! $db_defined && ! $snippet_defined ) || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-access-option' ) ) {
+        if( isset( $_GET['error_message'] ) ) {
+            echo '<div class="notice notice-error is-dismissible"><p>'. $_GET['error_message'] .'</p></div>';
+        }
         ?>
         <h3><?php echo __( 'Configure Cloud Storage', 'wp-arvancloud-storage' ) ?></h3>
 
@@ -122,7 +125,11 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', serialize( array(
                         }
                     }
                 } catch ( Exception $e ) {
-                    echo '<div class="notice notice-error is-dismissible"><p>'. $e->getMessage() .'</p></div>'; 
+                    $error = $e->getMessage();
+                    $url   = admin_url( "?page=wp-arvancloud-storage&action=change-access-option&error_message=" . urlencode( $error ) );
+
+                    echo '<div class="notice notice-error is-dismissible"><p>'. $error .'</p></div>';
+                    echo "<script>window.location='$url';</script>";
                 }
                 ?>
             </ul>
