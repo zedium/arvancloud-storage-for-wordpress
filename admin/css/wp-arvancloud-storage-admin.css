@@ -16,8 +16,8 @@ a {
     position: relative;
     z-index: 10;
     transition: 
-        height 0.3s ease-in-out, 
-        box-shadow 0.6s linear;
+	height 0.3s ease-in-out, 
+	box-shadow 0.6s linear;
 }
 
 .accordion-container textarea {

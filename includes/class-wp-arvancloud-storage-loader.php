@@ -1,15 +1,4 @@
 <?php
-
-/**
- * Register all actions and filters for the plugin
- *
- * @link       khorshidlab.com
- * @since      1.0.0
- *
- * @package    Wp_Arvancloud_Storage
- * @subpackage Wp_Arvancloud_Storage/includes
- */
-
 /**
  * Register all actions and filters for the plugin.
  *

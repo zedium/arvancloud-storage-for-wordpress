@@ -1,19 +1,6 @@
 <?php
 
 /**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       khorshidlab.com
- * @since      1.0.0
- *
- * @package    Wp_Arvancloud_Storage
- * @subpackage Wp_Arvancloud_Storage/includes
- */
-
-/**
  * The core plugin class.
  *
  * This is used to define internationalization, admin-specific hooks, and
@@ -70,7 +57,7 @@ class Wp_Arvancloud_Storage {
 		if ( defined( 'ACS_VERSION' ) ) {
 			$this->version = ACS_VERSION;
 		} else {
-			$this->version = '0.9.9';
+			$this->version = '0.9.10';
 		}
 		
 		$this->plugin_name = ACS_NAME;

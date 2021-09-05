@@ -1,15 +1,4 @@
 <?php
-
-/**
- * Fired during plugin activation
- *
- * @link       khorshidlab.com
- * @since      1.0.0
- *
- * @package    Wp_Arvancloud_Storage
- * @subpackage Wp_Arvancloud_Storage/includes
- */
-
 /**
  * Fired during plugin activation.
  *
