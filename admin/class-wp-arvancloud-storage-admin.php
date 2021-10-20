@@ -170,16 +170,16 @@ class Wp_Arvancloud_Storage_Admin {
 			$options = [ 'config-type'  => sanitize_text_field( $_POST[ 'config-type' ] ) ];
 
 			if( $_POST[ 'config-type' ] == 'db' ) {
-				$options[ 'access-key' ]   = sanitize_text_field( $_POST[ 'access-key' ] );
-				$options[ 'secret-key' ]   = sanitize_text_field( $_POST[ 'secret-key' ] );
-				$options[ 'endpoint-url' ] = sanitize_text_field( $_POST[ 'endpoint-url' ] );
+				$options[ 'access-key' ]   = sanitize_key( $_POST[ 'access-key' ] );
+				$options[ 'secret-key' ]   = sanitize_key( $_POST[ 'secret-key' ] );
+				$options[ 'endpoint-url' ] = esc_url_raw( $_POST[ 'endpoint-url' ], [ 'https' ] );
 
 				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'wp-arvancloud-storage' ) === $_POST[ 'secret-key' ] ) {
 					$options[ 'secret-key' ] = $this->storage_settings[ 'secret-key' ];
 				}
 			}
 
-			$save_settings = update_option( 'arvan-cloud-storage-settings', acs_encrypt( serialize($options) ) );
+			$save_settings = update_option( 'arvan-cloud-storage-settings', acs_encrypt( serialize( $options ) ) );
 
 			if( $save_settings ) {
 				delete_option( 'arvan-cloud-storage-bucket-name' );
