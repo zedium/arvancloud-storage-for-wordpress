@@ -160,26 +160,26 @@ class Wp_Arvancloud_Storage_Admin {
     }
 
 	/**
-	 * Sets the access control system and saves it to an option after serialization
+	 * Sets the access control system and saves it to an option after encryption
 	 *
 	 * @return void
 	 */
 	public function config_access_keys() {
 
-		if( isset( $_POST['config-cloud-storage'] ) ) {
-			$options = ['config-type'  => sanitize_text_field( $_POST[ 'config-type' ] ) ];
+		if( isset( $_POST[ 'config-cloud-storage' ] ) ) {
+			$options = [ 'config-type'  => sanitize_text_field( $_POST[ 'config-type' ] ) ];
 
-			if( $_POST['config-type'] == 'db' ) {
+			if( $_POST[ 'config-type' ] == 'db' ) {
 				$options[ 'access-key' ]   = sanitize_text_field( $_POST[ 'access-key' ] );
 				$options[ 'secret-key' ]   = sanitize_text_field( $_POST[ 'secret-key' ] );
 				$options[ 'endpoint-url' ] = sanitize_text_field( $_POST[ 'endpoint-url' ] );
 
-				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'wp-arvancloud-storage' ) === $_POST['secret-key'] ) {
-					$options[ 'secret-key' ] = $this->storage_settings['secret-key'];
+				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'wp-arvancloud-storage' ) === $_POST[ 'secret-key' ] ) {
+					$options[ 'secret-key' ] = $this->storage_settings[ 'secret-key' ];
 				}
 			}
 
-			$save_settings = update_option( 'arvan-cloud-storage-settings', serialize( $options ) );
+			$save_settings = update_option( 'arvan-cloud-storage-settings', acs_encrypt( serialize($options) ) );
 
 			if( $save_settings ) {
 				delete_option( 'arvan-cloud-storage-bucket-name' );
