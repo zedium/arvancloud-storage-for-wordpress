@@ -79,7 +79,10 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', serialize( array(
                                 <th scope="row"><?php echo __( "Secret Key", 'wp-arvancloud-storage' ) ?></th>
                                 <td>
                                     <div class="accordion-field-wrap">
-                                        <input type="text" name="secret-key" value="<?php echo $config_type == 'db' && $acs_settings_option['secret-key'] != null? __( "-- not shown --", 'wp-arvancloud-storage' ) : '' ?>" autocomplete="off">
+                                        <input type="password" id="secret-key" name="secret-key" value="<?php echo $config_type == 'db' && $acs_settings_option['secret-key'] != null ? __( "-- not shown --", 'wp-arvancloud-storage' ) : '' ?>" autocomplete="off">
+                                        <?php if( $acs_settings_option['secret-key'] == null ): ?>
+                                            <span toggle="#secret-key" class="dashicons dashicons-visibility field-icon toggle-password"></span>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>

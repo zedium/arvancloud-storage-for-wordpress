@@ -223,3 +223,16 @@ a {
 #toplevel_page_wp-arvancloud-storage img {
 	width: 50%;
 }
+
+.field-icon {
+	right: 30px;
+    margin-top: 5px;
+    position: relative;
+    z-index: 2;
+	color: #2271b1;
+}
+
+.rtl .field-icon {
+	left: 30px;
+	right: auto !important;
+}
