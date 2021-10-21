@@ -177,6 +177,21 @@ class Wp_Arvancloud_Storage_Admin {
 				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'wp-arvancloud-storage' ) === $_POST[ 'secret-key' ] ) {
 					$options[ 'secret-key' ] = $this->storage_settings[ 'secret-key' ];
 				}
+
+				// Validates that the access-key is UUID.
+				if( !wp_is_uuid( $options[ 'access-key' ] ) ) {
+					unset( $options[ 'access-key' ] );
+
+					update_option( 'arvan-cloud-storage-settings', acs_encrypt( serialize( $options ) ) );
+
+					add_action( 'admin_notices', function () {
+						echo '<div class="notice notice-error is-dismissible">
+								<p>'. esc_html__( "Access Key is not valid!", 'wp-arvancloud-storage' ) .'</p>
+							</div>';
+					} );
+
+					return false;
+				}
 			}
 
 			$save_settings = update_option( 'arvan-cloud-storage-settings', acs_encrypt( serialize( $options ) ) );
