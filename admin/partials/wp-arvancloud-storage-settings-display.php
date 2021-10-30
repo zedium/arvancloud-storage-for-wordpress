@@ -5,7 +5,7 @@
         $snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
         $db_defined          = $config_type == 'db' && ! empty( $acs_settings_option['access-key'] ) && ! empty( $acs_settings_option['secret-key'] ) && ! empty( $acs_settings_option['endpoint-url'] ) ? true : false;
         $bucket_selected     = get_bucket_name();
-        $acs_settings	     = get_option( 'acs_settings', true );
+        $acs_settings	     = unserialize( get_option( 'acs_settings', true ) );
     }
     ?>
 
