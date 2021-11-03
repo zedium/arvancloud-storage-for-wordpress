@@ -19,7 +19,6 @@ function get_storage_settings() {
 
     if( $acs_settings_option = get_option( 'arvan-cloud-storage-settings', true ) ) {    
         $acs_settings_option = json_decode( acs_decrypt( $acs_settings_option ), true );
-    
         if( $acs_settings_option['config-type'] == 'db' ) {
             $credentials = $acs_settings_option;
         } else {
@@ -70,13 +69,17 @@ function acs_encrypt( $value ) {
         return $value;
     }
 
-    $key      = acs_get_default_key();
-    $method   = 'aes-256-cbc';
-    $iv       = chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0); // IV must be exact 16 chars (128 bit)
-    
-    $encrypted = base64_encode( openssl_encrypt( $value, $method, $key, OPENSSL_RAW_DATA, $iv ) );
+    $method = 'aes-256-ctr';
+    $ivlen  = openssl_cipher_iv_length( $method );
+    $iv     = openssl_random_pseudo_bytes( $ivlen );
 
-    return $encrypted;
+    $raw_value = openssl_encrypt( $value . acs_get_default_salt(), $method, acs_get_default_key(), 0, $iv );
+
+    if ( ! $raw_value ) {
+        return false;
+    }
+
+    return base64_encode( $iv . $raw_value ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 
 }
 
@@ -96,13 +99,23 @@ function acs_decrypt( $raw_value ) {
         return $raw_value;
     }
 
-    $key      = acs_get_default_key();
-    $method   = 'aes-256-cbc';
-    $iv       = chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0); // IV must be exact 16 chars (128 bit)
+    $raw_value = base64_decode( $raw_value, true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
     
-    $decrypted = openssl_decrypt(base64_decode($raw_value), $method, $key, OPENSSL_RAW_DATA, $iv);
-    
-    return $decrypted;
+    $method = 'aes-256-ctr';
+    $ivlen  = openssl_cipher_iv_length( $method );
+    $iv     = substr( $raw_value, 0, $ivlen );
+    $key    = acs_get_default_key();
+    $salt   = acs_get_default_salt();
+
+    $raw_value = substr( $raw_value, $ivlen );
+
+    $value = openssl_decrypt( $raw_value, $method, $key, 0, $iv );
+
+    if ( ! $value || substr( $value, - strlen( $salt ) ) !== $salt ) {
+        return false;
+    }
+
+    return substr( $value, 0, - strlen( $salt ) );
 
 }
 
@@ -120,6 +133,24 @@ function acs_get_default_key() {
     }
 
     // If this is reached, you're either not on a live site or have a serious security issue.
-    return 'There is not a secret key!';
+    return 'There-is-not-a-secret-key';
+
+}
+
+/**
+ * Gets the default encryption salt to use.
+ *
+ * @since 1.0.0
+ *
+ * @return string Encryption salt.
+ */
+function acs_get_default_salt() {
+
+    if ( defined( 'LOGGED_IN_SALT' ) && '' !== LOGGED_IN_SALT ) {
+        return LOGGED_IN_SALT;
+    }
+
+    // If this is reached, you're either not on a live site or have a serious security issue.
+    return 'There-is-not-a-secret-salt-key';
 
 }
