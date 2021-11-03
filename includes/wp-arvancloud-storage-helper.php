@@ -18,13 +18,13 @@ function get_storage_settings() {
     $credentials = false;
 
     if( $acs_settings_option = get_option( 'arvan-cloud-storage-settings', true ) ) {    
-        $acs_settings_option = unserialize( acs_decrypt( $acs_settings_option ) );
+        $acs_settings_option = json_decode( acs_decrypt( $acs_settings_option ), true );
     
         if( $acs_settings_option['config-type'] == 'db' ) {
             $credentials = $acs_settings_option;
         } else {
             if( defined( 'ARVANCLOUD_STORAGE_SETTINGS' ) ) {
-                $settings = unserialize( ARVANCLOUD_STORAGE_SETTINGS );
+                $settings = json_decode( ARVANCLOUD_STORAGE_SETTINGS, true );
                 $settings['config-type'] = $acs_settings_option['config-type'];
                 
                 $credentials = $settings;

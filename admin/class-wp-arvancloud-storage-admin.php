@@ -182,7 +182,7 @@ class Wp_Arvancloud_Storage_Admin {
 				if( !wp_is_uuid( $options[ 'access-key' ] ) ) {
 					unset( $options[ 'access-key' ] );
 
-					update_option( 'arvan-cloud-storage-settings', acs_encrypt( serialize( $options ) ) );
+					update_option( 'arvan-cloud-storage-settings', acs_encrypt( json_encode( $options ) ) );
 
 					add_action( 'admin_notices', function () {
 						echo '<div class="notice notice-error is-dismissible">
@@ -194,7 +194,7 @@ class Wp_Arvancloud_Storage_Admin {
 				}
 			}
 
-			$save_settings = update_option( 'arvan-cloud-storage-settings', acs_encrypt( serialize( $options ) ) );
+			$save_settings = update_option( 'arvan-cloud-storage-settings', acs_encrypt( json_encode( $options ) ) );
 
 			if( $save_settings ) {
 				delete_option( 'arvan-cloud-storage-bucket-name' );
