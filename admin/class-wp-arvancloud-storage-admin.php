@@ -278,16 +278,14 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 
 		if( $force_upload || ( is_numeric( $post_id ) && !wp_attachment_is_image( $post_id ) ) ) {
-
 			if(  
-				( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' ) || 
+				( isset( $_POST['action'] ) && $_POST['action'] == 'upload-attachment' || $_POST['action'] == 'image-editor' ) || 
 				$_SERVER['REQUEST_URI'] == '/wp-admin/async-upload.php' ||
 				strpos( $_SERVER['REQUEST_URI'], 'media' ) !== false ||
 				strpos( $_SERVER['REQUEST_URI'], 'action=copy' ) !== false ||
 				$_POST['html-upload'] == 'Upload'
 			) {
 				require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
-
 				$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
 				$file_size 	  = number_format( filesize( $file ) / 1048576, 2 ); // File size in MB
 	
@@ -395,16 +393,16 @@ class Wp_Arvancloud_Storage_Admin {
 			return;
 		}
 
-		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'delete-post' ) && $this->is_attachment_served_by_storage( $id ) ) {
+		if( ( isset( $_POST['action'] ) && $_POST['action'] == 'delete-post' || $_POST['action'] == 'image-editor' ) && $this->is_attachment_served_by_storage( $id ) ) {
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
-			
-			$client->deleteObject ([
-				'Bucket' => $this->bucket_name, 
-				'Key' 	 => basename( get_attached_file( $id ) )
-			]);
 
-			if( wp_attachment_is_image( $id ) ) {
+			if ( wp_attachment_is_image( $id ) ) {
 				$args = wp_get_attachment_metadata( $id );
+
+				$client->deleteObject ([
+					'Bucket' => $this->bucket_name, 
+					'Key' 	 => basename( $args['file'] )
+				]);
 
 				// Check if image has extra sizes
 				if ( $args && array_key_exists( "sizes", $args ) ) {
@@ -417,6 +415,13 @@ class Wp_Arvancloud_Storage_Admin {
 						}
 					}
 				}
+			} else {
+				$file = get_attached_file( $id );
+
+				$client->deleteObject ([
+					'Bucket' => $this->bucket_name, 
+					'Key' 	 => basename( $file )
+				]);
 			}
 		}
 	}
