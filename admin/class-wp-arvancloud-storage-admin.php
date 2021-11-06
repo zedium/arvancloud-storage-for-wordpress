@@ -490,8 +490,6 @@ class Wp_Arvancloud_Storage_Admin {
 			}
 		}
 		
-		$this->delete_media_from_storage( $post_id );
-
 		// upload attachment to bucket
 		$attachment_metadata = $this->upload_image_to_storage( $data );
 
