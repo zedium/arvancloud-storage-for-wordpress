@@ -14,11 +14,12 @@
  */
 
 function get_storage_settings() {
+    $credentials         = false;
+    $acs_settings_option = get_option( 'arvan-cloud-storage-settings' );
 
-    $credentials = false;
-
-    if( $acs_settings_option = get_option( 'arvan-cloud-storage-settings', true ) ) {    
+    if( !empty( $acs_settings_option ) ) {    
         $acs_settings_option = json_decode( acs_decrypt( $acs_settings_option ), true );
+
         if( $acs_settings_option['config-type'] == 'db' ) {
             $credentials = $acs_settings_option;
         } else {

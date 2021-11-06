@@ -1,11 +1,17 @@
 <div class="wrap">
     <?php
+    $config_type     = false;
+    $snippet_defined = false;
+    $db_defined      = false;
+    $bucket_selected = false;
+    $acs_settings    = false;
+
     if( $acs_settings_option = get_storage_settings() ) {
         $config_type         = $acs_settings_option['config-type'];
         $snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
         $db_defined          = $config_type == 'db' && ! empty( $acs_settings_option['access-key'] ) && ! empty( $acs_settings_option['secret-key'] ) && ! empty( $acs_settings_option['endpoint-url'] ) ? true : false;
         $bucket_selected     = get_bucket_name();
-        $acs_settings	     = get_option( 'acs_settings', true );
+        $acs_settings	     = get_option( 'acs_settings' );
     }
     ?>
 
@@ -80,7 +86,7 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', json_encode( array(
                                 <td>
                                     <div class="accordion-field-wrap">
                                         <input type="password" id="secret-key" name="secret-key" value="<?php echo $config_type == 'db' && $acs_settings_option['secret-key'] != null ? __( "-- not shown --", 'wp-arvancloud-storage' ) : '' ?>" autocomplete="off">
-                                        <?php if( $acs_settings_option['secret-key'] == null ): ?>
+                                        <?php if( $config_type == 'db' && $acs_settings_option['secret-key'] == null ): ?>
                                             <span toggle="#secret-key" class="dashicons dashicons-visibility field-icon toggle-password"></span>
                                         <?php endif; ?>
                                     </div>
