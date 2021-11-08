@@ -307,7 +307,7 @@ class Wp_Arvancloud_Storage_Admin {
 					} catch ( Exception $e ) {
 						add_action( 'admin_notices', function () use( $e ) {
 							echo '<div class="notice notice-error is-dismissible">
-									<p>'. $e->getMessage() .'</p>
+									<p>'. esc_html( $e->getMessage() ) .'</p>
 								</div>';
 						} );
 					}
@@ -322,7 +322,7 @@ class Wp_Arvancloud_Storage_Admin {
 					} catch ( Exception $e ) {
 						add_action( 'admin_notices', function () use( $e ) {
 							echo '<div class="notice notice-error is-dismissible">
-									<p>'. $e->getMessage() .'</p>
+									<p>'. esc_html( $e->getMessage() ) .'</p>
 								</div>';
 						} );
 					}
@@ -513,7 +513,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 		if( !empty( $storage_file_url ) ) {
 			$file_name = basename( $url );
-			$url 	   = $storage_file_url.$file_name;
+			$url 	   = esc_url( $storage_file_url.$file_name );
 		}
 		
 		return $url;
@@ -584,7 +584,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 		check_ajax_referer( 'get-attachment-s3-details', '_nonce' );
 
-		$id = intval( $_POST['id'] );
+		$id = intval( sanitize_text_field( $_POST['id'] ) );
 
 		// get the actions available for the attachment
 		$data = array(
@@ -637,9 +637,11 @@ class Wp_Arvancloud_Storage_Admin {
 		$url   = $this->get_media_action_url( $action, $post_id );
 		$text  = $text ?: $this->get_media_action_strings( $action );
 		$class = $action;
+
 		if ( $show_warning ) {
 			$class .= ' local-warning';
 		}
+
 		$actions[ 'acs_' . $action ] = '<a href="' . $url . '" class="' . $class . '" title="' . esc_attr( $text ) . '">' . esc_html( $text ) . '</a>';
 
 	}
