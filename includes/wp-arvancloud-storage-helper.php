@@ -155,3 +155,22 @@ function acs_get_default_salt() {
     return 'There-is-not-a-secret-salt-key';
 
 }
+
+/**
+ * Recursive sanitation for an array
+ * 
+ * @param $array
+ *
+ * @return mixed
+ */
+function acs_recursive_sanitize( $array ) {
+    foreach ( $array as $key => &$value ) {
+        if ( is_array( $value ) ) {
+            $value = acs_recursive_sanitize( $value );
+        } else {
+            $value = sanitize_text_field( $value );
+        }
+    }
+
+    return $array;
+}

@@ -21,7 +21,7 @@
     <?php
     if( ( ! $db_defined && ! $snippet_defined ) || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-access-option' ) ) {
         if( isset( $_GET['error_message'] ) ) {
-            echo '<div class="notice notice-error is-dismissible"><p>'. $_GET['error_message'] .'</p></div>';
+            echo '<div class="notice notice-error is-dismissible"><p>'. esc_html( $_GET['error_message'] ) .'</p></div>';
         }
         ?>
         <h3><?php echo __( 'Configure Cloud Storage', 'wp-arvancloud-storage' ) ?></h3>
@@ -130,15 +130,15 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', json_encode( array(
     
                         foreach ( $buckets as $bucket ) {
                             $selected = $selected_bucket == $bucket['Name'] ? 'checked="checked"' : '';
-                            echo '<label for="' . $bucket['Name'] . '"><input id="' . $bucket['Name'] . '" name="acs-bucket-select-name" type="radio" class="no-compare" value="' . $bucket['Name'] . '"' . $selected . '>'. $bucket['Name'] .'</label>';
+                            echo '<label for="' . esc_attr( $bucket['Name'] ) . '"><input id="' . esc_attr( $bucket['Name'] ) . '" name="acs-bucket-select-name" type="radio" class="no-compare" value="' . esc_attr( $bucket['Name'] ) . '"' . esc_attr( $selected ) . '>'. esc_html( $bucket['Name'] ) .'</label>';
                         }
                     }
                 } catch ( Exception $e ) {
                     $error = $e->getMessage();
                     $url   = admin_url( "?page=wp-arvancloud-storage&action=change-access-option&error_message=" . urlencode( $error ) );
 
-                    echo '<div class="notice notice-error is-dismissible"><p>'. $error .'</p></div>';
-                    echo "<script>window.location='$url';</script>";
+                    echo '<div class="notice notice-error is-dismissible"><p>'. esc_html( $error ) .'</p></div>';
+                    echo '<script>window.location="' . esc_attr( $url ) . '"</script>';
                 }
                 ?>
             </ul>

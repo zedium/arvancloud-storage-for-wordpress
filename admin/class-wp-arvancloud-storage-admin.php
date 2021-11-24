@@ -776,7 +776,7 @@ class Wp_Arvancloud_Storage_Admin {
 				return;
 			}
 
-			$ids = explode( ',', $_GET['ids'] ); // input var okay
+			$ids = explode( ',', sanitize_text_field( $_GET['ids'] ) ); // input var okay
 		} else {
 			$available_actions = $this->get_available_media_actions( 'bulk' );
 			$action            = str_replace( 'bulk_acs_', '', $action );
@@ -787,7 +787,7 @@ class Wp_Arvancloud_Storage_Admin {
 				return;
 			}
 
-			$ids = $_REQUEST['media']; // input var okay
+			$ids = acs_recursive_sanitize( $_REQUEST['media'] ); // input var okay
 		}
 
 		if ( ! in_array( $action, $available_actions ) ) {
@@ -799,7 +799,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 		check_admin_referer( $referrer );
 
-		$sendback = isset( $_GET['sendback'] ) ? $_GET['sendback'] : admin_url( 'upload.php' );
+		$sendback = isset( $_GET['sendback'] ) ? sanitize_text_field( $_GET['sendback'] ) : admin_url( 'upload.php' );
 
 		$args = array(
 			'acs-action' => $action,
