@@ -1,4 +1,4 @@
-=== ArvanCloud Storage For WordPress ===
+=== ArvanCloud Object Storage ===
 Contributors: Khorshid, ArvanCloud
 Donate link: khorshidlab.com
 Tags: storage, s3, offload, backup, files, arvancloud
