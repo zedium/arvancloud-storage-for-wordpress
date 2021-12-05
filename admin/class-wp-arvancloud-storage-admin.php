@@ -861,16 +861,11 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 
 		if ( isset( $_GET['acs-action'] ) && isset( $_GET['errors'] ) && isset( $_GET['count'] ) ) {
-			$action = sanitize_key( $_GET['acs-action'] ); // input var okay
-
-			$error_count = absint( $_GET['errors'] ); // input var okay
-			$count       = absint( $_GET['count'] ); // input var okay
-
-			$message_html = $this->get_media_action_result_message( $action, $count, $error_count );
-
-			if ( false !== $message_html ) {
-				echo $message_html;
-			}
+			$action 	  = sanitize_key( $_GET['acs-action'] ); // input var okay
+			$error_count  = absint( $_GET['errors'] ); // input var okay
+			$count        = absint( $_GET['count'] ); // input var okay
+			
+			echo $this->get_media_action_result_message( $action, $count, $error_count );
 		}
 	}
 
@@ -1062,10 +1057,9 @@ class Wp_Arvancloud_Storage_Admin {
         $actions = $this->add_media_row_actions( array(), $post );
 
 		foreach( $actions as $action ) {
-			echo $action;
+			echo esc_html( $action );
 		}
 		
     }
-	
 
 }
