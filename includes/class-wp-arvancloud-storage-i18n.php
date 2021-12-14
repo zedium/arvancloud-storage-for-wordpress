@@ -21,7 +21,7 @@ class Wp_Arvancloud_Storage_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'wp-arvancloud-storage',
+			'arvancloud-object-storage',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
