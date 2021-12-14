@@ -109,8 +109,8 @@ class Wp_Arvancloud_Storage_Admin {
     public function setup_admin_menu() {
 
         add_menu_page( 
-			__( ACS_NAME, 'wp-arvancloud-storage' ), 
-			__( ACS_NAME, 'wp-arvancloud-storage'), 
+			__( ACS_NAME, 'arvancloud-object-storage' ), 
+			__( ACS_NAME, 'arvancloud-object-storage'), 
 			'manage_options', 
 			ACS_SLUG, 
 			__CLASS__ . '::settings_page',
@@ -119,8 +119,8 @@ class Wp_Arvancloud_Storage_Admin {
 
 		add_submenu_page(
 			'wp-arvancloud-storage',
-			__( 'Settings', 'wp-arvancloud-storage' ),
-			__( 'Settings', 'wp-arvancloud-storage' ),
+			__( 'Settings', 'arvancloud-object-storage' ),
+			__( 'Settings', 'arvancloud-object-storage' ),
 			'manage_options',
 			ACS_SLUG,
 			__CLASS__ . '::settings_page'
@@ -128,8 +128,8 @@ class Wp_Arvancloud_Storage_Admin {
 
 		add_submenu_page(
 			'wp-arvancloud-storage',
-			__( 'About ArvanCloud', 'wp-arvancloud-storage' ),
-			__( 'About', 'wp-arvancloud-storage' ),
+			__( 'About ArvanCloud', 'arvancloud-object-storage' ),
+			__( 'About', 'arvancloud-object-storage' ),
 			'manage_options',
 			ACS_SLUG . '-about',
 			__CLASS__ . '::about_us_page'
@@ -174,7 +174,7 @@ class Wp_Arvancloud_Storage_Admin {
 				$options[ 'secret-key' ]   = sanitize_key( $_POST[ 'secret-key' ] );
 				$options[ 'endpoint-url' ] = esc_url_raw( $_POST[ 'endpoint-url' ], [ 'https' ] );
 
-				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'wp-arvancloud-storage' ) === $_POST[ 'secret-key' ] ) {
+				if ( ! empty( $_POST[ 'secret-key' ] ) && __( "-- not shown --", 'arvancloud-object-storage' ) === $_POST[ 'secret-key' ] ) {
 					$options[ 'secret-key' ] = $this->storage_settings[ 'secret-key' ];
 				}
 
@@ -186,7 +186,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 					add_action( 'admin_notices', function () {
 						echo '<div class="notice notice-error is-dismissible">
-								<p>'. esc_html__( "Access Key is not valid!", 'wp-arvancloud-storage' ) .'</p>
+								<p>'. esc_html__( "Access Key is not valid!", 'arvancloud-object-storage' ) .'</p>
 							</div>';
 					} );
 
@@ -201,7 +201,7 @@ class Wp_Arvancloud_Storage_Admin {
 				
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-success is-dismissible">
-							<p>'. esc_html__( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
+							<p>'. esc_html__( "Settings saved.", 'arvancloud-object-storage' ) .'</p>
 						</div>';
 				} );
 			}
@@ -225,7 +225,7 @@ class Wp_Arvancloud_Storage_Admin {
 			} else {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-error is-dismissible">
-							<p>'. esc_html__( "Saving selected bucket failed. Please try again or contact with admin.", 'wp-arvancloud-storage' ) .'</p>
+							<p>'. esc_html__( "Saving selected bucket failed. Please try again or contact with admin.", 'arvancloud-object-storage' ) .'</p>
 						</div>';
 				} );
 			}
@@ -249,13 +249,13 @@ class Wp_Arvancloud_Storage_Admin {
 			if( $save_settings ) {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-success is-dismissible">
-							<p>'. esc_html__( "Settings saved.", 'wp-arvancloud-storage' ) .'</p>
+							<p>'. esc_html__( "Settings saved.", 'arvancloud-object-storage' ) .'</p>
 						</div>';
 				} );
 			} else {
 				add_action( 'admin_notices', function () {
 					echo '<div class="notice notice-error is-dismissible">
-							<p>'. esc_html__( "Saving plugin settings failed. Please try again or contact with admin.", 'wp-arvancloud-storage' ) .'</p>
+							<p>'. esc_html__( "Saving plugin settings failed. Please try again or contact with admin.", 'arvancloud-object-storage' ) .'</p>
 						</div>';
 				} );
 			}
@@ -301,7 +301,7 @@ class Wp_Arvancloud_Storage_Admin {
 	
 						add_action( 'admin_notices', function () use( $result ) {
 							echo '<div class="notice notice-success is-dismissible">
-									<p>'. esc_html__( "Upload complete:" . $result['ObjectURL'], 'wp-arvancloud-storage' ) .'</p>
+									<p>'. esc_html__( "Upload complete:" . $result['ObjectURL'], 'arvancloud-object-storage' ) .'</p>
 								</div>';
 						} );
 					} catch ( Exception $e ) {
@@ -529,7 +529,7 @@ class Wp_Arvancloud_Storage_Admin {
 	public function bulk_actions_upload( $bulk_actions ) {
 
 		if( $this->bucket_name ) {
-			$bulk_actions['bulk_acs_copy'] = __( 'Copy to Bucket', 'wp-arvancloud-storage' );
+			$bulk_actions['bulk_acs_copy'] = __( 'Copy to Bucket', 'arvancloud-object-storage' );
 		}
 
 		return $bulk_actions;
@@ -683,7 +683,7 @@ class Wp_Arvancloud_Storage_Admin {
 	public function get_media_action_strings( $string = null ) {
 
 		$strings = apply_filters( 'acs_media_action_strings', array(
-			'copy' => __( 'Copy to Bucket', 'wp-arvancloud-storage' ),
+			'copy' => __( 'Copy to Bucket', 'arvancloud-object-storage' ),
 		) );
 
 		if ( ! is_null( $string ) ) {
@@ -913,7 +913,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 			// Only add the link if we have a URL.
 			if ( ! empty( $url ) ) {
-				$text    = esc_html__( 'Edit attachment', 'wp-arvancloud-storage' );
+				$text    = esc_html__( 'Edit attachment', 'arvancloud-object-storage' );
 				$message .= sprintf( ' <a href="%1$s">%2$s</a>', $url, $text );
 			}
 		}
@@ -932,9 +932,9 @@ class Wp_Arvancloud_Storage_Admin {
 	function get_messages() {
 		$messages = array(
 			'copy'         => array(
-				'success' => __( 'Media successfully copied to bucket.', 'wp-arvancloud-storage' ),
-				'partial' => __( 'Media copied to bucket with some errors.', 'wp-arvancloud-storage' ),
-				'error'   => __( 'There were errors when copying the media to bucket.', 'wp-arvancloud-storage' ),
+				'success' => __( 'Media successfully copied to bucket.', 'arvancloud-object-storage' ),
+				'partial' => __( 'Media copied to bucket with some errors.', 'arvancloud-object-storage' ),
+				'error'   => __( 'There were errors when copying the media to bucket.', 'arvancloud-object-storage' ),
 			)
 		);
 
@@ -1035,7 +1035,7 @@ class Wp_Arvancloud_Storage_Admin {
 		if( !$this->is_attachment_served_by_storage( $_GET['post'], true ) ) {
 			add_meta_box(
 				'arvancloud-storage-metabox',
-				__( 'ArvanCloud Storage', 'wp-arvancloud-storage' ),
+				__( 'ArvanCloud Storage', 'arvancloud-object-storage' ),
 				array( $this, 'render_edit_attachment_metabox' ),
 				'attachment',
 				'side',

@@ -21,7 +21,7 @@
  * Author URI:        https://khorshidlab.com/
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       wp-arvancloud-storage
+ * Text Domain:       arvancloud-object-storage
  * Domain Path:       /languages
  */
 
@@ -31,8 +31,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'ACS_VERSION', '0.1' );
-define( 'ACS_NAME', __( 'ArvanCloud Storage', 'wp-arvancloud-storage' ) );
-define( 'ACS_SLUG', __( 'wp-arvancloud-storage', 'wp-arvancloud-storage' ) );
+define( 'ACS_NAME', __( 'ArvanCloud Storage', 'arvancloud-object-storage' ) );
+define( 'ACS_SLUG', __( 'wp-arvancloud-storage', 'arvancloud-object-storage' ) );
 define( 'ACS_PLUGIN_ROOT', plugin_dir_path( __FILE__ ) );
 define( 'ACS_PLUGIN_ROOT_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACS_PLUGIN_ABSOLUTE', __FILE__ );

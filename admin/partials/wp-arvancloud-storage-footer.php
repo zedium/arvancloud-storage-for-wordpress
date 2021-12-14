@@ -2,9 +2,9 @@
     <div class="acs-footer">
         <div class="acs-footer-links">        
             <ul>
-                <li><a href="https://npanel.arvancloud.com/storage/plans" target="_blank"><?php echo __( 'Storage Plans', 'wp-arvancloud-storage' ) ?> <span class="dashicons dashicons-external"></span></a></li>
-                <li><a href="https://forum.arvancloud.com/c/storage/42" target="_blank"><?php echo __( 'Support', 'wp-arvancloud-storage' ) ?> <span class="dashicons dashicons-external"></span></a></li>
-                <li><a href="mailto:support@arvancloud.com" target="_blank"><?php echo __( 'Email Us', 'wp-arvancloud-storage' ) ?> <span class="dashicons dashicons-email"></span></a></li>
+                <li><a href="https://npanel.arvancloud.com/storage/plans" target="_blank"><?php echo __( 'Storage Plans', 'arvancloud-object-storage' ) ?> <span class="dashicons dashicons-external"></span></a></li>
+                <li><a href="https://forum.arvancloud.com/c/storage/42" target="_blank"><?php echo __( 'Support', 'arvancloud-object-storage' ) ?> <span class="dashicons dashicons-external"></span></a></li>
+                <li><a href="mailto:support@arvancloud.com" target="_blank"><?php echo __( 'Email Us', 'arvancloud-object-storage' ) ?> <span class="dashicons dashicons-email"></span></a></li>
             </ul>
         </div>
         <div class="acs-footer-social">

@@ -16,7 +16,7 @@ Using ArvanCloud Storage Plugin you can offload, backup and upload your WordPres
 
 == Installation ==
 
-1. Upload `wp-arvancloud-storage` to the `/wp-content/plugins/` directory
+1. Upload `arvancloud-object-storage` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
