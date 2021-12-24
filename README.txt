@@ -22,6 +22,7 @@ Using ArvanCloud Storage Plugin you can offload, backup and upload your WordPres
 == Frequently Asked Questions ==
 
 == Screenshots ==
+1. Settings Page
 
 == Changelog ==
 
