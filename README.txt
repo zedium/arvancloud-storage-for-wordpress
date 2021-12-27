@@ -4,7 +4,7 @@ Tags: storage, s3, offload, backup, files, arvancloud
 Requires at least: 4.0
 Tested up to: 5.8.2
 Requires PHP: 7.1
-Stable tag: 0.2
+Stable tag: 0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,9 +39,17 @@ Using ArvanCloud Storage Plugin you can offload, backup and upload your WordPres
 4. Activate the plugin in the Plugin dashboard
 
 == Screenshots ==
-1. Settings Page
+1. Configure cloud storage in wp-config.php 
+2. Configure cloud storage in database
+3. Buckets list
+4. General Settings
+5. Bulk copy to bucket feature in Media Library (list view)
+6. Copy to bucket link in Media Library (list view)
 
 == Changelog ==
+= 0.3 - 2021-11-27 =
+* Minor chagnes
+
 = 0.2 - 2021-11-25 =
 * Update README
 
