@@ -1057,7 +1057,7 @@ class Wp_Arvancloud_Storage_Admin {
         $actions = $this->add_media_row_actions( array(), $post );
 
 		foreach( $actions as $action ) {
-			echo esc_html( $action );
+			echo $action;
 		}
 		
     }
