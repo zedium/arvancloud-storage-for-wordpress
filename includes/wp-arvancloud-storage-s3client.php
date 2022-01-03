@@ -28,6 +28,7 @@ if( $credentials ) {
         'region'   => '',
         'version'  => '2006-03-01',
         'endpoint' => $credentials['endpoint-url'],
+        'use_aws_shared_config_files' => false,
         'credentials' => [
             'key'     => $credentials['access-key'],
             'secret'  => $credentials['secret-key']
