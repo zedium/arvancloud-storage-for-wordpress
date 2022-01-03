@@ -170,7 +170,7 @@ define( 'ARVANCLOUD_STORAGE_SETTINGS', json_encode( array(
                     <tr>
                         <th scope="row"><?php echo __( "Keep local files", 'arvancloud-object-storage' ) ?></th>
                         <td>
-                            <input id="keep-local-files" type="checkbox" name="keep-local-files" value="1" <?php echo $acs_settings['keep-local-files'] ? 'checked' : '' ?> class="regular-text">
+                            <input id="keep-local-files" type="checkbox" name="keep-local-files" value="1" <?php echo isset($acs_settings['keep-local-files']) ? 'checked' : '' ?> class="regular-text">
                             <label for="keep-local-files"><?php echo __( 'Keep local files after uploading them to storage.', 'arvancloud-object-storage' ) ?></label>
                         </td>
                     </tr>
