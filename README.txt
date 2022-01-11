@@ -4,7 +4,7 @@ Tags: storage, s3, offload, backup, files, arvancloud
 Requires at least: 4.0
 Tested up to: 5.8.2
 Requires PHP: 7.1
-Stable tag: 0.4
+Stable tag: 0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,6 +47,9 @@ Using ArvanCloud Storage Plugin you can offload, backup and upload your WordPres
 6. Copy to bucket link in Media Library (list view)
 
 == Changelog ==
+= 0.5 - 2022-01-11 =
+* Fix keep local files option issue
+
 = 0.4 - 2022-01-03 =
 * Fix setting slug bug in Persian translation
 * Fix rendering copy to bucket metabox in attachment 
