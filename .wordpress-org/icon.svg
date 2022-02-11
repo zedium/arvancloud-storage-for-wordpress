@@ -1,12 +1,16 @@
-<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="36">
-<rect width="36" height="36" fill="#C4C4C4"/>
-</mask>
-<g mask="url(#mask0)">
-<path d="M18.2785 9.48413L7.79196 14.8875L18.2785 20.2909L28.7651 14.8875L18.2785 9.48413Z" stroke="#00A09C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M18.2785 33.0003L7.79196 27.5969V15.1692M18.2785 33.0003L28.7651 27.5969V15.1692M18.2785 33.0003V20.5726" stroke="#00A09C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M18.2785 3V9.48405" stroke="#00A09C" stroke-width="2" stroke-linecap="round"/>
-<path d="M7.23495 27.8555L1.50001 30.5227" stroke="#00A09C" stroke-width="2" stroke-linecap="round"/>
-<path d="M28.765 27.8555L34.5 30.5227" stroke="#00A09C" stroke-width="2" stroke-linecap="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.3.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#02B8B8;}
+	.st1{fill:#FFFFFF;stroke:#1D1D1B;stroke-linecap:round;stroke-miterlimit:10;}
+</style>
+<g>
+	<path class="st0" d="M255.23,152.57c0,29.39-23.83,53.22-53.22,53.22h-73.86c-1.09,0-2.17-0.03-3.25-0.07
+		c-41.45-1.7-74.54-35.84-74.54-77.72c0-42.96,34.82-77.79,77.79-77.79c32.85,0,60.95,20.36,72.34,49.15c0.5,0,1.01-0.01,1.53-0.01
+		C231.4,99.35,255.23,123.18,255.23,152.57"/>
+	<path class="st0" d="M49.77,181.29c0,13.53-10.97,24.5-24.5,24.5s-24.5-10.97-24.5-24.5c0-13.53,10.97-24.5,24.5-24.5
+		S49.77,167.75,49.77,181.29"/>
 </g>
 </svg>
