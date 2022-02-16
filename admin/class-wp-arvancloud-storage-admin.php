@@ -192,6 +192,18 @@ class Wp_Arvancloud_Storage_Admin {
 
 					return false;
 				}
+			} else if ( $_POST[ 'config-type' ] == 'snippet' ) {
+				$snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
+
+				if ( !$snippet_defined ) {
+					add_action( 'admin_notices', function () {
+						echo '<div class="notice notice-error is-dismissible">
+								<p>'. esc_html__( "You have not defined your access keys in wp-config.php. Please try again.", 'arvancloud-object-storage' ) .'</p>
+							</div>';
+					} );
+
+					return false;
+				}
 			}
 
 			$save_settings = update_option( 'arvan-cloud-storage-settings', acs_encrypt( json_encode( $options ) ) );
