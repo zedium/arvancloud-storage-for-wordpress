@@ -1,15 +1,15 @@
-# Copyright (C) 2021 Khorshid, ArvanCloud
+# Copyright (C) 2022 Khorshid, ArvanCloud
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: ArvanCloud Object Storage 0.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/arvancloud-object-storage\n"
+"Project-Id-Version: ArvanCloud Object Storage 0.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/arvancloud-storage-for-wordpress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-12-14T14:55:28+00:00\n"
+"POT-Creation-Date: 2022-02-16T05:32:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: arvancloud-object-storage\n"
@@ -31,12 +31,12 @@ msgid "Khorshid, ArvanCloud"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://khorshidlab.com/"
+msgid "https://www.arvancloud.com/en/products/cloud-storage"
 msgstr ""
 
 #: admin/class-wp-arvancloud-storage-admin.php:122
 #: admin/class-wp-arvancloud-storage-admin.php:123
-#: admin/partials/wp-arvancloud-storage-settings-display.php:18
+#: admin/partials/wp-arvancloud-storage-settings-display.php:22
 msgid "Settings"
 msgstr ""
 
@@ -50,7 +50,7 @@ msgid "About"
 msgstr ""
 
 #: admin/class-wp-arvancloud-storage-admin.php:177
-#: admin/partials/wp-arvancloud-storage-settings-display.php:88
+#: admin/partials/wp-arvancloud-storage-settings-display.php:92
 msgid "-- not shown --"
 msgstr ""
 
@@ -58,46 +58,50 @@ msgstr ""
 msgid "Access Key is not valid!"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:204
-#: admin/class-wp-arvancloud-storage-admin.php:252
+#: admin/class-wp-arvancloud-storage-admin.php:201
+msgid "You have not defined your access keys in wp-config.php. Please try again."
+msgstr ""
+
+#: admin/class-wp-arvancloud-storage-admin.php:216
+#: admin/class-wp-arvancloud-storage-admin.php:264
 msgid "Settings saved."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:228
+#: admin/class-wp-arvancloud-storage-admin.php:240
 msgid "Saving selected bucket failed. Please try again or contact with admin."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:258
+#: admin/class-wp-arvancloud-storage-admin.php:270
 msgid "Saving plugin settings failed. Please try again or contact with admin."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:304
+#: admin/class-wp-arvancloud-storage-admin.php:316
 msgid "Upload complete:"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:532
-#: admin/class-wp-arvancloud-storage-admin.php:686
+#: admin/class-wp-arvancloud-storage-admin.php:544
+#: admin/class-wp-arvancloud-storage-admin.php:698
 msgid "Copy to Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:916
+#: admin/class-wp-arvancloud-storage-admin.php:928
 msgid "Edit attachment"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:935
+#: admin/class-wp-arvancloud-storage-admin.php:947
 msgid "Media successfully copied to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:936
+#: admin/class-wp-arvancloud-storage-admin.php:948
 msgid "Media copied to bucket with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:937
+#: admin/class-wp-arvancloud-storage-admin.php:949
 msgid "There were errors when copying the media to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:1038
-#: wp-arvancloud-storage.php:34
+#: admin/class-wp-arvancloud-storage-admin.php:1050
+#: wp-arvancloud-storage.php:27
 msgid "ArvanCloud Storage"
 msgstr ""
 
@@ -117,94 +121,90 @@ msgstr ""
 msgid "Email Us"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:27
+#: admin/partials/wp-arvancloud-storage-settings-display.php:31
 msgid "Configure Cloud Storage"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:34
+#: admin/partials/wp-arvancloud-storage-settings-display.php:38
 msgid "defined in wp-config.php"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:38
+#: admin/partials/wp-arvancloud-storage-settings-display.php:42
 msgid "Define access keys in wp-config.php"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:42
+#: admin/partials/wp-arvancloud-storage-settings-display.php:46
 msgid "You've defined your access keys in your wp-config.php. To select a different option here, simply comment out or remove the Access Keys defined in your wp-config.php."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:54
+#: admin/partials/wp-arvancloud-storage-settings-display.php:58
 msgid "Copy the following snippet <strong>near the top</strong> of your wp-config.php and replace the stars with the keys."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:71
+#: admin/partials/wp-arvancloud-storage-settings-display.php:75
 msgid "I understand the risks but I'd like to store access keys in the database anyway (not recommended)"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:73
+#: admin/partials/wp-arvancloud-storage-settings-display.php:77
 msgid "Storing your access keys in the database is less secure than the options above, but if you're ok with that, go ahead and enter your keys in the form below."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:76
+#: admin/partials/wp-arvancloud-storage-settings-display.php:80
 msgid "Access Key"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:85
+#: admin/partials/wp-arvancloud-storage-settings-display.php:89
 msgid "Secret Key"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:97
+#: admin/partials/wp-arvancloud-storage-settings-display.php:101
 msgid "Endpoint URL"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:108
+#: admin/partials/wp-arvancloud-storage-settings-display.php:112
 msgid "Next"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:114
+#: admin/partials/wp-arvancloud-storage-settings-display.php:118
 msgid "«&nbsp;Back"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:115
+#: admin/partials/wp-arvancloud-storage-settings-display.php:119
 msgid "Select bucket"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:127
+#: admin/partials/wp-arvancloud-storage-settings-display.php:131
 msgid "You have not any bucket in ArvanCloud, please create a bucket in ArvanCloud storage panel then refresh this page!"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:146
+#: admin/partials/wp-arvancloud-storage-settings-display.php:150
 msgid "Save Selected Bucket"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:154
+#: admin/partials/wp-arvancloud-storage-settings-display.php:158
 msgid "Selected bucket saved."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:159
+#: admin/partials/wp-arvancloud-storage-settings-display.php:163
 msgid "URL PREVIEW"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:167
+#: admin/partials/wp-arvancloud-storage-settings-display.php:171
 msgid "Bucket: "
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:168
+#: admin/partials/wp-arvancloud-storage-settings-display.php:172
 msgid "Change Bucket"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:171
+#: admin/partials/wp-arvancloud-storage-settings-display.php:175
 msgid "Keep local files"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:174
+#: admin/partials/wp-arvancloud-storage-settings-display.php:178
 msgid "Keep local files after uploading them to storage."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:180
+#: admin/partials/wp-arvancloud-storage-settings-display.php:184
 msgid "Save Changes"
-msgstr ""
-
-#: wp-arvancloud-storage.php:35
-msgid "wp-arvancloud-storage"
 msgstr ""

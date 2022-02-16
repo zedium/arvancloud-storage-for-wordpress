@@ -1,21 +1,21 @@
-# Copyright (C) 2021 Khorshid, ArvanCloud
+# Copyright (C) 2022 Khorshid, ArvanCloud
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: ArvanCloud Object Storage 0.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/arvancloud-object-"
-"storage\n"
-"POT-Creation-Date: 2021-12-14T14:55:28+00:00\n"
-"PO-Revision-Date: 2021-12-14 18:27+0330\n"
-"Last-Translator: Khorshid <info@khorshidlab.com>\n"
+"Project-Id-Version: ArvanCloud Object Storage 0.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/arvancloud-"
+"storage-for-wordpress\n"
 "Language-Team: \n"
-"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"POT-Creation-Date: 2022-02-16T05:32:43+00:00\n"
+"PO-Revision-Date: 2022-02-16 09:05+0330\n"
+"X-Generator: Poedit 3.0\n"
 "X-Domain: arvancloud-object-storage\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"Language: fa_IR\n"
 
 #. Plugin Name of the plugin
 msgid "ArvanCloud Object Storage"
@@ -23,7 +23,7 @@ msgstr "فضای ابری آروان"
 
 #. Plugin URI of the plugin
 msgid "https://www.arvancloud.com/fa/products/cloud-storage"
-msgstr ""
+msgstr "https://www.arvancloud.com/fa/products/cloud-storage"
 
 #. Description of the plugin
 msgid ""
@@ -44,12 +44,12 @@ msgid "Khorshid, ArvanCloud"
 msgstr "خورشید، ابر‌آروان"
 
 #. Author URI of the plugin
-msgid "https://khorshidlab.com/"
-msgstr ""
+msgid "https://www.arvancloud.com/en/products/cloud-storage"
+msgstr "https://www.arvancloud.com/fa/products/cloud-storage"
 
 #: admin/class-wp-arvancloud-storage-admin.php:122
 #: admin/class-wp-arvancloud-storage-admin.php:123
-#: admin/partials/wp-arvancloud-storage-settings-display.php:18
+#: admin/partials/wp-arvancloud-storage-settings-display.php:22
 msgid "Settings"
 msgstr "تنظیمات"
 
@@ -63,7 +63,7 @@ msgid "About"
 msgstr "درباره"
 
 #: admin/class-wp-arvancloud-storage-admin.php:177
-#: admin/partials/wp-arvancloud-storage-settings-display.php:88
+#: admin/partials/wp-arvancloud-storage-settings-display.php:92
 msgid "-- not shown --"
 msgstr "-- نشان داده نشده --"
 
@@ -71,46 +71,53 @@ msgstr "-- نشان داده نشده --"
 msgid "Access Key is not valid!"
 msgstr "Access Key معتبر نیست!"
 
-#: admin/class-wp-arvancloud-storage-admin.php:204
-#: admin/class-wp-arvancloud-storage-admin.php:252
+#: admin/class-wp-arvancloud-storage-admin.php:201
+msgid ""
+"You have not defined your access keys in wp-config.php. Please try again."
+msgstr ""
+"شما کلید‌های دسترسی خود را در wp-config.php تعریف نکرده‌اید. لطفا مجددا امتحان "
+"کنید."
+
+#: admin/class-wp-arvancloud-storage-admin.php:216
+#: admin/class-wp-arvancloud-storage-admin.php:264
 msgid "Settings saved."
 msgstr "تنظیمات ذخیره شد."
 
-#: admin/class-wp-arvancloud-storage-admin.php:228
+#: admin/class-wp-arvancloud-storage-admin.php:240
 msgid "Saving selected bucket failed. Please try again or contact with admin."
 msgstr "ذخیره‌سازی صندوقچه‌‌ی انتخاب شده ناموفق بود. لطفن دوباره امتحان کنید."
 
-#: admin/class-wp-arvancloud-storage-admin.php:258
+#: admin/class-wp-arvancloud-storage-admin.php:270
 msgid "Saving plugin settings failed. Please try again or contact with admin."
 msgstr "ذخیره‌سازی تنظیمات افزونه ناموفق بود. لطفن دوباره امتحان کنید."
 
-#: admin/class-wp-arvancloud-storage-admin.php:304
+#: admin/class-wp-arvancloud-storage-admin.php:316
 msgid "Upload complete:"
 msgstr "بارگذاری انجام شد:"
 
-#: admin/class-wp-arvancloud-storage-admin.php:532
-#: admin/class-wp-arvancloud-storage-admin.php:686
+#: admin/class-wp-arvancloud-storage-admin.php:544
+#: admin/class-wp-arvancloud-storage-admin.php:698
 msgid "Copy to Bucket"
 msgstr "کپی به صندوقچه"
 
-#: admin/class-wp-arvancloud-storage-admin.php:916
+#: admin/class-wp-arvancloud-storage-admin.php:928
 msgid "Edit attachment"
 msgstr "اصلاح پیوست"
 
-#: admin/class-wp-arvancloud-storage-admin.php:935
+#: admin/class-wp-arvancloud-storage-admin.php:947
 msgid "Media successfully copied to bucket."
 msgstr "فایل‌ها با موفقیت روی صندوقچه کپی شدند."
 
-#: admin/class-wp-arvancloud-storage-admin.php:936
+#: admin/class-wp-arvancloud-storage-admin.php:948
 msgid "Media copied to bucket with some errors."
 msgstr "فایل‌‌ها با چند خطا روی صندوقچه کپی شدند."
 
-#: admin/class-wp-arvancloud-storage-admin.php:937
+#: admin/class-wp-arvancloud-storage-admin.php:949
 msgid "There were errors when copying the media to bucket."
 msgstr "خطا در کپی شدن فایل‌ها روی صندوقچه."
 
-#: admin/class-wp-arvancloud-storage-admin.php:1038
-#: wp-arvancloud-storage.php:34
+#: admin/class-wp-arvancloud-storage-admin.php:1050
+#: wp-arvancloud-storage.php:27
 msgid "ArvanCloud Storage"
 msgstr "فضای ابری آروان"
 
@@ -150,19 +157,19 @@ msgstr "پشتیبانی"
 msgid "Email Us"
 msgstr "ارسال ایمیل"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:27
+#: admin/partials/wp-arvancloud-storage-settings-display.php:31
 msgid "Configure Cloud Storage"
 msgstr "پیکربندی فضای ابری"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:34
+#: admin/partials/wp-arvancloud-storage-settings-display.php:38
 msgid "defined in wp-config.php"
 msgstr "تعریف شده در wp-config.php"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:38
+#: admin/partials/wp-arvancloud-storage-settings-display.php:42
 msgid "Define access keys in wp-config.php"
 msgstr "Access Key را در wp-config.php تعریف کنید"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:42
+#: admin/partials/wp-arvancloud-storage-settings-display.php:46
 msgid ""
 "You've defined your access keys in your wp-config.php. To select a different "
 "option here, simply comment out or remove the Access Keys defined in your wp-"
@@ -171,7 +178,7 @@ msgstr ""
 "Access Key خود را در wp-config.php تعریف کرده‌اید. برای انتخاب گزینه‌ای دیگر، "
 "روی wp-config.php کامنت بگذارید یا Access Key پیشین را حذف کنید."
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:54
+#: admin/partials/wp-arvancloud-storage-settings-display.php:58
 msgid ""
 "Copy the following snippet <strong>near the top</strong> of your wp-config."
 "php and replace the stars with the keys."
@@ -179,7 +186,7 @@ msgstr ""
 "این اسنیپت را <strong> در بالای </strong> wp-config.php کپی و ستاره‌ها را با "
 "کلیدها جایگزین کنید."
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:71
+#: admin/partials/wp-arvancloud-storage-settings-display.php:75
 msgid ""
 "I understand the risks but I'd like to store access keys in the database "
 "anyway (not recommended)"
@@ -187,7 +194,7 @@ msgstr ""
 "خطرات را درک می‌کنم و می‌خواهم به هر شکل Access Keyها در دیتابیس ذخیره شود. "
 "(پیشنهاد نمی‌شود)"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:73
+#: admin/partials/wp-arvancloud-storage-settings-display.php:77
 msgid ""
 "Storing your access keys in the database is less secure than the options "
 "above, but if you're ok with that, go ahead and enter your keys in the form "
@@ -196,31 +203,31 @@ msgstr ""
 "ذخیره‌سازی Access Keyها در دیتابیس، نسبت به گزینه‌های بالا امنیت کم‌تری دارد؛ "
 "اما اگر خطرات را می‌پذیرید، کلیدهای خود را در فرم زیر وارد کنید."
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:76
+#: admin/partials/wp-arvancloud-storage-settings-display.php:80
 msgid "Access Key"
 msgstr "کلید دسترسی"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:85
+#: admin/partials/wp-arvancloud-storage-settings-display.php:89
 msgid "Secret Key"
-msgstr ""
+msgstr "Secret Key"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:97
+#: admin/partials/wp-arvancloud-storage-settings-display.php:101
 msgid "Endpoint URL"
-msgstr ""
+msgstr "Endpoint URL"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:108
+#: admin/partials/wp-arvancloud-storage-settings-display.php:112
 msgid "Next"
 msgstr "بعدی"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:114
+#: admin/partials/wp-arvancloud-storage-settings-display.php:118
 msgid "«&nbsp;Back"
 msgstr "«&nbsp;قبلی"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:115
+#: admin/partials/wp-arvancloud-storage-settings-display.php:119
 msgid "Select bucket"
 msgstr "صندوقچه مورد نظر خود را انتخاب کنید"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:127
+#: admin/partials/wp-arvancloud-storage-settings-display.php:131
 msgid ""
 "You have not any bucket in ArvanCloud, please create a bucket in ArvanCloud "
 "storage panel then refresh this page!"
@@ -228,38 +235,34 @@ msgstr ""
 "شما صندوقچه‌ای روی ابر آروان ندارید. لطفن در بخش فضای ابری پنل کاربری ابر "
 "آروان یک صندوقچه بسازید و این صفحه رو دوباره بارگذاری کنید!"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:146
+#: admin/partials/wp-arvancloud-storage-settings-display.php:150
 msgid "Save Selected Bucket"
 msgstr "ذخیره"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:154
+#: admin/partials/wp-arvancloud-storage-settings-display.php:158
 msgid "Selected bucket saved."
 msgstr "صندوقچه‌‌ انتخاب شده، ذخیره شد."
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:159
+#: admin/partials/wp-arvancloud-storage-settings-display.php:163
 msgid "URL PREVIEW"
 msgstr "مشاهده URL"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:167
+#: admin/partials/wp-arvancloud-storage-settings-display.php:171
 msgid "Bucket: "
 msgstr "صندوقچه: "
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:168
+#: admin/partials/wp-arvancloud-storage-settings-display.php:172
 msgid "Change Bucket"
 msgstr "تغییر صندوقچه"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:171
+#: admin/partials/wp-arvancloud-storage-settings-display.php:175
 msgid "Keep local files"
 msgstr "ذخیره محلی فایل‌ها"
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:174
+#: admin/partials/wp-arvancloud-storage-settings-display.php:178
 msgid "Keep local files after uploading them to storage."
 msgstr "فایل‌ها پس از بارگذاری در صندوقچه به صورت محلی هم نگهداری شود."
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:180
+#: admin/partials/wp-arvancloud-storage-settings-display.php:184
 msgid "Save Changes"
 msgstr "ذخیره‌سازی تغییرات"
-
-#: wp-arvancloud-storage.php:35
-msgid "wp-arvancloud-storage"
-msgstr ""
