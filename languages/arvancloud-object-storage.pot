@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: ArvanCloud Object Storage 0.6\n"
+"Project-Id-Version: ArvanCloud Object Storage 0.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/arvancloud-storage-for-wordpress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-16T05:32:43+00:00\n"
+"POT-Creation-Date: 2022-02-23T12:37:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: arvancloud-object-storage\n"
@@ -34,75 +34,89 @@ msgstr ""
 msgid "https://www.arvancloud.com/en/products/cloud-storage"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:122
 #: admin/class-wp-arvancloud-storage-admin.php:123
-#: admin/partials/wp-arvancloud-storage-settings-display.php:22
+#: admin/class-wp-arvancloud-storage-admin.php:124
+#: admin/partials/wp-arvancloud-storage-settings-display.php:53
 msgid "Settings"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:131
+#: admin/class-wp-arvancloud-storage-admin.php:132
 #: admin/partials/wp-arvancloud-storage-about-us-display.php:2
 msgid "About ArvanCloud"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:132
+#: admin/class-wp-arvancloud-storage-admin.php:133
 msgid "About"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:177
-#: admin/partials/wp-arvancloud-storage-settings-display.php:92
+#: admin/class-wp-arvancloud-storage-admin.php:178
+#: admin/partials/wp-arvancloud-storage-settings-display.php:126
 msgid "-- not shown --"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:189
+#: admin/class-wp-arvancloud-storage-admin.php:190
 msgid "Access Key is not valid!"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:201
+#: admin/class-wp-arvancloud-storage-admin.php:202
 msgid "You have not defined your access keys in wp-config.php. Please try again."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:216
-#: admin/class-wp-arvancloud-storage-admin.php:264
+#: admin/class-wp-arvancloud-storage-admin.php:217
+#: admin/class-wp-arvancloud-storage-admin.php:265
 msgid "Settings saved."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:240
+#: admin/class-wp-arvancloud-storage-admin.php:241
 msgid "Saving selected bucket failed. Please try again or contact with admin."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:270
+#: admin/class-wp-arvancloud-storage-admin.php:271
 msgid "Saving plugin settings failed. Please try again or contact with admin."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:316
+#: admin/class-wp-arvancloud-storage-admin.php:317
 msgid "Upload complete:"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:544
-#: admin/class-wp-arvancloud-storage-admin.php:698
+#: admin/class-wp-arvancloud-storage-admin.php:545
+#: admin/class-wp-arvancloud-storage-admin.php:699
 msgid "Copy to Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:928
+#: admin/class-wp-arvancloud-storage-admin.php:929
 msgid "Edit attachment"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:947
+#: admin/class-wp-arvancloud-storage-admin.php:948
 msgid "Media successfully copied to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:948
+#: admin/class-wp-arvancloud-storage-admin.php:949
 msgid "Media copied to bucket with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:949
+#: admin/class-wp-arvancloud-storage-admin.php:950
 msgid "There were errors when copying the media to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:1050
+#: admin/class-wp-arvancloud-storage-admin.php:1051
 #: wp-arvancloud-storage.php:27
 msgid "ArvanCloud Storage"
+msgstr ""
+
+#: admin/partials/wp-arvancloud-move-files.php:13
+#: admin/partials/wp-arvancloud-storage-settings-display.php:7
+#: admin/partials/wp-arvancloud-storage-settings-display.php:54
+msgid "Move files to the bucket"
+msgstr ""
+
+#: admin/partials/wp-arvancloud-move-files.php:20
+msgid "New item added!"
+msgstr ""
+
+#: admin/partials/wp-arvancloud-move-files.php:22
+msgid "Back to settings"
 msgstr ""
 
 #: admin/partials/wp-arvancloud-storage-about-us-display.php:6
@@ -121,90 +135,102 @@ msgstr ""
 msgid "Email Us"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:31
+#: admin/partials/wp-arvancloud-storage-footer.php:8
+msgid "Report a problem"
+msgstr ""
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:19
+msgid "System info"
+msgstr ""
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:22
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:65
 msgid "Configure Cloud Storage"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:38
+#: admin/partials/wp-arvancloud-storage-settings-display.php:72
 msgid "defined in wp-config.php"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:42
+#: admin/partials/wp-arvancloud-storage-settings-display.php:76
 msgid "Define access keys in wp-config.php"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:46
+#: admin/partials/wp-arvancloud-storage-settings-display.php:80
 msgid "You've defined your access keys in your wp-config.php. To select a different option here, simply comment out or remove the Access Keys defined in your wp-config.php."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:58
+#: admin/partials/wp-arvancloud-storage-settings-display.php:92
 msgid "Copy the following snippet <strong>near the top</strong> of your wp-config.php and replace the stars with the keys."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:75
+#: admin/partials/wp-arvancloud-storage-settings-display.php:109
 msgid "I understand the risks but I'd like to store access keys in the database anyway (not recommended)"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:77
+#: admin/partials/wp-arvancloud-storage-settings-display.php:111
 msgid "Storing your access keys in the database is less secure than the options above, but if you're ok with that, go ahead and enter your keys in the form below."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:80
+#: admin/partials/wp-arvancloud-storage-settings-display.php:114
 msgid "Access Key"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:89
+#: admin/partials/wp-arvancloud-storage-settings-display.php:123
 msgid "Secret Key"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:101
+#: admin/partials/wp-arvancloud-storage-settings-display.php:135
 msgid "Endpoint URL"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:112
+#: admin/partials/wp-arvancloud-storage-settings-display.php:146
 msgid "Next"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:118
+#: admin/partials/wp-arvancloud-storage-settings-display.php:152
 msgid "«&nbsp;Back"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:119
+#: admin/partials/wp-arvancloud-storage-settings-display.php:153
 msgid "Select bucket"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:131
+#: admin/partials/wp-arvancloud-storage-settings-display.php:165
 msgid "You have not any bucket in ArvanCloud, please create a bucket in ArvanCloud storage panel then refresh this page!"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:150
+#: admin/partials/wp-arvancloud-storage-settings-display.php:184
 msgid "Save Selected Bucket"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:158
+#: admin/partials/wp-arvancloud-storage-settings-display.php:192
 msgid "Selected bucket saved."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:163
+#: admin/partials/wp-arvancloud-storage-settings-display.php:197
 msgid "URL PREVIEW"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:171
+#: admin/partials/wp-arvancloud-storage-settings-display.php:205
 msgid "Bucket: "
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:172
+#: admin/partials/wp-arvancloud-storage-settings-display.php:206
 msgid "Change Bucket"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:175
+#: admin/partials/wp-arvancloud-storage-settings-display.php:209
 msgid "Keep local files"
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:178
+#: admin/partials/wp-arvancloud-storage-settings-display.php:212
 msgid "Keep local files after uploading them to storage."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:184
+#: admin/partials/wp-arvancloud-storage-settings-display.php:218
 msgid "Save Changes"
 msgstr ""

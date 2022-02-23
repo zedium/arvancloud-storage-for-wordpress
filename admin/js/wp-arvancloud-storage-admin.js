@@ -70,6 +70,75 @@
 			  input.attr("type", "password");
 			}
 		});
+
+		
+		function update_ar_bulk_upload() {
+			$.ajax({
+				url: acs_media.ajax_url,
+				data: {
+				  'action': 'ar_bulk_upload_res',
+				//   'security': ar_cdn_ajax_object.security,
+				},
+				success:function(data) {
+
+					$('#bulk_upload_progress .progress .percent').html(data.data.percentage_option + '%')
+					$('#bulk_upload_progress .progress .bar').css('width', data.data.percentage_option * 2)
+					$('#bulk_upload_text span:first-child').html( data.data.new )
+
+					if (data.data < 100) {
+						setTimeout(function(){update_ar_bulk_upload();}, 5000);
+					}
+
+				},
+				error: function(errorThrown){
+					console.log(errorThrown);
+				}
+			})
+		}
+
+		if ( $('#bulk_upload_progress').length > 0) {
+			$.ajax({
+				url: acs_media.ajax_url,
+				data: {
+				  'action': 'ar_handle_bulk_upload',
+				//   'security': ar_cdn_ajax_object.security,
+				}
+			})
+			update_ar_bulk_upload();
+		}
+
+
+
 	});
+
 	
 })( jQuery );
+
+function copyToClipboard( selector ) {
+	var text = jQuery(selector).text()
+	copyTextToClipboard(text)
+}
+
+function copyTextToClipboard(textToCopy) {
+    // navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+        // navigator clipboard api method'
+        return navigator.clipboard.writeText(textToCopy);
+    } else {
+        // text area method
+        let textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        // make the textarea out of viewport
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        return new Promise((res, rej) => {
+            // here the magic happens
+            document.execCommand('copy') ? res() : rej();
+            textArea.remove();
+        });
+    }
+}

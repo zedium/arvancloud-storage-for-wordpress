@@ -5,6 +5,7 @@
                 <li><a href="https://npanel.arvancloud.com/storage/plans" target="_blank"><?php echo __( 'Storage Plans', 'arvancloud-object-storage' ) ?> <span class="dashicons dashicons-external"></span></a></li>
                 <li><a href="https://forum.arvancloud.com/c/storage/42" target="_blank"><?php echo __( 'Support', 'arvancloud-object-storage' ) ?> <span class="dashicons dashicons-external"></span></a></li>
                 <li><a href="mailto:support@arvancloud.com" target="_blank"><?php echo __( 'Email Us', 'arvancloud-object-storage' ) ?> <span class="dashicons dashicons-email"></span></a></li>
+                <li><a href="<?php echo esc_url( add_query_arg(array('page' => ACS_SLUG, 'system-info' => true,), admin_url('admin.php')) ); ?>"><?php echo __( 'Report a problem', 'arvancloud-object-storage' ) ?> <span class="dashicons dashicons-external"></span></a></li>
             </ul>
         </div>
         <div class="acs-footer-social">

@@ -103,6 +103,9 @@ class Wp_Arvancloud_Storage {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-arvancloud-storage-admin.php';
 
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-arvancloud-system-info.php';
+
 		$this->loader = new Wp_Arvancloud_Storage_Loader();
 
 	}

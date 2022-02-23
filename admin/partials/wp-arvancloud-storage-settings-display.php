@@ -1,23 +1,61 @@
 <div class="wrap">
     <?php
-    $config_type     = false;
-    $snippet_defined = false;
-    $db_defined      = false;
-    $bucket_selected = false;
-    $acs_settings    = false;
+    if ( isset( $_GET['bulk_upload'] ) && $_GET['bulk_upload'] == true ) {
+        ?>
 
-    if( $acs_settings_option = get_storage_settings() ) {
-        $config_type         = $acs_settings_option['config-type'];
-        $snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
-        $db_defined          = $config_type == 'db' && ! empty( $acs_settings_option['access-key'] ) && ! empty( $acs_settings_option['secret-key'] ) && ! empty( $acs_settings_option['endpoint-url'] ) ? true : false;
-        $bucket_selected     = get_bucket_name();
-        $acs_settings	     = get_option( 'acs_settings' );
+        <div class="ar-heading">
+            <H1><?php _e( 'Move files to the bucket', 'arvancloud-object-storage' ) ?></H1>
+        </div>
+        <hr>
+        <?php
+        require_once( ACS_PLUGIN_ROOT . 'admin/partials/wp-arvancloud-move-files.php' );
+        return;
 
+
+    } else if (isset( $_GET['system-info'] ) && $_GET['system-info'] == true) {
+        $system_info = new ArvanCloud_Sytem_Info();
+        ?>
+        <div class="ar-heading">
+            <H1><?php _e( 'System info', 'arvancloud-object-storage' ) ?></H1>
+        </div>
+        <hr>
+        <button type="button" class="button copy-text" onclick="copyToClipboard('.p-4')"><span class="dashicons dashicons-clipboard"></span> <?php _e('Copy to Clipboard', 'arvancloud-object-storage'); ?></button>
+        <?php
+            echo $system_info->render_system_info_page();
+            return;
+
+    } else {
+
+
+        $config_type     = false;
+        $snippet_defined = false;
+        $db_defined      = false;
+        $bucket_selected = false;
+        $acs_settings    = false;
+    
+        if( $acs_settings_option = get_storage_settings() ) {
+            $config_type         = $acs_settings_option['config-type'];
+            $snippet_defined     = defined( 'ARVANCLOUD_STORAGE_SETTINGS' );
+            $db_defined          = $config_type == 'db' && ! empty( $acs_settings_option['access-key'] ) && ! empty( $acs_settings_option['secret-key'] ) && ! empty( $acs_settings_option['endpoint-url'] ) ? true : false;
+            $bucket_selected     = get_bucket_name();
+            $acs_settings	     = get_option( 'acs_settings' );
+    
+        }
+
+
+
+        $bulk_upload_url = esc_url( add_query_arg(array(
+            'page' => ACS_SLUG,
+            'bulk_upload' => true,
+        ), admin_url()) );
+        ?>
+        <div class="ar-heading">
+            <H1><?php echo __( 'Settings', 'arvancloud-object-storage' ) ?></H1>
+            <a href="<?php echo $bulk_upload_url; ?>" type="button" class="button media-button select-mode-toggle-button"><?php _e( 'Move files to the bucket', 'arvancloud-object-storage' ) ?></a>
+        </div>
+        <hr>
+        <?php
     }
-    ?>
-
-    <H1><?php echo __( 'Settings', 'arvancloud-object-storage' ) ?></H1>
-    <hr>
 
     <?php
     if( ( ! $db_defined && ! $snippet_defined ) || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-access-option' ) ) {
