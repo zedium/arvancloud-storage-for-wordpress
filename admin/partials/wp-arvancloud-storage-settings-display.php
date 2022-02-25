@@ -57,7 +57,6 @@
         <?php
     }
 
-    <?php
     if( ( ! $db_defined && ! $snippet_defined ) || ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'change-access-option' ) ) {
         if( isset( $_GET['error_message'] ) ) {
             echo '<div class="notice notice-error is-dismissible"><p>'. esc_html( $_GET['error_message'] ) .'</p></div>';
