@@ -99,6 +99,10 @@ class Wp_Arvancloud_Storage_Admin {
 			),
 		) );
 
+		if (isset( $_GET['system-info'] ) && $_GET['system-info'] == true) {
+			wp_enqueue_script(  'site-health' );
+		}
+
 	}
 
 	/**
