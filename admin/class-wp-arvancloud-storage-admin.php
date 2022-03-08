@@ -119,7 +119,7 @@ class Wp_Arvancloud_Storage_Admin {
 
 		add_submenu_page(
 			'wp-arvancloud-storage',
-			__( 'Settings', 'arvancloud-object-storage' ),
+			$this->settings_page_title(),
 			__( 'Settings', 'arvancloud-object-storage' ),
 			'manage_options',
 			ACS_SLUG,
@@ -146,6 +146,15 @@ class Wp_Arvancloud_Storage_Admin {
 
 		require_once( 'partials/wp-arvancloud-storage-settings-display.php' );
 
+    }
+
+	public function settings_page_title() {
+
+		if (isset( $_GET['system-info'] ) && $_GET['system-info'] == true) {
+			return __( 'System info', 'arvancloud-object-storage' );
+		}
+
+		return __( 'Settings', 'arvancloud-object-storage' );
     }
 	
 	/**
