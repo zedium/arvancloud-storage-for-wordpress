@@ -265,12 +265,24 @@ a {
 	margin-top: 20px;
 }
 
+.copy-button-wrapper {
+    display: inline-flex;
+    align-items: center;
+    margin: 0.5rem 0 2rem;
+    width: 100%;
+}
+
+.site-health-copy-buttons .success {
+    color: #008a20;
+    margin-right: 0.5rem;
+	margin-left: 0.5rem;
+}
+
 .copy-text {
     display: flex !important;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-	margin-bottom: 30px !important;
 }
 
 .copy-text > .dashicons {

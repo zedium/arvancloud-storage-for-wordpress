@@ -23,13 +23,20 @@
         <hr>
         <div class="health-check-body health-check-debug-tab hide-if-no-js">
         <p><?php _e('If you want to export a handy list of all the information on this page, you can use the button below to copy it to the clipboard. You can then paste it in a text file and save it to your device, or paste it in an email exchange with a support engineer or theme/plugin developer for example.', 'arvancloud-object-storage') ?></p>
-            <button type="button" class="button copy-text" onclick="copyToClipboard('.p-4')"><span class="dashicons dashicons-clipboard"></span> <?php _e('Copy to Clipboard', 'arvancloud-object-storage'); ?></button>
+            <div class="site-health-copy-buttons">
+                <div class="copy-button-wrapper">
+                    <button type="button" class="button copy-text copy-button" data-clipboard-text="`<?php echo $system_info->render_system_info_page(); ?>`"><span class="dashicons dashicons-clipboard"></span> <?php _e('Copy to Clipboard', 'arvancloud-object-storage'); ?></button>
+                    <span class="success hidden" aria-hidden="true"><?php _e('Copied!') ?></span>
+                </div>
+            </div>
             <div id="health-check-debug" class="health-check-accordion">
             <?php
             echo $system_info->render_system_info();
-            echo $system_info->render_system_info_page(); ?>
-    </div>
+             ?>  
+        </div>
         <?php
+        require_once( ACS_PLUGIN_ROOT . 'admin/partials/wp-arvancloud-storage-footer.php' );
+        echo '</div>';
         return;
     } else {
 

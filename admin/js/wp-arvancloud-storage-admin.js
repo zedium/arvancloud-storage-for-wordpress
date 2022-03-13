@@ -107,6 +107,20 @@
 			update_ar_bulk_upload();
 		}
 
+		$('.health-check-accordion-trigger').on('click', function() {
+			var id = $(this).attr('aria-controls')
+			$('#' + id).toggle()
+		})
+
+		var i = new ClipboardJS(".site-health-copy-buttons .copy-button");
+		var a, l = wp.i18n.__;
+		i.on("success", function (e) {
+			var t = $(e.trigger),
+				s = $(".success", t.closest("div"));
+			e.clearSelection(), t.trigger("focus"), clearTimeout(a), s.removeClass("hidden"), a = setTimeout(function () {
+				s.addClass("hidden"), i.clipboardAction.fakeElem && i.clipboardAction.removeFake && i.clipboardAction.removeFake()
+			}, 3e3), wp.a11y.speak(l("Site information has been copied to your clipboard."))
+		})
 
 
 	});

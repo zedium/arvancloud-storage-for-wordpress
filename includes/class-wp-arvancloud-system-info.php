@@ -100,7 +100,7 @@ class ArvanCloud_Sytem_Info {
 
 		$space       = 30;
 		$information = $this->get_info( $space );
-		$output      = "<div class='p-4' style='display: none;'>### <p class='font-semibold text-base'>System Info </p>###<br /><br />";
+		$output      = "### <p class='font-semibold text-base'>System Info </p>###<br /><br />";
 
 		foreach ( $information as $name => $value ) {
 			if ( $value == '--' ) {
@@ -119,7 +119,7 @@ class ArvanCloud_Sytem_Info {
 
 		}
 
-		$output .= "<br/>###<p class='font-semibold text-base'> End System Info</p> ###<br /></div>";
+		$output .= "<br/>###<p class='font-semibold text-base'> End System Info</p> ###<br />";
 
 		return $output;
 	}
