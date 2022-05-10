@@ -308,7 +308,9 @@ class Wp_Arvancloud_Storage_Admin {
 				$_SERVER['REQUEST_URI'] == '/wp-admin/async-upload.php' ||
 				strpos( $_SERVER['REQUEST_URI'], 'media' ) !== false ||
 				strpos( $_SERVER['REQUEST_URI'], 'action=copy' ) !== false ||
-				$_POST['html-upload'] == 'Upload'
+				( isset($_POST['html-upload']) && $_POST['html-upload'] == 'Upload' ) ||
+				( isset($_POST['context']) && $_POST['context'] == 'site-icon') ||
+				( isset($_POST['context']) && $_POST['context'] == 'custom_logo')
 			) {
 				require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 				$file 	   	  = is_numeric( $post_id ) ? get_attached_file( $post_id ) : $post_id;
@@ -360,6 +362,8 @@ class Wp_Arvancloud_Storage_Admin {
 						unlink( $file );
 					}
 				}
+
+				return true;
 			}
 			
 		}
@@ -391,14 +395,14 @@ class Wp_Arvancloud_Storage_Admin {
 
 					$this->upload_media_to_storage( $file, true );
 
-					if( !$this->acs_settings['keep-local-files'] ) {
+					if( isset($this->acs_settings['keep-local-files']) && !$this->acs_settings['keep-local-files'] ) {
 						unlink( $file );
 					}
 				}
 			}
 		}
 
-		if( !$this->acs_settings['keep-local-files'] ) {
+		if( isset($this->acs_settings['keep-local-files']) && !$this->acs_settings['keep-local-files'] ) {
 			unlink( $upload_dir['basedir'] . '/' . $args['file'] );
 		}
 
@@ -516,13 +520,17 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 		
 		// upload attachment to bucket
-		$attachment_metadata = $this->upload_image_to_storage( $data );
-
-		if ( is_wp_error( $attachment_metadata ) || empty( $attachment_metadata ) || ! is_array( $attachment_metadata ) ) {
-			return $data;
+		if (!$this->is_attachment_served_by_storage( $post_id )) {
+			$attachment_metadata = $this->upload_image_to_storage( $data );
+	
+			if ( is_wp_error( $attachment_metadata ) || empty( $attachment_metadata ) || ! is_array( $attachment_metadata ) ) {
+				return $data;
+			}
+	
+			return $attachment_metadata;
 		}
 
-		return $attachment_metadata;
+		return $data;
 	}
 
 	/**
@@ -1087,4 +1095,20 @@ class Wp_Arvancloud_Storage_Admin {
 		
     }
 
+	public function get_site_icon_url( $url, $size, $blog_id ) {
+		$site_icon_id = get_option( 'site_icon' );
+		
+		if ( $site_icon_id ) {
+			// Maybe file uploaded to S3 and should be rewrite
+			$storage_file_url = get_post_meta( $site_icon_id, 'acs_storage_file_url', true );
+
+			if( !empty( $storage_file_url ) ) {
+				$file_name = basename( $url );
+				$url 	   = esc_url( $storage_file_url.$file_name );
+			}
+		}
+
+		return $url;
+
+	}
 }
