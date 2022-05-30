@@ -142,6 +142,7 @@ class Wp_Arvancloud_Storage {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_admin_menu' );
 		$this->loader->add_action( 'init', $plugin_admin, 'config_access_keys' );
+		$this->loader->add_action( 'init', $plugin_admin, 'create_bucket' );
 		$this->loader->add_action( 'init', $plugin_admin, 'store_selected_bucket_in_db' );
 		$this->loader->add_action( 'init', $plugin_admin, 'save_plugin_settings' );
 		$this->loader->add_action( 'delete_attachment', $plugin_admin, 'delete_media_from_storage', 10, 1 );

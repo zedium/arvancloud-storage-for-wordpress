@@ -242,6 +242,21 @@ class Wp_Arvancloud_Storage_Admin {
 	public function store_selected_bucket_in_db() {
 
 		if( isset( $_POST['acs-bucket-select-name'] ) ) {
+
+			if ( sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) == 'create_new_bucket' ) {
+				// redirect to create new bucket page
+				wp_redirect(
+					add_query_arg(
+						array(
+							'action' => 'create-bucket'
+						),
+						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
+					)
+				);
+				exit();
+			}
+
+
 			$save_bucket = update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
 
 			if( $save_bucket ) {
@@ -256,6 +271,55 @@ class Wp_Arvancloud_Storage_Admin {
 			}
 		}
 
+	}
+
+	/**
+	 * Create a bucket
+	 */
+	public function create_bucket() {
+
+		
+		if ( isset( $_POST['acs-new-bucket-name'] ) ) {
+			// Validate nonce
+			if( !isset( $_POST[ 'bucket_nonce' ] ) || !wp_verify_nonce( $_POST[ 'bucket_nonce' ], 'create-bucket' ) ) {
+				wp_die( esc_html__( 'Cheatin&#8217; huh?', 'arvancloud-object-storage' ) );
+			}
+
+			$bucket_name = sanitize_text_field( $_POST['acs-new-bucket-name'] );
+			$bucket_acl  = isset($_POST['acs-new-bucket-public']) ? 'public-read' : 'private';
+
+			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
+			
+			try {
+				$result = $client->createBucket([
+					'ACL' => $bucket_acl,
+					'Bucket' => $bucket_name,
+				]);
+				add_action( 'admin_notices', function () {
+					echo '<div class="notice notice-success is-dismissible">
+							<p>'. esc_html__( "Settings saved.", 'arvancloud-object-storage' ) .'</p>
+						</div>';
+				} );
+				// redirect to the select bucket page
+				wp_redirect(
+					add_query_arg(
+						array(
+							'notice' => 'bucket-created',
+							'action' => 'change-bucket'
+						),
+						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
+					)
+				);
+			} catch (Aws\Exception\AwsException $e) {
+				if ( $e->getStatusCode() == 409 ) {
+					add_action( 'admin_notices', function () {
+						echo '<div class="notice notice-error is-dismissible">
+								<p>'. esc_html__( "Bucket with provided information already exists.", 'arvancloud-object-storage' ) .'</p>
+							</div>';
+					} );
+				}
+			}
+		}
 	}
 
 	/**
