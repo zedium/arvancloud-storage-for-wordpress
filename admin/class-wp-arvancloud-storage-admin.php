@@ -274,6 +274,19 @@ class Wp_Arvancloud_Storage_Admin {
 			$bucket_name = sanitize_text_field( $_POST['acs-new-bucket-name'] );
 			$bucket_acl  = isset($_POST['acs-new-bucket-public']) ? 'public-read' : 'private';
 
+			if (strlen($bucket_name) < 3) {
+				wp_redirect(
+					add_query_arg(
+						array(
+							'notice' => 'bucket-name-too-short',
+							'action' => 'create-bucket'
+						),
+						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
+					)
+				);
+				exit();
+			}
+
 			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
 			
 			try {
@@ -296,14 +309,20 @@ class Wp_Arvancloud_Storage_Admin {
 						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
 					)
 				);
+				exit();
 			} catch (Aws\Exception\AwsException $e) {
-				if ( $e->getStatusCode() == 409 ) {
-					add_action( 'admin_notices', function () {
-						echo '<div class="notice notice-error is-dismissible">
-								<p>'. esc_html__( "Bucket with provided information already exists.", 'arvancloud-object-storage' ) .'</p>
-							</div>';
-					} );
-				}
+				$notice = $e->getStatusCode() == 409 ? 'bucket-exists' : 'bucket-create-failed';
+
+				wp_redirect(
+					add_query_arg(
+						array(
+							'notice' => $notice,
+							'action' => 'create-bucket'
+						),
+						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
+					)
+				);
+				exit();
 			}
 		}
 	}

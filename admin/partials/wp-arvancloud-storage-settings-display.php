@@ -23,6 +23,18 @@
 
         if ( isset($_GET['notice']) && sanitize_text_field( $_GET['notice'] ) == 'bucket-created' ) {
             echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Bucket created successfully', 'arvancloud-object-storage' ) . '</p></div>';
+        } else if ( isset($_GET['notice']) && sanitize_text_field($_GET['notice']) == 'bucket-exists') {
+            echo '<div class="notice notice-error is-dismissible">
+                <p>'. esc_html__( "Bucket with provided information already exists.", 'arvancloud-object-storage' ) .'</p>
+            </div>';
+        } else if ( isset($_GET['notice']) && sanitize_text_field($_GET['notice']) == 'bucket-create-failed' ) {
+            echo '<div class="notice notice-error is-dismissible">
+                <p>'. esc_html__( "Something wrong. Try again.", 'arvancloud-object-storage' ) .'</p>
+            </div>';
+        } else if ( isset($_GET['notice']) && sanitize_text_field($_GET['notice']) == 'bucket-name-too-short' ) {
+            echo '<div class="notice notice-error is-dismissible">
+                <p>'. esc_html__( "The bucket name should not be less than 3", 'arvancloud-object-storage' ) .'</p>
+            </div>';
         }
 
         ?>

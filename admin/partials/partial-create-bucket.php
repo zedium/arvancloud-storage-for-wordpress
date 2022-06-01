@@ -19,7 +19,7 @@ if( $acs_settings_option = get_storage_settings() ) {
 <form class="arvancloud-storage-select-bucket-form" method="post">
     <div style="display: flex;flex-direction: column;max-width: 340px;">
         <label for="acs-new-bucket-name"><?php _e( 'Bucket name', 'arvancloud-object-storage' ) ?></label>
-        <input type="text" name="acs-new-bucket-name" minlength="3" pattern="[A-Za-z]+" id="acs-new-bucket-name" placeholder="<?php _e( 'The name should be unique', 'arvancloud-object-storage' ) ?>" value="" title="<?php _e('The bucket name should be in English letters only.', 'arvancloud-object-storage') ?>" />
+        <input type="text" name="acs-new-bucket-name" minlength="3" pattern="[A-Za-z]{3,}" id="acs-new-bucket-name" placeholder="<?php _e( 'The name should be unique', 'arvancloud-object-storage' ) ?>" value="" title="<?php _e('The bucket name should be in English letters only.', 'arvancloud-object-storage') ?>" />
         <div style="margin-top: 16px;">
             <input type="checkbox" name="acs-new-bucket-public" id="acs-new-bucket-public" value="0" />
             <label for="acs-new-bucket-public"><?php _e( 'Public read access', 'arvancloud-object-storage' ) ?></label>
