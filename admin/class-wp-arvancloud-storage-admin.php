@@ -243,20 +243,6 @@ class Wp_Arvancloud_Storage_Admin {
 
 		if( isset( $_POST['acs-bucket-select-name'] ) ) {
 
-			if ( sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) == 'create_new_bucket' ) {
-				// redirect to create new bucket page
-				wp_redirect(
-					add_query_arg(
-						array(
-							'action' => 'create-bucket'
-						),
-						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
-					)
-				);
-				exit();
-			}
-
-
 			$save_bucket = update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
 
 			if( $save_bucket ) {

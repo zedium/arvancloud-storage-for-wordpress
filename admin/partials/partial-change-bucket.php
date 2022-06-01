@@ -44,9 +44,9 @@ if( $acs_settings_option = get_storage_settings() ) {
             echo '<script>window.location="' . esc_attr( $url ) . '"</script>';
         }
         ?>
-        <label for="create_new_bucket"><input id="create_new_bucket" name="acs-bucket-select-name" type="radio" class="no-compare" value="create_new_bucket"><?php _e('Create New Bucket', 'arvancloud-object-storage') ?></label>
     </ul>
     <p class="bucket-actions actions select">
         <button id="acs-bucket-select-save" type="submit" class="bucket-action-save button button-primary" <?php echo isset( $e ) ? 'disabled' : '' ?>><?php _e( 'Save Selected Bucket', 'arvancloud-object-storage' ); ?></button>
+        <a class="bucket-action-save button" href="<?php echo add_query_arg( array( 'action' => 'create-bucket'), wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )); ?>"><?php _e('Create New Bucket', 'arvancloud-object-storage'); ?></a>
     </p>
 </form>
