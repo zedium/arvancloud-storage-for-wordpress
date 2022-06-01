@@ -271,7 +271,7 @@ class Wp_Arvancloud_Storage_Admin {
 				wp_die( esc_html__( 'Cheatin&#8217; huh?', 'arvancloud-object-storage' ) );
 			}
 
-			$bucket_name = sanitize_text_field( $_POST['acs-new-bucket-name'] );
+			$bucket_name = strtolower(sanitize_text_field( $_POST['acs-new-bucket-name'] ));
 			$bucket_acl  = isset($_POST['acs-new-bucket-public']) ? 'public-read' : 'private';
 
 			if (strlen($bucket_name) < 3) {
