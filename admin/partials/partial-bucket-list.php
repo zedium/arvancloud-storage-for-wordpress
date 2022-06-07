@@ -12,6 +12,21 @@ if( $acs_settings_option = get_storage_settings() ) {
     $acs_settings	     = get_option( 'acs_settings' );
 
 }
+
+require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
+try {
+    $result = $client->headBucket([
+        'Bucket' => $bucket_selected,
+    ]);
+} catch (Aws\Exception\AwsException $e) {
+    echo 'Error: ' . $e->getAwsErrorMessage();
+}
+
+if ( $result ) {
+    $used = Wp_Arvancloud_Storage_Admin::formatBytes($result['@metadata']['headers']['x-rgw-bytes-used']);
+    $object_count = $result['@metadata']['headers']['x-rgw-object-count'];
+}
+
 ?>
 <div class="acs-bucket-list">
     <h4> <?php echo __( 'URL PREVIEW', 'arvancloud-object-storage' ) ?> </h4>
@@ -25,6 +40,20 @@ if( $acs_settings_option = get_storage_settings() ) {
                 <th><span><?php echo __( 'Bucket: ', 'arvancloud-object-storage' ) ?></span></th>
                 <td><span><?php echo get_bucket_name() ?></span> <a class="acs-change-btn" href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=change-bucket' ) ?>"><?php echo __( "Change Bucket", 'arvancloud-object-storage' ) ?></a> <a class="acs-change-btn" href="<?php echo admin_url( '/admin.php?page=wp-arvancloud-storage&action=create-bucket' ) ?>"><?php echo __( "Create Bucket", 'arvancloud-object-storage' ) ?></a></td>
             </tr>
+            <?php
+            if ( $result ) {
+                ?>
+                <tr>
+                    <th scope="row"><?php echo __( "Used", 'arvancloud-object-storage' ) ?></th>
+                    <td><?php echo $used ?></td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo __( "Object count", 'arvancloud-object-storage' ) ?></th>
+                    <td><?php echo $object_count ?></td>
+                </tr>
+                <?php
+            }
+            ?>
             <tr>
                 <th scope="row"><?php echo __( "Keep local files", 'arvancloud-object-storage' ) ?></th>
                 <td>
