@@ -274,11 +274,29 @@ class Wp_Arvancloud_Storage_Admin {
 			$bucket_name = strtolower(sanitize_text_field( $_POST['acs-new-bucket-name'] ));
 			$bucket_acl  = isset($_POST['acs-new-bucket-public']) ? 'public-read' : 'private';
 
+			$valid = true;
+			$valid_err = '';
+
 			if (strlen($bucket_name) < 3 || strlen($bucket_name) > 63) {
+				$valid = false;
+				$valid_err = 'length';
+			}
+
+			if (!preg_match('/^[a-z0-9]/i', $bucket_name) || strpos($bucket_name, '_') !== false || strpos($bucket_name, '.') !== false) {
+				$valid = false;
+				$valid_err = 'invalid';
+			}
+
+			if (filter_var($bucket_name, FILTER_VALIDATE_IP)) {
+				$valid = false;
+				$valid_err = 'ip';
+			}
+
+			if (!$valid) {
 				wp_redirect(
 					add_query_arg(
 						array(
-							'notice' => 'bucket-name-length',
+							'notice' => 'bucket-name-' . $valid_err,
 							'action' => 'create-bucket'
 						),
 						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
