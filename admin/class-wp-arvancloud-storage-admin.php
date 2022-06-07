@@ -274,11 +274,11 @@ class Wp_Arvancloud_Storage_Admin {
 			$bucket_name = strtolower(sanitize_text_field( $_POST['acs-new-bucket-name'] ));
 			$bucket_acl  = isset($_POST['acs-new-bucket-public']) ? 'public-read' : 'private';
 
-			if (strlen($bucket_name) < 3) {
+			if (strlen($bucket_name) < 3 || strlen($bucket_name) > 63) {
 				wp_redirect(
 					add_query_arg(
 						array(
-							'notice' => 'bucket-name-too-short',
+							'notice' => 'bucket-name-length',
 							'action' => 'create-bucket'
 						),
 						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
