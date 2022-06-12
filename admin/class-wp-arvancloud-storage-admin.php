@@ -90,7 +90,13 @@ class Wp_Arvancloud_Storage_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-arvancloud-storage-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script(
+			$this->plugin_name,
+			plugin_dir_url( __FILE__ ) . 'js/wp-arvancloud-storage-admin.js',
+			array( 'jquery' ),
+			$this->version,
+			false
+		);
 
 		wp_localize_script( $this->plugin_name, 'acs_media', array(
 			'strings' => $this->get_media_action_strings(),
@@ -98,6 +104,17 @@ class Wp_Arvancloud_Storage_Admin {
 				'get_attachment_provider_details' => wp_create_nonce( 'get-attachment-s3-details' ),
 			),
 		) );
+		
+		wp_localize_script(
+			$this->plugin_name,
+			'acs_bucket_name',
+			array(
+				'strings' => [
+					'character_limit' => __( 'Bucket name must be between 3 and 63 characters long.', 'wp-arvancloud-storage' ),
+					'invalid_bucket_name' => __( 'The bucket name can only be English letters and numbers.', 'wp-arvancloud-storage' ),
+				],
+			) 
+		);
 
 		if (isset( $_GET['system-info'] ) && $_GET['system-info'] == true) {
 			wp_enqueue_script(  'clipboard' );

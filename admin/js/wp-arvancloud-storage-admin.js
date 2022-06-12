@@ -121,3 +121,20 @@ function copyTextToClipboard(textToCopy) {
         });
     }
 }
+
+function validate_bucket_name_submit() {
+	let BucketName = jQuery('#acs-new-bucket-name').val()
+	
+	
+	if (BucketName.length < 3 || BucketName.length > 63) {
+		jQuery('.bucket-name-error').text(acs_bucket_name.strings.character_limit)
+		jQuery('.bucket-name-error').show()
+	} else if (!BucketName.match(/^[0-9A-Za-z-]*$/)) {
+		jQuery('.bucket-name-error').text(acs_bucket_name.strings.invalid_bucket_name)
+		jQuery('.bucket-name-error').show()
+	} else {
+		// submit the form
+		jQuery('.bucket-name-error').hide()
+		jQuery('.arvancloud-storage-select-bucket-form').submit()
+	}
+}
