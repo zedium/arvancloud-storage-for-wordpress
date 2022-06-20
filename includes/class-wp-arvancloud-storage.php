@@ -158,8 +158,6 @@ class Wp_Arvancloud_Storage {
 		$this->loader->add_filter( 'media_row_actions', $plugin_admin, 'add_media_row_actions', 10, 3 );
 		$this->loader->add_filter( 'wp_calculate_image_srcset', $plugin_admin, 'calculate_image_srcset', 10, 5 );
 		$this->loader->add_filter( 'wp_update_attachment_metadata', $plugin_admin, 'wp_update_attachment_metadata', 110, 2 );
-		$this->loader->add_action( 'wp_ajax_ar_bulk_upload_res', $plugin_admin, 'ajax_bulk_upload_res' );
-		$this->loader->add_action( 'wp_ajax_ar_handle_bulk_upload', $plugin_admin, 'handle_bulk_upload' );
 		$this->loader->add_filter( 'get_site_icon_url', $plugin_admin, 'get_site_icon_url' , 99, 3 );
 
 	}

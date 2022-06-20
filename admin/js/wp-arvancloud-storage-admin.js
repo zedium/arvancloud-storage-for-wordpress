@@ -71,46 +71,6 @@
 			}
 		});
 
-		
-		function update_ar_bulk_upload() {
-			$('#bulk_upload_progress .progress').show()
-			$('#bulk_upload_text').show()
-			$('#ar_obs_bulk_local_to_bucket').hide()
-			$.ajax({
-				url: acs_media.ajax_url,
-				data: {
-				  'action': 'ar_bulk_upload_res',
-				//   'security': ar_cdn_ajax_object.security,
-				},
-				success:function(data) {
-
-					$('#bulk_upload_progress .progress .percent').html(data.data.percentage_option + '%')
-					$('#bulk_upload_progress .progress .bar').css('width', data.data.percentage_option * 2)
-					$('#bulk_upload_text span:first-child').html( data.data.new )
-
-					if (data.data < 100) {
-						setTimeout(function(){update_ar_bulk_upload();}, 5000);
-					}
-
-				},
-				error: function(errorThrown){
-					console.log(errorThrown);
-				}
-			})
-		}
-
-		$('#ar_obs_bulk_local_to_bucket').on('click', function(e) {
-			e.preventDefault();
-			$.ajax({
-				url: acs_media.ajax_url,
-				data: {
-				  'action': 'ar_handle_bulk_upload',
-				//   'security': ar_cdn_ajax_object.security,
-				}
-			})
-			update_ar_bulk_upload();
-		})
-
 		$('.health-check-accordion-trigger').on('click', function() {
 			var id = $(this).attr('aria-controls')
 			$('#' + id).toggle()
