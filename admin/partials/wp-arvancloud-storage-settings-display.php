@@ -30,14 +30,22 @@
             echo '<div class="notice notice-error is-dismissible">
                 <p>'. esc_html__( "Something wrong. Try again.", 'arvancloud-object-storage' ) .'</p>
             </div>';
-        } else if ( isset($_GET['notice']) && sanitize_text_field($_GET['notice']) == 'bucket-name-too-short' ) {
+        } else if ( isset($_GET['notice']) && sanitize_text_field($_GET['notice']) == 'bucket-name-length' ) {
             echo '<div class="notice notice-error is-dismissible">
-                <p>'. esc_html__( "The bucket name should not be less than 3", 'arvancloud-object-storage' ) .'</p>
+                <p>'. esc_html__( "Bucket names can be between 3 and 63 characters long.", 'arvancloud-object-storage' ) .'</p>
+            </div>';
+        } else if ( isset($_GET['notice']) && sanitize_text_field($_GET['notice']) == 'bucket-name-invalid' ) {
+            echo '<div class="notice notice-error is-dismissible">
+                <p>'. esc_html__( "Bucket names must not contain uppercase characters or underscores and must start with a lowercase letter or number.", 'arvancloud-object-storage' ) .'</p>
+            </div>';
+        } else if ( isset($_GET['notice']) && sanitize_text_field($_GET['notice']) == 'bucket-name-ip' ) {
+            echo '<div class="notice notice-error is-dismissible">
+                <p>'. esc_html__( "Bucket names cannot be formatted as IP address.", 'arvancloud-object-storage' ) .'</p>
             </div>';
         }
 
         ?>
-            <div class="ar-heading">
+            <div class="ar-heading without-btn">
                 <h1><?php echo __( 'Settings', 'arvancloud-object-storage' ) ?></h1>
             </div>
             <hr>

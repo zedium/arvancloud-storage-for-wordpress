@@ -90,7 +90,13 @@ class Wp_Arvancloud_Storage_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-arvancloud-storage-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script(
+			$this->plugin_name,
+			plugin_dir_url( __FILE__ ) . 'js/wp-arvancloud-storage-admin.js',
+			array( 'jquery' ),
+			$this->version,
+			false
+		);
 
 		wp_localize_script( $this->plugin_name, 'acs_media', array(
 			'strings' => $this->get_media_action_strings(),
@@ -99,6 +105,17 @@ class Wp_Arvancloud_Storage_Admin {
 			),
 			'ajax_url'  => admin_url( 'admin-ajax.php' ),
 		) );
+		
+		wp_localize_script(
+			$this->plugin_name,
+			'acs_bucket_name',
+			array(
+				'strings' => [
+					'character_limit' => __( 'Bucket name must be between 3 and 63 characters long.', 'wp-arvancloud-storage' ),
+					'invalid_bucket_name' => __( 'The bucket name can only be English letters and numbers.', 'wp-arvancloud-storage' ),
+				],
+			) 
+		);
 
 		if (isset( $_GET['system-info'] ) && $_GET['system-info'] == true) {
 			wp_enqueue_script(  'clipboard' );
@@ -275,11 +292,29 @@ class Wp_Arvancloud_Storage_Admin {
 			$bucket_name = strtolower(sanitize_text_field( $_POST['acs-new-bucket-name'] ));
 			$bucket_acl  = isset($_POST['acs-new-bucket-public']) ? 'public-read' : 'private';
 
-			if (strlen($bucket_name) < 3) {
+			$valid = true;
+			$valid_err = '';
+
+			if (strlen($bucket_name) < 3 || strlen($bucket_name) > 63) {
+				$valid = false;
+				$valid_err = 'length';
+			}
+
+			if (!preg_match('/^[a-z0-9]/i', $bucket_name) || strpos($bucket_name, '_') !== false || strpos($bucket_name, '.') !== false) {
+				$valid = false;
+				$valid_err = 'invalid';
+			}
+
+			if (filter_var($bucket_name, FILTER_VALIDATE_IP)) {
+				$valid = false;
+				$valid_err = 'ip';
+			}
+
+			if (!$valid) {
 				wp_redirect(
 					add_query_arg(
 						array(
-							'notice' => 'bucket-name-too-short',
+							'notice' => 'bucket-name-' . $valid_err,
 							'action' => 'create-bucket'
 						),
 						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
