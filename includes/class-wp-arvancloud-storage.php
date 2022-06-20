@@ -142,6 +142,7 @@ class Wp_Arvancloud_Storage {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_admin_menu' );
 		$this->loader->add_action( 'init', $plugin_admin, 'config_access_keys' );
+		$this->loader->add_action( 'init', $plugin_admin, 'create_bucket' );
 		$this->loader->add_action( 'init', $plugin_admin, 'store_selected_bucket_in_db' );
 		$this->loader->add_action( 'init', $plugin_admin, 'save_plugin_settings' );
 		$this->loader->add_action( 'delete_attachment', $plugin_admin, 'delete_media_from_storage', 10, 1 );
@@ -157,6 +158,8 @@ class Wp_Arvancloud_Storage {
 		$this->loader->add_filter( 'media_row_actions', $plugin_admin, 'add_media_row_actions', 10, 3 );
 		$this->loader->add_filter( 'wp_calculate_image_srcset', $plugin_admin, 'calculate_image_srcset', 10, 5 );
 		$this->loader->add_filter( 'wp_update_attachment_metadata', $plugin_admin, 'wp_update_attachment_metadata', 110, 2 );
+		$this->loader->add_action( 'wp_ajax_ar_bulk_upload_res', $plugin_admin, 'ajax_bulk_upload_res' );
+		$this->loader->add_action( 'wp_ajax_ar_handle_bulk_upload', $plugin_admin, 'handle_bulk_upload' );
 		$this->loader->add_filter( 'get_site_icon_url', $plugin_admin, 'get_site_icon_url' , 99, 3 );
 
 	}

@@ -243,6 +243,33 @@ a {
     justify-content: space-between;
 }
 
+#bulk_upload_progress {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 4px;
+    margin: 100px auto;
+    padding: 50px;
+}
+
+#bulk_upload_progress .progress {
+	display: none;
+}
+
+#bulk_upload_progress .original {
+	height: unset;
+	font-size: 26px;
+    margin-bottom: 20px;
+}
+
+#bulk_upload_text {
+	margin-top: 20px;
+	display: none;
+}
+
 .copy-button-wrapper {
     display: inline-flex;
     align-items: center;
@@ -270,4 +297,9 @@ a {
 .rtl .copy-text > .dashicons {
 	padding-right: 0;
 	padding-left: 5px;
+}
+
+.ar-heading.without-btn {
+    flex-direction: column;
+    align-items: stretch;
 }

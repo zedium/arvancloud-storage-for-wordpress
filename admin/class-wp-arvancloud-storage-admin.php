@@ -97,6 +97,7 @@ class Wp_Arvancloud_Storage_Admin {
 			'nonces'  => array(
 				'get_attachment_provider_details' => wp_create_nonce( 'get-attachment-s3-details' ),
 			),
+			'ajax_url'  => admin_url( 'admin-ajax.php' ),
 		) );
 
 		if (isset( $_GET['system-info'] ) && $_GET['system-info'] == true) {
@@ -242,6 +243,7 @@ class Wp_Arvancloud_Storage_Admin {
 	public function store_selected_bucket_in_db() {
 
 		if( isset( $_POST['acs-bucket-select-name'] ) ) {
+
 			$save_bucket = update_option( 'arvan-cloud-storage-bucket-name', sanitize_text_field( $_POST[ 'acs-bucket-select-name' ] ) );
 
 			if( $save_bucket ) {
@@ -256,6 +258,74 @@ class Wp_Arvancloud_Storage_Admin {
 			}
 		}
 
+	}
+
+	/**
+	 * Create a bucket
+	 */
+	public function create_bucket() {
+
+		
+		if ( isset( $_POST['acs-new-bucket-name'] ) ) {
+			// Validate nonce
+			if( !isset( $_POST[ 'bucket_nonce' ] ) || !wp_verify_nonce( $_POST[ 'bucket_nonce' ], 'create-bucket' ) ) {
+				wp_die( esc_html__( 'Cheatin&#8217; huh?', 'arvancloud-object-storage' ) );
+			}
+
+			$bucket_name = strtolower(sanitize_text_field( $_POST['acs-new-bucket-name'] ));
+			$bucket_acl  = isset($_POST['acs-new-bucket-public']) ? 'public-read' : 'private';
+
+			if (strlen($bucket_name) < 3) {
+				wp_redirect(
+					add_query_arg(
+						array(
+							'notice' => 'bucket-name-too-short',
+							'action' => 'create-bucket'
+						),
+						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
+					)
+				);
+				exit();
+			}
+
+			require( ACS_PLUGIN_ROOT . 'includes/wp-arvancloud-storage-s3client.php' );
+			
+			try {
+				$result = $client->createBucket([
+					'ACL' => $bucket_acl,
+					'Bucket' => $bucket_name,
+				]);
+				add_action( 'admin_notices', function () {
+					echo '<div class="notice notice-success is-dismissible">
+							<p>'. esc_html__( "Settings saved.", 'arvancloud-object-storage' ) .'</p>
+						</div>';
+				} );
+				// redirect to the select bucket page
+				wp_redirect(
+					add_query_arg(
+						array(
+							'notice' => 'bucket-created',
+							'action' => 'change-bucket'
+						),
+						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
+					)
+				);
+				exit();
+			} catch (Aws\Exception\AwsException $e) {
+				$notice = $e->getStatusCode() == 409 ? 'bucket-exists' : 'bucket-create-failed';
+
+				wp_redirect(
+					add_query_arg(
+						array(
+							'notice' => $notice,
+							'action' => 'create-bucket'
+						),
+						wp_sanitize_redirect( admin_url( '?page=wp-arvancloud-storage' ) )
+					)
+				);
+				exit();
+			}
+		}
 	}
 
 	/**
@@ -1094,6 +1164,106 @@ class Wp_Arvancloud_Storage_Admin {
 		}
 		
     }
+
+	/**
+	 * Upload all images
+	 *
+	 * @param [type] $do_action
+	 * @return true
+	 */
+	public function handle_bulk_upload() {
+		ini_set('max_execution_time', '0');
+
+		// Get images IDs
+		$object_ids = get_posts( 
+			array(
+				'post_type'      => 'attachment', 
+				'posts_per_page' => -1,
+				'fields'         => 'ids',
+			) 
+		);
+
+		// Reset option for ajax data (progress bar)
+		update_option('arvan-cloud-storage-bulk-upload-percent', 0);
+		update_option('arvan-cloud-storage-bulk-upload-new', 0);
+		update_option('arvan-cloud-storage-bulk-upload-error', 0);
+
+		$percentage_option = 0;
+		$percentage = 0;
+		$uploaded_count = 0;
+		$error_count = 0;
+
+		$one_percent = 0;
+
+		foreach ( $object_ids as $post_id ) {
+			$one_percent++;
+			$storage_file_url = get_post_meta( $post_id, 'acs_storage_file_url' );
+
+			
+			if (empty($storage_file_url)) {
+				sleep( 0.3 ); // Delay execution
+
+				$_POST['action'] = 'upload-attachment';
+
+				// if the file doesn't exist locally we can't copy
+				if ( ! file_exists( get_attached_file($post_id) ) ) {
+					continue;
+				}
+
+				// Upload Attachment
+				$type = get_post_mime_type($post_id);
+				if( wp_attachment_is_image( $post_id ) && $type != 'image/svg+xml' ) {
+					$file = wp_get_attachment_metadata($post_id);
+					$result = $this->upload_image_to_storage( $file );
+				} else {
+					$result = $this->upload_media_to_storage( $post_id );
+				}
+
+				if ( is_wp_error( $result ) ) {
+					$error_count++;
+				}
+
+				$uploaded_count++;
+				update_option('arvan-cloud-storage-bulk-upload-new', $uploaded_count);
+				update_option('arvan-cloud-storage-bulk-upload-error', $error_count);
+			}
+
+			$percentage = $one_percent / count($object_ids) * 100;
+			update_option('arvan-cloud-storage-bulk-upload-percent', ceil($percentage));
+		}
+
+		wp_send_json_success( $uploaded_count, 200 );
+		wp_die();
+
+	}
+
+
+	public function ajax_bulk_upload_res() {
+		// checking nonce
+		// if ( ! check_ajax_referer( 'ar-cdn-options-nonce', 'security', false ) ) {
+
+		// 	wp_send_json_error( __('Invalid security token sent.', 'wp-arvancloud-cdn' ), 403 );
+		// 	wp_die();
+
+		// }
+		// update_option('arvan-cloud-storage-bulk-upload-percent', 0);
+
+		$percentage_option = get_option('arvan-cloud-storage-bulk-upload-percent', false);
+		$new = get_option('arvan-cloud-storage-bulk-upload-new', false);
+		$error = get_option('arvan-cloud-storage-bulk-upload-error', false);
+
+
+		$data = [
+			'percentage_option' => $percentage_option,
+			'new' => $new,
+			'error' => $error
+		];
+
+
+		wp_send_json_success( $data, 200 );
+		wp_die();
+
+	}
 
 	public function get_site_icon_url( $url, $size, $blog_id ) {
 		$site_icon_id = get_option( 'site_icon' );
