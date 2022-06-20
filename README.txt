@@ -47,8 +47,10 @@ Using ArvanCloud Storage Plugin you can offload, backup and upload your WordPres
 6. Copy to bucket link in Media Library (list view)
 
 == Changelog ==
-= 0.9.1 - 2022-06-14 =
-* Security Fix: Update dependencies
+= 0.9.1 - 2022-06-20 =
+* security: Update dependencies
+* feature: Create new bucket
+* feature: Show bucket object count and usage
 
 = 0.9 - 2022-05-19 =
 * Support favicon and custom_logo when uploading with customizer
