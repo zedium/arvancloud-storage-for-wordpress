@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: ArvanCloud Object Storage 0.9.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/arvancloud-"
 "storage-for-wordpress\n"
-"POT-Creation-Date: 2022-06-20T12:13:07+00:00\n"
-"PO-Revision-Date: 2022-06-20 16:44+0430\n"
+"POT-Creation-Date: 2022-06-20T13:51:31+00:00\n"
+"PO-Revision-Date: 2022-06-20 18:22+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -47,123 +47,123 @@ msgstr "خورشید، ابر‌آروان"
 msgid "https://www.arvancloud.com/en/products/cloud-storage"
 msgstr "https://www.arvancloud.com/fa/products/cloud-storage"
 
-#: admin/class-wp-arvancloud-storage-admin.php:128
-#: admin/class-wp-arvancloud-storage-admin.php:162
-#: admin/partials/wp-arvancloud-storage-settings-display.php:41
+#: admin/class-wp-arvancloud-storage-admin.php:114
+msgid "Bucket name must be between 3 and 63 characters long."
+msgstr "نام صندوقچه می تواند بین 3 تا 63 کاراکتر باشد."
+
+#: admin/class-wp-arvancloud-storage-admin.php:115
+msgid "The bucket name can only be English letters and numbers."
+msgstr "نام سطل فقط می تواند حروف و اعداد انگلیسی باشد."
+
+#: admin/class-wp-arvancloud-storage-admin.php:145
+#: admin/class-wp-arvancloud-storage-admin.php:179
+#: admin/partials/wp-arvancloud-storage-settings-display.php:49
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: admin/class-wp-arvancloud-storage-admin.php:136
+#: admin/class-wp-arvancloud-storage-admin.php:153
 #: admin/partials/wp-arvancloud-storage-about-us-display.php:2
 msgid "About ArvanCloud"
 msgstr "درباره ابرآروان"
 
-#: admin/class-wp-arvancloud-storage-admin.php:137
+#: admin/class-wp-arvancloud-storage-admin.php:154
 msgid "About"
 msgstr "درباره"
 
-#: admin/class-wp-arvancloud-storage-admin.php:159
+#: admin/class-wp-arvancloud-storage-admin.php:176
 #: admin/partials/partial-system-info.php:11
 msgid "System info"
 msgstr "اطلاعات سیستم"
 
-#: admin/class-wp-arvancloud-storage-admin.php:191
+#: admin/class-wp-arvancloud-storage-admin.php:208
 #: admin/partials/partial-set-api-key.php:81
 msgid "-- not shown --"
 msgstr "-- نشان داده نشده --"
 
-#: admin/class-wp-arvancloud-storage-admin.php:203
+#: admin/class-wp-arvancloud-storage-admin.php:220
 msgid "Access Key is not valid!"
 msgstr "Access Key معتبر نیست!"
 
-#: admin/class-wp-arvancloud-storage-admin.php:215
+#: admin/class-wp-arvancloud-storage-admin.php:232
 msgid ""
 "You have not defined your access keys in wp-config.php. Please try again."
 msgstr ""
 "شما کلید‌های دسترسی خود را در wp-config.php تعریف نکرده‌اید. لطفا مجددا امتحان "
 "کنید."
 
-#: admin/class-wp-arvancloud-storage-admin.php:230
-#: admin/class-wp-arvancloud-storage-admin.php:300
-#: admin/class-wp-arvancloud-storage-admin.php:347
+#: admin/class-wp-arvancloud-storage-admin.php:247
+#: admin/class-wp-arvancloud-storage-admin.php:335
+#: admin/class-wp-arvancloud-storage-admin.php:382
 msgid "Settings saved."
 msgstr "تنظیمات ذخیره شد."
 
-#: admin/class-wp-arvancloud-storage-admin.php:255
+#: admin/class-wp-arvancloud-storage-admin.php:272
 msgid "Saving selected bucket failed. Please try again or contact with admin."
 msgstr "ذخیره‌سازی صندوقچه‌‌ی انتخاب شده ناموفق بود. لطفن دوباره امتحان کنید."
 
-#: admin/class-wp-arvancloud-storage-admin.php:272
+#: admin/class-wp-arvancloud-storage-admin.php:289
 msgid "Cheatin&#8217; huh?"
 msgstr "کلک میزنی؟"
 
-#: admin/class-wp-arvancloud-storage-admin.php:353
+#: admin/class-wp-arvancloud-storage-admin.php:388
 msgid "Saving plugin settings failed. Please try again or contact with admin."
 msgstr "ذخیره‌سازی تنظیمات افزونه ناموفق بود. لطفن دوباره امتحان کنید."
 
-#: admin/class-wp-arvancloud-storage-admin.php:401
+#: admin/class-wp-arvancloud-storage-admin.php:436
 msgid "Upload complete:"
 msgstr "بارگذاری انجام شد:"
 
-#: admin/class-wp-arvancloud-storage-admin.php:635
-#: admin/class-wp-arvancloud-storage-admin.php:789
+#: admin/class-wp-arvancloud-storage-admin.php:670
+#: admin/class-wp-arvancloud-storage-admin.php:824
 msgid "Copy to Bucket"
 msgstr "کپی به صندوقچه"
 
-#: admin/class-wp-arvancloud-storage-admin.php:1019
+#: admin/class-wp-arvancloud-storage-admin.php:1054
 msgid "Edit attachment"
 msgstr "اصلاح پیوست"
 
-#: admin/class-wp-arvancloud-storage-admin.php:1038
+#: admin/class-wp-arvancloud-storage-admin.php:1073
 msgid "Media successfully copied to bucket."
 msgstr "فایل‌ها با موفقیت روی صندوقچه کپی شدند."
 
-#: admin/class-wp-arvancloud-storage-admin.php:1039
+#: admin/class-wp-arvancloud-storage-admin.php:1074
 msgid "Media copied to bucket with some errors."
 msgstr "فایل‌‌ها با چند خطا روی صندوقچه کپی شدند."
 
-#: admin/class-wp-arvancloud-storage-admin.php:1040
+#: admin/class-wp-arvancloud-storage-admin.php:1075
 msgid "There were errors when copying the media to bucket."
 msgstr "خطا در کپی شدن فایل‌ها روی صندوقچه."
 
-#: admin/class-wp-arvancloud-storage-admin.php:1141
+#: admin/class-wp-arvancloud-storage-admin.php:1176
 #: wp-arvancloud-storage.php:27
 msgid "ArvanCloud Storage"
 msgstr "فضای ابری آروان"
 
-#: admin/partials/partial-bucket-list.php:32
+#: admin/partials/partial-bucket-list.php:17
 msgid "URL PREVIEW"
 msgstr "مشاهده URL"
 
-#: admin/partials/partial-bucket-list.php:40
+#: admin/partials/partial-bucket-list.php:25
 msgid "Bucket: "
 msgstr "صندوقچه: "
 
-#: admin/partials/partial-bucket-list.php:41
+#: admin/partials/partial-bucket-list.php:26
 msgid "Change Bucket"
 msgstr "تغییر صندوقچه"
 
-#: admin/partials/partial-bucket-list.php:41
+#: admin/partials/partial-bucket-list.php:26
 msgid "Create Bucket"
 msgstr "ساخت صندوقچه"
 
-#: admin/partials/partial-bucket-list.php:47
-msgid "Used"
-msgstr "مصرف بسته"
-
-#: admin/partials/partial-bucket-list.php:51
-msgid "Object count"
-msgstr "تعداد آبجکت"
-
-#: admin/partials/partial-bucket-list.php:58
+#: admin/partials/partial-bucket-list.php:29
 msgid "Keep local files"
 msgstr "ذخیره محلی فایل‌ها"
 
-#: admin/partials/partial-bucket-list.php:61
+#: admin/partials/partial-bucket-list.php:32
 msgid "Keep local files after uploading them to storage."
 msgstr "فایل‌ها پس از بارگذاری در صندوقچه به صورت محلی هم نگهداری شود."
 
-#: admin/partials/partial-bucket-list.php:67
+#: admin/partials/partial-bucket-list.php:38
 msgid "Save Changes"
 msgstr "ذخیره‌سازی تغییرات"
 
@@ -204,15 +204,11 @@ msgstr "نام صندوقچه"
 msgid "The name should be unique"
 msgstr "این نام باید در کل سیستم یکتا باشد"
 
-#: admin/partials/partial-create-bucket.php:22
-msgid "The bucket name should be in English letters only."
-msgstr "نام صندوقچه باید فقط با حروف انگلیسی باشد."
-
-#: admin/partials/partial-create-bucket.php:25
+#: admin/partials/partial-create-bucket.php:26
 msgid "Public read access"
 msgstr "دسترسی نمایش عمومی"
 
-#: admin/partials/partial-create-bucket.php:31
+#: admin/partials/partial-create-bucket.php:32
 msgid "Create"
 msgstr "ایجاد"
 
@@ -349,9 +345,21 @@ msgid "Something wrong. Try again."
 msgstr "لطفا دوباره امتحان کنید."
 
 #: admin/partials/wp-arvancloud-storage-settings-display.php:35
-msgid "The bucket name should not be less than 3"
-msgstr "نام صندوقچه نباید کمتر از 3 حرف باشد"
+msgid "Bucket names can be between 3 and 63 characters long."
+msgstr "نام صندوقچه می تواند بین 3 تا 63 کاراکتر باشد."
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:66
+#: admin/partials/wp-arvancloud-storage-settings-display.php:39
+msgid ""
+"Bucket names must not contain uppercase characters or underscores and must "
+"start with a lowercase letter or number."
+msgstr ""
+"نام صندوقچه نباید دارای حروف بزرگ یا زیرخط باشد و باید با یک حرف کوچک یا عدد "
+"شروع شود."
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:43
+msgid "Bucket names cannot be formatted as IP address."
+msgstr "نام صندوقچه نباید مشابه ip باشد."
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:74
 msgid "Selected bucket saved."
 msgstr "صندوقچه‌‌ انتخاب شده، ذخیره شد."

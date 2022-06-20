@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-20T12:13:07+00:00\n"
+"POT-Creation-Date: 2022-06-20T13:51:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: arvancloud-object-storage\n"
@@ -34,120 +34,120 @@ msgstr ""
 msgid "https://www.arvancloud.com/en/products/cloud-storage"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:128
-#: admin/class-wp-arvancloud-storage-admin.php:162
-#: admin/partials/wp-arvancloud-storage-settings-display.php:41
+#: admin/class-wp-arvancloud-storage-admin.php:114
+msgid "Bucket name must be between 3 and 63 characters long."
+msgstr ""
+
+#: admin/class-wp-arvancloud-storage-admin.php:115
+msgid "The bucket name can only be English letters and numbers."
+msgstr ""
+
+#: admin/class-wp-arvancloud-storage-admin.php:145
+#: admin/class-wp-arvancloud-storage-admin.php:179
+#: admin/partials/wp-arvancloud-storage-settings-display.php:49
 msgid "Settings"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:136
+#: admin/class-wp-arvancloud-storage-admin.php:153
 #: admin/partials/wp-arvancloud-storage-about-us-display.php:2
 msgid "About ArvanCloud"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:137
+#: admin/class-wp-arvancloud-storage-admin.php:154
 msgid "About"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:159
+#: admin/class-wp-arvancloud-storage-admin.php:176
 #: admin/partials/partial-system-info.php:11
 msgid "System info"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:191
+#: admin/class-wp-arvancloud-storage-admin.php:208
 #: admin/partials/partial-set-api-key.php:81
 msgid "-- not shown --"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:203
+#: admin/class-wp-arvancloud-storage-admin.php:220
 msgid "Access Key is not valid!"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:215
+#: admin/class-wp-arvancloud-storage-admin.php:232
 msgid "You have not defined your access keys in wp-config.php. Please try again."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:230
-#: admin/class-wp-arvancloud-storage-admin.php:300
-#: admin/class-wp-arvancloud-storage-admin.php:347
+#: admin/class-wp-arvancloud-storage-admin.php:247
+#: admin/class-wp-arvancloud-storage-admin.php:335
+#: admin/class-wp-arvancloud-storage-admin.php:382
 msgid "Settings saved."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:255
+#: admin/class-wp-arvancloud-storage-admin.php:272
 msgid "Saving selected bucket failed. Please try again or contact with admin."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:272
+#: admin/class-wp-arvancloud-storage-admin.php:289
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:353
+#: admin/class-wp-arvancloud-storage-admin.php:388
 msgid "Saving plugin settings failed. Please try again or contact with admin."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:401
+#: admin/class-wp-arvancloud-storage-admin.php:436
 msgid "Upload complete:"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:635
-#: admin/class-wp-arvancloud-storage-admin.php:789
+#: admin/class-wp-arvancloud-storage-admin.php:670
+#: admin/class-wp-arvancloud-storage-admin.php:824
 msgid "Copy to Bucket"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:1019
+#: admin/class-wp-arvancloud-storage-admin.php:1054
 msgid "Edit attachment"
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:1038
+#: admin/class-wp-arvancloud-storage-admin.php:1073
 msgid "Media successfully copied to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:1039
+#: admin/class-wp-arvancloud-storage-admin.php:1074
 msgid "Media copied to bucket with some errors."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:1040
+#: admin/class-wp-arvancloud-storage-admin.php:1075
 msgid "There were errors when copying the media to bucket."
 msgstr ""
 
-#: admin/class-wp-arvancloud-storage-admin.php:1141
+#: admin/class-wp-arvancloud-storage-admin.php:1176
 #: wp-arvancloud-storage.php:27
 msgid "ArvanCloud Storage"
 msgstr ""
 
-#: admin/partials/partial-bucket-list.php:32
+#: admin/partials/partial-bucket-list.php:17
 msgid "URL PREVIEW"
 msgstr ""
 
-#: admin/partials/partial-bucket-list.php:40
+#: admin/partials/partial-bucket-list.php:25
 msgid "Bucket: "
 msgstr ""
 
-#: admin/partials/partial-bucket-list.php:41
+#: admin/partials/partial-bucket-list.php:26
 msgid "Change Bucket"
 msgstr ""
 
-#: admin/partials/partial-bucket-list.php:41
+#: admin/partials/partial-bucket-list.php:26
 msgid "Create Bucket"
 msgstr ""
 
-#: admin/partials/partial-bucket-list.php:47
-msgid "Used"
-msgstr ""
-
-#: admin/partials/partial-bucket-list.php:51
-msgid "Object count"
-msgstr ""
-
-#: admin/partials/partial-bucket-list.php:58
+#: admin/partials/partial-bucket-list.php:29
 msgid "Keep local files"
 msgstr ""
 
-#: admin/partials/partial-bucket-list.php:61
+#: admin/partials/partial-bucket-list.php:32
 msgid "Keep local files after uploading them to storage."
 msgstr ""
 
-#: admin/partials/partial-bucket-list.php:67
+#: admin/partials/partial-bucket-list.php:38
 msgid "Save Changes"
 msgstr ""
 
@@ -184,15 +184,11 @@ msgstr ""
 msgid "The name should be unique"
 msgstr ""
 
-#: admin/partials/partial-create-bucket.php:22
-msgid "The bucket name should be in English letters only."
-msgstr ""
-
-#: admin/partials/partial-create-bucket.php:25
+#: admin/partials/partial-create-bucket.php:26
 msgid "Public read access"
 msgstr ""
 
-#: admin/partials/partial-create-bucket.php:31
+#: admin/partials/partial-create-bucket.php:32
 msgid "Create"
 msgstr ""
 
@@ -281,9 +277,17 @@ msgid "Something wrong. Try again."
 msgstr ""
 
 #: admin/partials/wp-arvancloud-storage-settings-display.php:35
-msgid "The bucket name should not be less than 3"
+msgid "Bucket names can be between 3 and 63 characters long."
 msgstr ""
 
-#: admin/partials/wp-arvancloud-storage-settings-display.php:66
+#: admin/partials/wp-arvancloud-storage-settings-display.php:39
+msgid "Bucket names must not contain uppercase characters or underscores and must start with a lowercase letter or number."
+msgstr ""
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:43
+msgid "Bucket names cannot be formatted as IP address."
+msgstr ""
+
+#: admin/partials/wp-arvancloud-storage-settings-display.php:74
 msgid "Selected bucket saved."
 msgstr ""
