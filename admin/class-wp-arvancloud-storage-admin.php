@@ -111,8 +111,8 @@ class Wp_Arvancloud_Storage_Admin {
 			'acs_bucket_name',
 			array(
 				'strings' => [
-					'character_limit' => __( 'Bucket name must be between 3 and 63 characters long.', 'wp-arvancloud-storage' ),
-					'invalid_bucket_name' => __( 'The bucket name can only be English letters and numbers.', 'wp-arvancloud-storage' ),
+					'character_limit' => __( 'Bucket name must be between 3 and 63 characters long.', 'arvancloud-object-storage' ),
+					'invalid_bucket_name' => __( 'The bucket name can only be English letters and numbers.', 'arvancloud-object-storage' ),
 				],
 			) 
 		);
