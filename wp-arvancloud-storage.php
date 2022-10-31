@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'ACS_VERSION', '0.9.1' );
+define( 'ACS_VERSION', '0.9.2' );
 define( 'ACS_NAME', __( 'ArvanCloud Storage', 'arvancloud-object-storage' ) );
 define( 'ACS_SLUG', 'wp-arvancloud-storage');
 define( 'ACS_PLUGIN_ROOT', plugin_dir_path( __FILE__ ) );
